@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.chinamyheart.community.mapper.UserMapper" >
+
+  <sql id="userColumns">
+	  id,
+	  username,
+	  nickname,
+	  password,
+	  role,
+	  email,
+	  mobile
+  </sql>
+  
+  <select id="selectByUsername" resultType="User" parameterType="java.lang.String">
+    select <include refid="userColumns" />
+    from user
+	where username = #{username,jdbcType=VARCHAR};
+  </select>
+
+	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="fid">
+		insert into user (
+		username,
+		nickname,
+		password,
+		role,
+		email,
+		mobile
+		) values (
+		#{username},
+		#{nickname},
+		#{password},
+		#{role},
+		#{email},
+		#{mobile}
+		)
+	</insert>
+
+	<update id="update" parameterType="User">
+		update user set
+		username = #{username},
+		nickname = #{nickname},
+		password = #{password},
+		role = #{role},
+		email = #{email},
+		mobile = #{mobile}
+		where id = #{id}
+	</update>
+
+</mapper>

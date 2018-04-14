@@ -1,6 +1,6 @@
 package org.chinamyheart.community.controller;
 
-import org.chinamyheart.community.dao.CaseMapper;
+import org.chinamyheart.community.mapper.CaseMapper;
 import org.chinamyheart.community.model.User;
 import org.chinamyheart.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

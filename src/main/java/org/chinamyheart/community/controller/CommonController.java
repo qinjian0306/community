@@ -1,9 +1,9 @@
 package org.chinamyheart.community.controller;
 
-import org.chinamyheart.community.dao.CaseMapper;
-import org.chinamyheart.community.dao.DoctorMapper;
-import org.chinamyheart.community.dao.ReplyMapper;
-import org.chinamyheart.community.dao.UserMapper;
+import org.chinamyheart.community.mapper.CaseMapper;
+import org.chinamyheart.community.mapper.DoctorMapper;
+import org.chinamyheart.community.mapper.ReplyMapper;
+import org.chinamyheart.community.mapper.UserMapper;
 import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.model.Doctor;
 import org.chinamyheart.community.model.Reply;

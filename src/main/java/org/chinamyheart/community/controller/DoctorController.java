@@ -1,6 +1,6 @@
 package org.chinamyheart.community.controller;
 
-import org.chinamyheart.community.dao.DoctorMapper;
+import org.chinamyheart.community.mapper.DoctorMapper;
 import org.chinamyheart.community.model.Doctor;
 import org.chinamyheart.community.model.User;
 import org.chinamyheart.community.service.UserService;
