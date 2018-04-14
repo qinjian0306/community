@@ -1,6 +1,7 @@
 package org.chinamyheart.community.controller;
 
 import org.chinamyheart.community.mapper.UserMapper;
+import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,5 +18,11 @@ public class UserController extends BaseController{
     public Object user(){
         User user = userMapper.selectByUsername("haha");
         return user;
+    }
+
+    @RequestMapping("/addCase")
+    public String addCase(Case case){
+
+        return null;
     }
 }
