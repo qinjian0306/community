@@ -14,21 +14,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SessionContextUtils {
 
-	@Value("${btse.systemId}")
-	private String systemId;
-	
 	@Autowired
 	private HttpServletRequest request;
 	@Autowired
 	private HttpServletResponse response;
-
-	/**
-	 * 获取系统ID
-	 * @return
-	 */
-	public String getSystemId() {
-		return this.systemId;
-	}
 
 	/**
 	 * 获取当前上下文请求
