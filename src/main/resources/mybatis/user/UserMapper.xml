@@ -18,6 +18,18 @@
 	where username = #{username,jdbcType=VARCHAR};
   </select>
 
+	<select id="getUserList" resultType="User" parameterType="User">
+		select <include refid="userColumns" />
+		from user
+		where 1=1
+		<if test="username != null">
+			and username = #{username}
+		</if>
+		<if test="password != null">
+			and password = #{password}
+		</if>
+	</select>
+
 	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into user (
 		username,
