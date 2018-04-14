@@ -18,7 +18,7 @@ public class User implements Serializable {
 	private String nickname;
 
 	private String password;
-	// 角色 分病人 医生 （管理员）。（不提供注册管理员功能）
+	// 角色 0分病人 1医生 （管理员）。（不提供注册管理员功能）
 	private int role;
 
 	private String email;
