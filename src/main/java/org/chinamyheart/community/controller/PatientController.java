@@ -92,8 +92,6 @@ public class PatientController extends BaseController {
 
     @RequestMapping(path = "/addCase/upload/file")
     public Object uploadFile(@RequestParam("file") MultipartFile file) {
-        ReturnResult result = new ReturnResult();
-        result.setTime(Calendar.getInstance().getTimeInMillis());
         try {
             String fileName = file.getOriginalFilename();
             FileOutputStream fos = new FileOutputStream(new File(fileName));

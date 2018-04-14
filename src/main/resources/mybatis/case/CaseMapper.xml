@@ -6,6 +6,7 @@
 	  id,
 	  userId,
 	  title,
+	  author,
 	  patient,
 	  gender,
 	  contact,
