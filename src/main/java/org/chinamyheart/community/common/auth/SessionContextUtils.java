@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 会话帮助类
- * @author TT
+ * @author qj
  */
 public class SessionContextUtils {
 
