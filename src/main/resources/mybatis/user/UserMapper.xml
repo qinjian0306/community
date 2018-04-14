@@ -18,7 +18,7 @@
 	where username = #{username,jdbcType=VARCHAR};
   </select>
 
-	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="fid">
+	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into user (
 		username,
 		nickname,
