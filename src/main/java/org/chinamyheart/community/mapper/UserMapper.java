@@ -8,7 +8,7 @@ import java.util.HashMap;
 @Mapper
 public interface UserMapper {
 
-	int insertByMap(HashMap<String, String> paramMap);
-
 	User selectByUsername(String username);
+
+	int insertByUser(User User);
 }
