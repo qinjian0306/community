@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,6 +24,7 @@ public class ReplayServiceImpl implements ReplayService{
 
 	@Override
 	public int insert(Reply reply) {
+		reply.setReplyTime(new Date());
 		try {
 			int result = replyMapper.insert(reply);
 			if(result > 0){
@@ -36,6 +38,7 @@ public class ReplayServiceImpl implements ReplayService{
 
 	@Override
 	public void update(Reply reply) {
+		reply.setReplyTime(new Date());
 		try {
 			replyMapper.update(reply);
 		}catch (Exception e){

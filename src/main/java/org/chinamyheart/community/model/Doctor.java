@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 医生认证
@@ -24,6 +25,9 @@ public class Doctor implements Serializable {
 	// 详情
 	private String detials;
 
+	// 状态 0未审核 1批准 2拒绝
 	private int status;
+
+	private Date createTime;
 
 }

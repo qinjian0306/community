@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.chinamyheart.community.mapper.DoctorMapper" >
+
+  <sql id="doctorColumns">
+	  id,
+	  userId,
+	  hospotal,
+	  realName,
+	  detials,
+	  status,
+	  createTime
+  </sql>
+  
+  <select id="selectById" resultType="Doctor" parameterType="java.lang.Integer">
+    select <include refid="doctorColumns" />
+    from doctor
+	where id = #{id}
+  </select>
+
+	<select id="selectByUserId" resultType="Doctor" parameterType="java.lang.Integer">
+		select <include refid="doctorColumns" />
+		from doctor
+		where userId = #{id}
+	</select>
+
+	<select id="selectAll" resultType="Doctor">
+		select <include refid="doctorColumns" />
+		from doctor
+		where 1=1
+		order by asc
+	</select>
+
+	<select id="selectAllPend" resultType="Doctor" parameterType="java.lang.Integer">
+		select <include refid="doctorColumns" />
+		from doctor
+		where status = #{status}
+		order by asc
+	</select>
+
+	<insert id="insert" parameterType="Doctor" useGeneratedKeys="true" keyProperty="id">
+		insert into doctor (
+		userId,
+		hospotal,
+		realName,
+		detials,
+		status,
+		createTime
+		) values (
+		#{userId},
+		#{hospotal},
+		#{realName},
+		#{detials},
+		#{status},
+		#{createTime}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="Doctor">
+		update doctor set
+		<if test="userId != null">
+			and userId = #{userId}
+		</if>
+		<if test="hospotal != null">
+			and hospotal = #{hospotal}
+		</if>
+		<if test="realName != null">
+			and realName = #{realName}
+		</if>
+		<if test="detials != null">
+			and detials = #{detials}
+		</if>
+		<if test="status != null">
+			and status = #{status}
+		</if>
+		<if test="createTime != null">
+			and createTime = #{createTime}
+		</if>
+		where id = #{id}
+	</update>
+
+
+	<update id="updateByUserId" parameterType="Doctor">
+		update doctor set
+		<if test="userId != null">
+			and userId = #{userId}
+		</if>
+		<if test="hospotal != null">
+			and hospotal = #{hospotal}
+		</if>
+		<if test="realName != null">
+			and realName = #{realName}
+		</if>
+		<if test="detials != null">
+			and detials = #{detials}
+		</if>
+		<if test="status != null">
+			and status = #{status}
+		</if>
+		<if test="createTime != null">
+			and createTime = #{createTime}
+		</if>
+		where userId = #{id}
+	</update>
+
+
+</mapper>

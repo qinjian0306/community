@@ -1,12 +1,11 @@
-package org.chinamyheart.community.mapper;
+package org.chinamyheart.community.service;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.chinamyheart.community.model.Doctor;
 
 import java.util.List;
 
-@Mapper
-public interface DoctorMapper {
+public interface DoctorService {
+
 
 	int insert(Doctor doctor);
 
@@ -23,5 +22,4 @@ public interface DoctorMapper {
 	void updateById(Doctor doctor);
 
 	void updateByUserId(Doctor doctor);
-
 }
