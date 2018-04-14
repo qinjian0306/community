@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class PatientController {
+public class PatientController extends BaseController{
 	@Autowired
 	private CaseMapper caseMapper;
 	// 添加病历--

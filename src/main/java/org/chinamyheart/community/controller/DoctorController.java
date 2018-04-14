@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class DoctorController {
+public class DoctorController extends BaseController{
 	@Autowired
 	DoctorMapper doctorMapper;
 	//获取医生状态--

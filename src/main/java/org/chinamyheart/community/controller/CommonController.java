@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("common")
-public class CommonController {
+public class CommonController extends BaseController{
 	@Autowired
 	private UserMapper userMapper;
 	@Autowired
