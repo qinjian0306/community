@@ -1,4 +1,4 @@
-package org.chinamyheart.community.dao;
+package org.chinamyheart.community.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.chinamyheart.community.model.Reply;
