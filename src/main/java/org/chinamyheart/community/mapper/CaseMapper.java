@@ -9,15 +9,21 @@ import java.util.Map;
 @Mapper
 public interface CaseMapper {
 
-	List<Case> selectByUserId(int userId);
+    List<Case> selectByUserId(int userId);
 
-	List<Case> selectAll();
+    List<Case> selectAll();
 
-	void insertByMap(Map<String,String> paramMap);
+    void insertByMap(Map<String, String> paramMap);
 
-	Case selectById(int id);
+    void insert(Case c);
 
-	void deleteById(int id);
+    void update(Case c);
 
-	void lock(int id);
+    void updateStatus(int id, int status);
+
+    Case selectById(int id);
+
+    void deleteById(int id);
+
+    void lock(int id);
 }

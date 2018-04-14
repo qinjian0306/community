@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.chinamyheart.community.mapper.CaseMapper">
+
+    <sql id="caseColumns">
+	  id,
+	  userId,
+	  title,
+	  patient,
+	  gender,
+	  contact,
+	  createTime,
+	  updateTime,
+	  status,
+	  description
+  </sql>
+
+    <select id="selectById" resultType="org.chinamyheart.community.model.Case" parameterType="java.lang.Integer">
+        select
+        <include refid="caseColumns"/>
+        from c_case
+        where id = #{id};
+    </select>
+    <select id="selectAll" resultType="org.chinamyheart.community.model.Case">
+        select
+        <include refid="caseColumns"/>
+        from c_case
+    </select>
+
+    <select id="selectByUserId" resultType="org.chinamyheart.community.model.Case" parameterType="java.lang.Integer">
+        select
+        <include refid="caseColumns"/>
+        from c_case
+        where userId = #{userId};
+    </select>
+
+    <delete id="deleteById">
+		delete from c_case where id = #{id}
+	</delete>
+    <delete id="deleteByUserId">
+        delete from c_case where userId = #{userId}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" parameterType="org.chinamyheart.community.model.Case">
+		insert into c_case (userId,title,patient,gender,contact,status,description,createTime,updateTime)
+		values (#{userId},#{title},#{patient},#{gender},#{contact},#{status},#{description},#{createTime},#{updateTime})
+	</insert>
+
+    <update id="updateStatus" parameterType="java.lang.Integer">
+        update c_case set
+        <if test="status != null">
+            status = #{status}
+        </if>
+        where id = #{id}
+    </update>
+
+    <update id="update" parameterType="org.chinamyheart.community.model.Case">
+        update c_case set
+        <if test="userId != null">
+            userId = #{userId},
+        </if>
+        <if test="title != null">
+            title = #{title},
+        </if>
+        <if test="patient != null">
+            patient = #{patient},
+        </if>
+        <if test="gender != null">
+            gender = #{gender}
+        </if>
+        <if test="contact != null">
+            contact = #{contact}
+        </if>
+        <if test="updateTime != null">
+            updateTime = #{updateTime}
+        </if>
+        <if test="status != null">
+            status = #{status}
+        </if>
+        <if test="description != null">
+            description = #{description}
+        </if>
+        where id = #{id}
+    </update>
+
+</mapper>
