@@ -5,6 +5,7 @@ import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,8 +21,10 @@ public class UserController extends BaseController{
         return user;
     }
 
-    @RequestMapping("/addCase")
-    public String addCase(Case case){
+    @RequestMapping(path = "/addCase")
+    public String addCase(Case c){
+
+        System.out.println(c);
 
         return null;
     }
