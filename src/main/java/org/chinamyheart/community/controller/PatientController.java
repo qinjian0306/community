@@ -79,6 +79,7 @@ public class PatientController extends BaseController {
         try {
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
+                if (fileName.trim().length() == 0) continue;
                 FileOutputStream fos = new FileOutputStream(new File(fileName));
                 InputStream fis = file.getInputStream();
                 FileCopyUtils.copy(fis, fos);
@@ -94,6 +95,9 @@ public class PatientController extends BaseController {
     public Object uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             String fileName = file.getOriginalFilename();
+            if (fileName.trim().length() == 0) {
+                return ReturnResult.SUCCESS("上传的文件名为空");
+            }
             FileOutputStream fos = new FileOutputStream(new File(fileName));
             InputStream fis = file.getInputStream();
             FileCopyUtils.copy(fis, fos);
