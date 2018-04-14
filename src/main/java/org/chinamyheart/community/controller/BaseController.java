@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  *  控制器基类 所有控制器必须继承该类
- * 	@author ZKF
+ * 	@author qj
  */
 public abstract class BaseController {
 	
