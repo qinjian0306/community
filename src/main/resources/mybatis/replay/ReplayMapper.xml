@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.chinamyheart.community.mapper.ReplyMapper" >
+
+  <sql id="replayColumns">
+	  id,
+	  userId,
+	  caseId,
+	  content,
+	  replyTime
+  </sql>
+  
+  <select id="selectById" resultType="Reply" parameterType="java.lang.Integer">
+    select <include refid="replayColumns" />
+    from reply
+	where id = #{id};
+  </select>
+
+	<select id="selectByCaseId" resultType="Reply" parameterType="java.lang.Integer">
+		select <include refid="replayColumns" />
+		from reply
+		where caseId = #{id};
+	</select>
+
+	<insert id="insert" parameterType="Reply" useGeneratedKeys="true" keyProperty="id">
+		insert into reply (
+		userId,
+		caseId,
+		content,
+		replyTime
+		) values (
+		#{userId},
+		#{caseId},
+		#{content},
+		#{role},
+		#{replyTime}
+		)
+	</insert>
+
+	<update id="update" parameterType="Reply">
+		update reply set
+		<if test="userId != null">
+			and userId = #{userId}
+		</if>
+		<if test="caseId != null">
+			and caseId = #{caseId}
+		</if>
+		<if test="content != null">
+			and content = #{content}
+		</if>
+		<if test="role != null">
+			and role = #{role}
+		</if>
+		<if test="replyTime != null">
+			and replyTime = #{replyTime}
+		</if>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from reply
+		where id = #{id}
+	</delete>
+	
+	<delete id="deleteByCaseId" parameterType="java.lang.Integer">
+   		delete from reply
+    	where caseId = #{id}
+	</delete>
+
+
+</mapper>
