@@ -1,12 +1,12 @@
-package org.chinamyheart.community.mapper;
+package org.chinamyheart.community.service;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.chinamyheart.community.model.Reply;
+import org.chinamyheart.community.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Mapper
-public interface ReplyMapper {
+public interface ReplayService {
 
 	int insert(Reply reply);
 
