@@ -31,6 +31,8 @@ public class Case implements Serializable {
 	// 详情（描述病情）
 	private String description;
 
+	private String url;
+
 	private Date createTime;
 
 	private Date updateTime;
