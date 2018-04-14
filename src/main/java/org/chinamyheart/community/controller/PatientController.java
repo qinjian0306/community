@@ -13,12 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/patient")
 public class PatientController extends BaseController{
 	@Autowired
 	private CaseMapper caseMapper;
 	// 添加病历--
-	@RequestMapping("/register")
-	public Map<String,Object> register(@RequestParam String title,
+	@RequestMapping("/add")
+	public Map<String,Object> add(@RequestParam String title,
 									   @RequestParam String name,
 									   @RequestParam int gender,
 									   @RequestParam String  contact,

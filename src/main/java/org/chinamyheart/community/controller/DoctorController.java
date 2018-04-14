@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/doctor")
 public class DoctorController extends BaseController{
 	@Autowired
 	DoctorMapper doctorMapper;
