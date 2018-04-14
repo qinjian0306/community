@@ -60,9 +60,8 @@ public class CommonController extends BaseController{
 		}
 		return result;
 	}
-	// --注册
 
-	// 登陆--
+	// 登陆
 	@RequestMapping("/login")
 	public Map<String,Object> login(String username, String password) {
 		User user = userMapper.selectByUsername(username);
@@ -78,9 +77,8 @@ public class CommonController extends BaseController{
 		}
 		return result;
 	}
-	// --登陆
 
-	//检查用户名是否可用--
+	//检查用户名是否可用
 	@RequestMapping("/ifExist")
 	public Map<String,Object> ifExist(String username) {
 		User user = userMapper.selectByUsername(username);
@@ -92,177 +90,6 @@ public class CommonController extends BaseController{
 		}
 		return result;
 	}
-	//--检查用户名是否可用
-
-	// 获取病例列表--
-	@RequestMapping("/getCaseList")
-	public Map<String,Object> getCaseList() {
-		String token = "";
-		User user = UserService.getUser(token);
-		HashMap<String, Object> result = new HashMap();
-		HashMap<String, Object> dataMap = new HashMap();
-		if (user.getRole() == 1) {
-			// 患者
-			List<Case> caseList = caseMapper.selectByUserId(user.getId());
-			dataMap.put("data", caseList);
-			result.put("result", 0);
-			result.put("data", dataMap);
-		} else if (user.getRole() == 2) {
-			// 医生
-			Doctor doctor = doctorMapper.selectByUserId(user.getId());
-			if (doctor != null && doctor.getStatus() == 0) {
-				List<Case> caseList = caseMapper.selectAll();
-				dataMap.put("data", caseList);
-				result.put("result", 0);
-				result.put("data", dataMap);
-			}
-		} else if (user.getRole() == 0) {
-			// 管理员
-			List<Case> caseList = caseMapper.selectAll();
-			dataMap.put("data", caseList);
-			result.put("result", 0);
-			result.put("data", dataMap);
-		}
-		return result;
-	}
-	// --获取病例列表
-
-	// 查看病历--
-	@RequestMapping("/viewCase")
-	public Map<String,Object> viewCase(int id) {
-		String token = "";
-		User user = UserService.getUser(token);
-		HashMap<String, Object> result = new HashMap();
-		if (user == null) {
-			result.put("result", 1);
-			return result;
-		}
-		Case cas = caseMapper.selectById(id);
-		if (user.getRole() == 1 && user.getId() != cas.getUserId()) {
-			// 患者
-			result.put("result", 1);
-			return result;
-		}
-		result.put("result", 0);
-		result.put("data", cas);
-		return result;
-	}
-	// --查看病历
-
-	// 删除病历--
-	@RequestMapping("/removeCase")
-	public Map<String,Object> removeCase(int id) {
-		String token = "";
-		User user = UserService.getUser(token);
-		HashMap<String, Object> result = new HashMap();
-		if (user == null) {
-			result.put("result", 1);
-			return result;
-		}
-		Case cas = caseMapper.selectById(id);
-		if (user.getRole() == 1 && user.getId() == cas.getUserId() || user.getRole() == 0) {
-			// 患者或管理员
-			replyMapper.deleteByCaseId(id);
-			caseMapper.deleteById(id);
-			result.put("result", 0);
-			return result;
-		}
-		result.put("result", 1);
-		return result;
-	}
-	// --删除病历
-
-	// 锁定病历--
-	@RequestMapping("/lockCase")
-	public Map<String,Object> lockCase(int id) {
-		String token = "";
-		User user = UserService.getUser(token);
-		HashMap<String, Object> result = new HashMap();
-		if (user == null) {
-			result.put("result", 1);
-			return result;
-		}
-		Case cas = caseMapper.selectById(id);
-		if (user.getRole() == 1 && user.getId() == cas.getUserId() || user.getRole() == 0) {
-			// 患者或管理员
-			caseMapper.lock(id);
-			result.put("result", 0);
-			return result;
-		}
-		result.put("result", 1);
-		return result;
-	}
-	// --锁定病历
-
-	// 获取留言--
-	@RequestMapping("/getReplies")
-	public Map<String,Object> getReplies(int caseId) {
-		String token = "";
-		User user = UserService.getUser(token);
-		HashMap<String, Object> result = new HashMap();
-		if (user == null) {
-			result.put("result", 1);
-			return result;
-		}
-		Case cas = caseMapper.selectById(caseId);
-		if (user.getRole() == 1 && user.getId() != cas.getUserId()) {
-			// 患者
-			result.put("result", 1);
-			return result;
-		}
-		List<Reply> replies = replyMapper.selectByCaseId(caseId);
-		result.put("result", 0);
-		result.put("data", replies);
-		return result;
-	}
-	// --获取留言
-
-	// 新增留言--
-	@RequestMapping("/addReply")
-	public Map<String,Object> addReply(int caseId, String content) {
-		String token = "";
-		User user = UserService.getUser(token);
-		HashMap<String, Object> result = new HashMap();
-		if (user == null) {
-			result.put("result", 1);
-			return result;
-		}
-		Case cas = caseMapper.selectById(caseId);
-		if (user.getRole() == 1 && user.getId() != cas.getUserId()) {
-			// 患者
-			result.put("result", 1);
-			return result;
-		}
-		HashMap<String, String> paramMap = new HashMap();
-		paramMap.put("userId", String .valueOf(user.getId()));
-		paramMap.put("caseId", String .valueOf(caseId));
-		paramMap.put("content", content);
-		result.put("result", 0);
-		return result;
-	}
-	// --新增留言
-
-	// 删除留言--
-	@RequestMapping("/removeReply")
-	public Map<String,Object> removeReply(int id) {
-		String token = "";
-		User user = UserService.getUser(token);
-		HashMap<String, Object> result = new HashMap();
-		if (user == null) {
-			result.put("result", 1);
-			return result;
-		}
-		Reply reply = replyMapper.selectById(id);
-		if (user.getRole() == 1 && user.getId() != reply.getUserId()) {
-			// 患者
-			result.put("result", 1);
-			return result;
-		}
-		replyMapper.deleteById(id);
-		result.put("result", 0);
-		return result;
-	}
-	// --删除留言
 
 
 
