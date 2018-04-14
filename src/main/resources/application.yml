@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+   datasource:
+     name: user
+     url: jdbc:mysql://localhost:3306/community?useUnicode=true&characterEncoding=utf-8
+     username: root
+     password: guoguo311
+     driver-class-name: com.mysql.jdbc.Driver
+     type: com.alibaba.druid.pool.DruidDataSource
+     initialSize: 1
+     minIdle: 1
+     maxActive: 1
+     defaultAutoCommit: false
+     timeBetweenEvictionRunsMillis: 60000
+     minEvictableIdleTimeMillis: 300000
+     validationQuery: SELECT 'x'
+     testWhileIdle: true
+     testOnBorrow: false
+     testOnReturn: false
+
+redis:
+  host: localhost
+  port: 6379
+  timeout: 5000
+  pool:
+    minIdle: 10
+    maxIdle: 10
+    maxTotal: 100
+    maxWaitMillis: 5000
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: true
+
+mybatis:
+  check-config-location: true
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mybatis/*Mapper.xml
+  type-aliases-package: org.chinamyheart.community.model
+

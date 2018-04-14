@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>thymeleaf</title>
+    <script th:src="@{bootstrap/js/boostrap.min.js}"></script>
+</head>
+    <body>
+        <h1 style="color: red">Hello Thymeleaf</h1>
+
+
+
+        <h3>表单:</h3>
+        <form th:action="www.baidu.com" th:object="${user}" method="post" th:method="post">
+            <!-- th:field常用于表单字段绑定。通常与th:object一起使用。 属性绑定、集合绑定。 -->
+            姓名：<input type="text"  th:field="*{name}"/><br/>
+            年龄：<input type="text" th:field="*{age}"/><br/>
+            性别：<input type="text" th:field="*{sex}"/><br/>
+        </form>
+
+        <h3>取值:</h3>
+        姓名:<span th:text="${user.name}"></span><br/>
+        年龄:<span th:text="${user.age}"></span><br/>
+        性别:<span th:if="${user.age}"></span><br/>
+        姓名:<input type="text" name="userName" value="James Carrot" th:value="${user.name}" /><br/>
+
+        <h3>不加判断遍历:</h3>
+        <ul th:each="user:${userList}">
+            <li th:text="${user.name}"></li>
+            <li th:text="${user.age}"></li>
+        </ul>
+
+        <h3>集合是否为空: null判断方式</h3>
+        <div th:if="${userList != null}">
+            <ul th:each="user : ${userList}">
+                姓名:<li th:text="${user.name}"></li>
+                年龄:<li th:text="${user.age}"></li>
+                性别:<li th:text="${user.sex}"></li>
+            </ul>
+        </div>
+
+        <h3>集合是否为空: #lists工具判断方式</h3>
+        <div th:if="${#lists.isEmpty(userList2)}">
+            <span>集合为空</span>
+        </div>
+
+        <h3>集合长度:</h3>
+        <div th:with="sizes=${#lists.size(userList)}">
+            当前数据长度：<span th:text="${sizes}"></span>
+        </div>
+
+        <h3>if条件判断</h3>
+        <div>
+            <span th:if="${user.age >= 18}">满18岁</span>
+            <span th:unless="${user.age >= 0}">未满18岁</span>
+        </div>
+
+        <h3>swith条件判断</h3>
+        <div th:switch="${user.age}">
+            <p th:case="18">年龄18</p>
+            <p th:case="20">年龄20</p>
+            <!--默认情况-->
+            <p th:case="*">User is some other thing</p>
+        </div>
+
+        <h3>日期</h3>
+        <dd th:text="${#dates.format(time, 'yyyy-MM-dd')}"></dd>
+
+    </body>
+
+
+<script th:inline="javascript">
+    var user = [[${user}]];
+    console.log(user.name + "\t" + user.age);
+</script>
+
+
+</html>
