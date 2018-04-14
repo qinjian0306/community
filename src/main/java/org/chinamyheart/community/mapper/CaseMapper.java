@@ -19,7 +19,7 @@ public interface CaseMapper {
 
     void update(Case c);
 
-    void updateStatus(int id, int status);
+    void updateStatus(Case c);
 
     Case selectById(int id);
 

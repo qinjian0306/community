@@ -17,10 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/patient")
@@ -29,92 +26,72 @@ public class PatientController extends BaseController {
     private CaseService caseService;
 
     @RequestMapping(path = "/viewCase")
-    public Object getCase(Integer caseId) {
+    public Object getCase(@RequestParam(required = true) Integer caseId) {
         Case c = caseService.getCaseById(caseId);
-        ReturnResult result = new ReturnResult();
-        result.setTime(Calendar.getInstance().getTimeInMillis());
-        result.setMsg("OK");
-        result.setCode(ReturnResult.SUCCESS);
-        result.setData(c);
-        return result;
+        return ReturnResult.SUCCESS("OK");
     }
 
     @RequestMapping(path = "/getCaseList")
-    public Object getAllCases(Integer caseId) {
-        List<Case> cases = caseService.getAllCases();
-        ReturnResult result = new ReturnResult();
-        result.setTime(Calendar.getInstance().getTimeInMillis());
-        result.setMsg("OK");
-        result.setCode(ReturnResult.SUCCESS);
-        result.setData(cases);
-        return result;
+    public Object getAllCases(@RequestParam(required = true) Integer userId) {
+        List<Case> cases = caseService.getCasesByUserId(userId);
+        return ReturnResult.SUCCESS("OK");
     }
 
     @RequestMapping(path = "/removeCase")
-    public Object deleteCase(Integer caseId) {
+    public Object deleteCase(@RequestParam(required = true) Integer caseId) {
         caseService.deleteCase(caseId);
-        ReturnResult result = new ReturnResult();
-        result.setTime(Calendar.getInstance().getTimeInMillis());
-        result.setCode(ReturnResult.SUCCESS);
-        result.setMsg(caseId + ":刪除成功");
-        result.setTime(Calendar.getInstance().getTimeInMillis());
-        return result;
+        return ReturnResult.SUCCESS("刪除成功");
     }
 
     @RequestMapping(path = "/lockCase")
-    public Object lockCase(Integer caseId) {
-        ReturnResult result = new ReturnResult();
-        result.setMsg("锁定成功");
-        result.setCode(ReturnResult.SUCCESS);
-        result.setTime(Calendar.getInstance().getTimeInMillis());
-        return result;
+    public Object lockCase(@RequestParam(required = true) Integer caseId) {
+        Case c = new Case();
+        c.setId(caseId);
+        c.setStatus(1);
+        caseService.lockCase(c);
+        return ReturnResult.SUCCESS("锁定成功");
     }
 
     @RequestMapping(path = "/addCase")
-    public Object addCase(Case c, MultipartFile[] files) {
+    public Object addCase(Case c, @RequestParam("files") MultipartFile[] files) {
+        Date date = Calendar.getInstance().getTime();
+        c.setCreateTime(date);
+        c.setUpdateTime(date);
+        c.setStatus(0);
         caseService.addCase(c);
-        ReturnResult result = new ReturnResult();
-        result.setTime(Calendar.getInstance().getTimeInMillis());
         try {
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
+                if (fileName.trim().length() == 0) continue;
                 FileOutputStream fos = new FileOutputStream(new File(fileName));
                 InputStream fis = file.getInputStream();
                 FileCopyUtils.copy(fis, fos);
-                result.setCode(ReturnResult.SUCCESS);
-                result.setMsg("添加成功");
             }
         } catch (IOException e) {
             e.printStackTrace();
-            result.setCode(ReturnResult.FAILURE);
-            result.setMsg("添加失败");
+            return ReturnResult.FAILUER("添加失败");
         }
-        return result;
+        return ReturnResult.SUCCESS("添加成功");
     }
 
     @RequestMapping(path = "/addCase/upload/files")
     public Object uploadFiles(@RequestParam("files") MultipartFile[] files) {
-        ReturnResult result = new ReturnResult();
-        result.setTime(Calendar.getInstance().getTimeInMillis());
         try {
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
                 FileOutputStream fos = new FileOutputStream(new File(fileName));
                 InputStream fis = file.getInputStream();
                 FileCopyUtils.copy(fis, fos);
-                result.setCode(ReturnResult.SUCCESS);
-                result.setMsg("上传成功");
             }
         } catch (IOException e) {
             e.printStackTrace();
-            result.setCode(ReturnResult.FAILURE);
-            result.setMsg("上传失败");
+            return ReturnResult.FAILUER("上传失败");
         }
-        return result;
+        return ReturnResult.SUCCESS("上传成功");
     }
 
     @RequestMapping(path = "/addCase/upload/file")
-    public Object uploadFile(MultipartFile file) {
+    public Object uploadFile(@RequestParam("file") MultipartFile file) {
         ReturnResult result = new ReturnResult();
         result.setTime(Calendar.getInstance().getTimeInMillis());
         try {
@@ -122,13 +99,10 @@ public class PatientController extends BaseController {
             FileOutputStream fos = new FileOutputStream(new File(fileName));
             InputStream fis = file.getInputStream();
             FileCopyUtils.copy(fis, fos);
-            result.setCode(ReturnResult.SUCCESS);
-            result.setMsg("上传成功");
         } catch (IOException e) {
             e.printStackTrace();
-            result.setCode(ReturnResult.FAILURE);
-            result.setMsg("上传失败");
+            ReturnResult.SUCCESS("上传失败");
         }
-        return result;
+        return ReturnResult.SUCCESS("上传成功");
     }
 }

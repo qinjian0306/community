@@ -10,7 +10,7 @@ public interface CaseService {
 
     void updateCase(Case c);
 
-    void lockCase(int id, int lock);
+    void lockCase(Case c);
 
     Case getCaseById(int id);
 

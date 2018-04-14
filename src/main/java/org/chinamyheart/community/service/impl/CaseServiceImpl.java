@@ -26,8 +26,8 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public void lockCase(int id,int status) {
-        caseMapper.updateStatus(id,status);
+    public void lockCase(Case c) {
+        caseMapper.updateStatus(c);
     }
 
     @Override
