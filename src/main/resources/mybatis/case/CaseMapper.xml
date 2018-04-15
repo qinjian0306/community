@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.chinamyheart.community.mapper.CaseMapper">
+
+    <sql id="caseColumns">
+	  id,
+	  userId,
+	  title,
+	  author,
+	  patient,
+	  gender,
+	  contact,
+	  createTime,
+	  updateTime,
+	  status,
+	  description
+  </sql>
+
+    <select id="selectById" resultType="Case" parameterType="java.lang.Integer">
+        select
+        <include refid="caseColumns"/>
+        from c_case
+        where id = #{id};
+    </select>
+    <select id="selectAll" resultType="Case">
+        select
+        <include refid="caseColumns"/>
+        from c_case
+    </select>
+
+    <select id="selectByUserId" resultType="Case" parameterType="java.lang.Integer">
+        select
+        <include refid="caseColumns"/>
+        from c_case
+        where userId = #{userId};
+    </select>
+
+    <delete id="deleteById">
+		delete from c_case where id = #{id}
+	</delete>
+    <delete id="deleteByUserId">
+        delete from c_case where userId = #{userId}
+    </delete>
+    <insert id="insert" useGeneratedKeys="true" parameterType="Case">
+		insert into c_case (userId,title,author,patient,gender,contact,status,description,createTime,updateTime)
+		values (#{userId},#{title},#{author},#{patient},#{gender},#{contact},#{status},#{description},#{createTime},#{updateTime})
+	</insert>
+
+    <update id="updateStatus" parameterType="Case">
+        update c_case set
+        <if test="status != null">
+            status = #{status}
+        </if>
+        where id = #{id}
+    </update>
+
+    <update id="update" parameterType="Case">
+        update c_case set
+        <if test="userId != null">
+            and userId = #{userId}
+        </if>
+        <if test="title != null">
+            and title = #{title}
+        </if>
+        <if test="patient != null">
+            and patient = #{patient}
+        </if>
+        <if test="gender != null">
+            and gender = #{gender}
+        </if>
+        <if test="contact != null">
+            and contact = #{contact}
+        </if>
+        <if test="updateTime != null">
+            and updateTime = #{updateTime}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="description != null">
+            and description = #{description}
+        </if>
+        where id = #{id}
+    </update>
+
+</mapper>

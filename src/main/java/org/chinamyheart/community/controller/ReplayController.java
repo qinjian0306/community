@@ -17,9 +17,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/replay")
 public class ReplayController extends BaseController {
+
     @Autowired
     private ReplayService replayService;
-
 
     /**
      * 当前病历所有回复

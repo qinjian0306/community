@@ -15,9 +15,7 @@
   <select id="selectByUsername" resultType="User" parameterType="java.lang.String">
     select <include refid="userColumns" />
     from c_user
-	where username = #{username,jdbcType=VARCHAR}
-	  role,
-	  e;
+	where username = #{username,jdbcType=VARCHAR};
   </select>
 
 	<insert id="insertByUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
@@ -48,6 +46,22 @@
 		mobile = #{mobile}
 		where id = #{id}
 	</update>
+	<select id="getUserList" resultType="User" parameterType="User">
+		select <include refid="userColumns" />
+		from c_user
+		where 1=1
+		<if test="username != null">
+			and username = #{username}
+		</if>
+		<if test="password != null">
+			and password = #{password}
+		</if>
+	</select>
 
+	<select id="getUserByUsername" resultType="User" parameterType="User">
+		select <include refid="userColumns" />
+		from c_user
+		where username = #{username}
+	</select>
 
 </mapper>

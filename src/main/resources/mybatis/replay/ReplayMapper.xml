@@ -12,19 +12,19 @@
   
   <select id="selectById" resultType="Reply" parameterType="java.lang.Integer">
     select <include refid="replayColumns" />
-    from reply
+    from c_reply
 	where id = #{id}
   </select>
 
 	<select id="selectByCaseId" resultType="Reply" parameterType="java.lang.Integer">
 		select <include refid="replayColumns" />
-		from reply
+		from c_reply
 		where caseId = #{id}
 		order by replyTime desc
 	</select>
 
 	<insert id="insert" parameterType="Reply" useGeneratedKeys="true" keyProperty="id">
-		insert into reply (
+		insert into c_reply (
 		userId,
 		caseId,
 		content,
@@ -39,7 +39,7 @@
 	</insert>
 
 	<update id="update" parameterType="Reply">
-		update reply set
+		update c_reply set
 		<if test="userId != null">
 			and userId = #{userId}
 		</if>
@@ -59,12 +59,12 @@
 	</update>
 
 	<delete id="deleteById" parameterType="java.lang.Integer">
-		delete from reply
+		delete from c_reply
 		where id = #{id}
 	</delete>
 	
 	<delete id="deleteByCaseId" parameterType="java.lang.Integer">
-   		delete from reply
+   		delete from c_reply
     	where caseId = #{id}
 	</delete>
 

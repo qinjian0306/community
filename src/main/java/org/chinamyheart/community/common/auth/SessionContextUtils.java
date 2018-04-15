@@ -108,7 +108,6 @@ public class SessionContextUtils {
 	 * @param token
 	 */
 	public void addContextToken(String tokenName,String token){
-//		CookieUtils.setCookie(request,response,tokenName,token);
 		this.response.addHeader("Set-Cookie", String.format("%s=%s;Path=/; HttpOnly", tokenName,token));
 	}
 }

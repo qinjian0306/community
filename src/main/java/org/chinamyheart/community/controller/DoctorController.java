@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/doctor")
 public class DoctorController extends BaseController{
+
 	@Autowired
 	private DoctorService doctorService;
 
@@ -79,7 +80,6 @@ public class DoctorController extends BaseController{
 	@RequestMapping("/pend")
 	public ReturnResult doctorPend(@RequestParam(required = true) Integer doctorId,
 									@RequestParam(required = true) Integer action) {
-
 		Doctor doctor = doctorService.selectById(doctorId);
 		// 批准
 		if(doctor !=null && doctorId !=null && action == 1){
