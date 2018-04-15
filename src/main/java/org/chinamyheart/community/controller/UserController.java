@@ -22,7 +22,7 @@ public class UserController extends BaseController{
     private UserService userService;
 
     /**
-     *
+     * 登录
      * @param username
      * @param password
      * @return
@@ -48,7 +48,7 @@ public class UserController extends BaseController{
         if(login == null){
             List<User> userList =  userService.getUserList(user);
             if (userList == null || userList.size() == 0) {
-                return ReturnResult.FAILUER(" 帐号不存在，<a href\\=\"/user/register.html\">去注册>></a>！");
+                return ReturnResult.FAILUER(" 帐号不存在，<a href\\=\"/static/register.html\">去注册>></a>！");
             } else {
                 return ReturnResult.FAILUER("用户名或密码错误");
             }
@@ -58,4 +58,20 @@ public class UserController extends BaseController{
         sessionContextUtils.addContextToken("token",login.getToken());
         return ReturnResult.SUCCESS("登录成功");
     }
+
+    /**
+     * 检查用户名是否可用
+     * @param username
+     * @return
+     */
+	@RequestMapping("/ifExist")
+	public ReturnResult ifExist(String username) {
+        User user = new User();
+        user.setUsername(username);
+        List<User> userList = userService.getUserList(user);
+        if(userList.size() > 0){// 已存在
+            return ReturnResult.FAILUER("用户名已存在");
+        }
+		return ReturnResult.SUCCESS();
+	}
 }

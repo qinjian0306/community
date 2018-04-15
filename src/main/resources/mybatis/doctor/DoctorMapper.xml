@@ -14,32 +14,32 @@
   
   <select id="selectById" resultType="Doctor" parameterType="java.lang.Integer">
     select <include refid="doctorColumns" />
-    from doctor
+    from c_doctor
 	where id = #{id}
   </select>
 
 	<select id="selectByUserId" resultType="Doctor" parameterType="java.lang.Integer">
 		select <include refid="doctorColumns" />
-		from doctor
+		from c_doctor
 		where userId = #{id}
 	</select>
 
 	<select id="selectAll" resultType="Doctor">
 		select <include refid="doctorColumns" />
-		from doctor
+		from c_doctor
 		where 1=1
 		order by asc
 	</select>
 
 	<select id="selectAllPend" resultType="Doctor" parameterType="java.lang.Integer">
 		select <include refid="doctorColumns" />
-		from doctor
+		from c_doctor
 		where status = #{status}
 		order by asc
 	</select>
 
 	<insert id="insert" parameterType="Doctor" useGeneratedKeys="true" keyProperty="id">
-		insert into doctor (
+		insert into c_doctor (
 		userId,
 		hospotal,
 		realName,
@@ -57,7 +57,7 @@
 	</insert>
 
 	<update id="updateById" parameterType="Doctor">
-		update doctor set
+		update c_doctor set
 		<if test="userId != null">
 			and userId = #{userId}
 		</if>
@@ -81,7 +81,7 @@
 
 
 	<update id="updateByUserId" parameterType="Doctor">
-		update doctor set
+		update c_doctor set
 		<if test="userId != null">
 			and userId = #{userId}
 		</if>
