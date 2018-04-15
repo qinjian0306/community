@@ -2,7 +2,9 @@ package org.chinamyheart.community.service;
 
 import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.model.Reply;
+import org.springframework.http.ResponseEntity;
 
+import java.io.File;
 import java.util.List;
 
 public interface CaseService {
@@ -11,6 +13,8 @@ public interface CaseService {
     void updateCase(Case c);
 
     void lockCase(Case c);
+
+    ResponseEntity downloadCase(File file);
 
     Case getCaseById(int id);
 
