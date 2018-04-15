@@ -30,6 +30,10 @@ public class UserServiceImpl implements UserService{
 		return userMapper.getUserList(user);
 	}
 
+	public List<User> getUserByUsername(User user){
+		return userMapper.getUserByUsername(user);
+	}
+
 	@Override
 	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public LoginResponse checkLogin(User user) {

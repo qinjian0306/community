@@ -30,6 +30,12 @@
 		</if>
 	</select>
 
+	<select id="getUserByUsername" resultType="User" parameterType="User">
+		select <include refid="userColumns" />
+		from c_user
+		where username = #{username}
+	</select>
+
 	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into c_user (
 		username,
