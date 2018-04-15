@@ -24,6 +24,19 @@ public class DoctorController extends BaseController{
     @Autowired
     private CaseService caseService;
 
+    /**
+     * 所有医生
+     *
+     * @return
+     */
+    @RequestMapping("/all")
+    public ReturnResult doctorAll() {
+        List<Doctor> doctorList = doctorService.selectAll();
+        if (doctorList.size() > 0) {
+            return ReturnResult.SUCCESS("获取所有医生列表成功");
+        }
+        return ReturnResult.FAILUER("获取所有医生列表失败");
+    }
 	/**
 	 * 所有医生
 	 * @return
