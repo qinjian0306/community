@@ -14,12 +14,14 @@
   
   <select id="selectByUsername" resultType="User" parameterType="java.lang.String">
     select <include refid="userColumns" />
-    from user
-	where username = #{username,jdbcType=VARCHAR};
+    from c_user
+	where username = #{username,jdbcType=VARCHAR}
+	  role,
+	  e;
   </select>
 
-	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-		insert into user (
+	<insert id="insertByUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		insert into c_user (
 		username,
 		nickname,
 		password,
@@ -37,7 +39,7 @@
 	</insert>
 
 	<update id="update" parameterType="User">
-		update user set
+		update c_user set
 		username = #{username},
 		nickname = #{nickname},
 		password = #{password},
