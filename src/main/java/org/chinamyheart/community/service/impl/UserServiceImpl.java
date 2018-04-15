@@ -24,9 +24,6 @@ public class UserServiceImpl implements UserService{
 	private UserMapper userMapper;
 
 	@Autowired
-	private UserMapper userMapper;
-
-	@Autowired
 	private JedisCli jedisCli;
 
 	public List<User> getUserList(User user){

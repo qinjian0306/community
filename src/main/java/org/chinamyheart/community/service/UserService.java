@@ -16,8 +16,6 @@ public interface UserService {
 
 	String insertByUser(User User);
 
-	User getUser(String token);
-
 	LoginResponse checkLogin(User user);
 
 	List<User> getUserList(User user);
