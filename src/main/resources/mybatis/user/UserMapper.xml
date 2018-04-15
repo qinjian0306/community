@@ -18,25 +18,7 @@
 	where username = #{username,jdbcType=VARCHAR};
   </select>
 
-	<select id="getUserList" resultType="User" parameterType="User">
-		select <include refid="userColumns" />
-		from c_user
-		where 1=1
-		<if test="username != null">
-			and username = #{username}
-		</if>
-		<if test="password != null">
-			and password = #{password}
-		</if>
-	</select>
-
-	<select id="getUserByUsername" resultType="User" parameterType="User">
-		select <include refid="userColumns" />
-		from c_user
-		where username = #{username}
-	</select>
-
-	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertByUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into c_user (
 		username,
 		nickname,
@@ -64,6 +46,22 @@
 		mobile = #{mobile}
 		where id = #{id}
 	</update>
+	<select id="getUserList" resultType="User" parameterType="User">
+		select <include refid="userColumns" />
+		from c_user
+		where 1=1
+		<if test="username != null">
+			and username = #{username}
+		</if>
+		<if test="password != null">
+			and password = #{password}
+		</if>
+	</select>
 
+	<select id="getUserByUsername" resultType="User" parameterType="User">
+		select <include refid="userColumns" />
+		from c_user
+		where username = #{username}
+	</select>
 
 </mapper>

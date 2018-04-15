@@ -1,5 +1,6 @@
 package org.chinamyheart.community.service.impl;
 
+import org.chinamyheart.community.mapper.UserMapper;
 import com.alibaba.fastjson.JSON;
 import org.chinamyheart.community.common.auth.LoginResponse;
 import org.chinamyheart.community.common.utils.GUIDUtils;
@@ -19,7 +20,6 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService{
-
 	@Autowired
 	private UserMapper userMapper;
 
@@ -62,5 +62,17 @@ public class UserServiceImpl implements UserService{
 		result.setToken(token);
 		result.setUserinfo(user);
 		return result;
+	}
+
+	@Override
+	public User selectByUsername(String username) {
+		User user = userMapper.selectByUsername(username);
+		return user;
+	}
+
+	@Override
+	public String insertByUser(User user) {
+		userMapper.insertByUser(user);
+		return "success";
 	}
 }

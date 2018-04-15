@@ -1,5 +1,7 @@
 package org.chinamyheart.community.controller;
 
+import org.chinamyheart.community.common.utils.Utils;
+import org.chinamyheart.community.mapper.UserMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.chinamyheart.community.common.auth.LoginResponse;
 import org.chinamyheart.community.common.utils.ReturnResult;
@@ -19,8 +21,27 @@ import java.util.List;
 public class UserController extends BaseController{
 
     @Autowired
+    private UserMapper userMapper;
+    @Autowired
     private UserService userService;
+    @RequestMapping("/register")
+    public String register(User user){
+        String password = user.getPassword();
+        try {
+            String newPassword = Utils.MD5(password);
+            user.setPassword(newPassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        userService.insertByUser(user);
+        return "success";
 
+    }
+    @RequestMapping("/user")
+    public Object user(){
+        User user = userMapper.selectByUsername("haha");
+        return user;
+    }
     /**
      * 登录
      * @param username
@@ -64,14 +85,14 @@ public class UserController extends BaseController{
      * @param username
      * @return
      */
-	@RequestMapping("/ifExist")
-	public ReturnResult ifExist(String username) {
+    @RequestMapping("/ifExist")
+    public ReturnResult ifExist(String username) {
         User user = new User();
         user.setUsername(username);
         List<User> userList = userService.getUserList(user);
         if(userList.size() > 0){// 已存在
             return ReturnResult.FAILUER("用户名已存在");
         }
-		return ReturnResult.SUCCESS();
-	}
+        return ReturnResult.SUCCESS();
+    }
 }
