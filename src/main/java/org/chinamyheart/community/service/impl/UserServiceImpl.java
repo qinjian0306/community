@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService{
 
 		// redis
 		jedisCli.removeByPattern(userTokenInfo);
+		user.setPassword(null);
 		jedisCli.set(token, JSON.toJSONString(user), RedisConstant.EXPIRETIME);
 
 		// 封装LoginResponse

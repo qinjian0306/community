@@ -10,17 +10,17 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class MyIntercepetorConfig extends WebMvcConfigurerAdapter {
+public class IntercepetorConfig extends WebMvcConfigurerAdapter {
 
-    protected static final Logger logger = LoggerFactory.getLogger(MyIntercepetorConfig.class);
+    protected static final Logger logger = LoggerFactory.getLogger(IntercepetorConfig.class);
 
     /**
      * 注入自定义的拦截器对象
      * @return
      */
     @Bean
-    public MyIntercepetor getMyIntercepetor(){
-        return new MyIntercepetor();
+    public Intercepetor getMyIntercepetor(){
+        return new Intercepetor();
     }
 
     /**
@@ -44,8 +44,9 @@ public class MyIntercepetorConfig extends WebMvcConfigurerAdapter {
         InterceptorRegistration interceptor = registry.addInterceptor(getMyIntercepetor());
 
         // 排除配置
-        interceptor.excludePathPatterns("/login");
-        interceptor.excludePathPatterns("/register");
+        interceptor.excludePathPatterns("/user/login");
+        interceptor.excludePathPatterns("/user/register");
+        interceptor.excludePathPatterns("/user/ifExist");
 
         // 拦截配置
         interceptor.addPathPatterns("/*");
