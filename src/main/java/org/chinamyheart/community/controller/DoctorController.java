@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class DoctorController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/all")
-	public ReturnResult doctorAll() {
+	public ReturnResult doctorAll(HttpServletRequest request) {
 		List<Doctor> doctorList = doctorService.selectAll();
 		if(doctorList.size() > 0){
 			return ReturnResult.SUCCESS("获取所有医生列表成功");
