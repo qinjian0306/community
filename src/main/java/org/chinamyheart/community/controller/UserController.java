@@ -21,27 +21,23 @@ import java.util.List;
 public class UserController extends BaseController{
 
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private UserService userService;
+
     @RequestMapping("/register")
-    public String register(User user){
+    public ReturnResult register(User user){
         String password = user.getPassword();
         try {
             String newPassword = Utils.MD5(password);
             user.setPassword(newPassword);
+            userService.insertByUser(user);
+            return ReturnResult.SUCCESS("注册成功");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        userService.insertByUser(user);
-        return "success";
+        return ReturnResult.FAILUER("注册失败");
 
     }
-    @RequestMapping("/user")
-    public Object user(){
-        User user = userMapper.selectByUsername("haha");
-        return user;
-    }
+
     /**
      * 登录
      * @param username
