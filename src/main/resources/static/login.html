@@ -15,6 +15,20 @@
             <!--年龄：<input type="text" th:field="*{age}"/><br/>-->
             <!--性别：<input type="text" th:field="*{sex}"/><br/>-->
         <!--</form>-->
+        <h3>表单:</h3>
+        <form th:action="/user/register"  method="post" th:method="post">
+            <!-- th:field常用于表单字段绑定。通常与th:object一起使用。 属性绑定、集合绑定。 -->
+            用户名：<input type="text"  name="username" placeholder="请输入用户名"/><br/>
+            昵称：<input type="text" name="nickname" placeholder="请输入昵称"/><br/>
+            密码：<input type="password" name="password" placeholder="请输入密码"/><br/>
+            确认密码：<input type="password" name="password" placeholder="请输入密码"/><br/>
+            角色：<input id="patient" type="radio"  name="role" th:value="0"/>病人
+                  <input id="doctor" type="radio"  name="role" th:value="1"/>医生<br/>
+            邮箱：<input type="text" name="email" placeholder="请输入邮箱"/><br/>
+            手机：<input type="text" name="mobile" placeholder="请输入手机号"/><br/>
+
+                <input type="submit"  width="100" value="注册" name="submit" >
+        </form>
 
         <!--<h3>取值:</h3>-->
         <!--姓名:<span th:text="${user.name}"></span><br/>-->

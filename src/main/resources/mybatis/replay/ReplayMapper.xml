@@ -13,13 +13,14 @@
   <select id="selectById" resultType="Reply" parameterType="java.lang.Integer">
     select <include refid="replayColumns" />
     from reply
-	where id = #{id};
+	where id = #{id}
   </select>
 
 	<select id="selectByCaseId" resultType="Reply" parameterType="java.lang.Integer">
 		select <include refid="replayColumns" />
 		from reply
-		where caseId = #{id};
+		where caseId = #{id}
+		order by replyTime desc
 	</select>
 
 	<insert id="insert" parameterType="Reply" useGeneratedKeys="true" keyProperty="id">
