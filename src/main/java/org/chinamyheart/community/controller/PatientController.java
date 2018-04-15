@@ -7,16 +7,20 @@ import org.chinamyheart.community.model.User;
 import org.chinamyheart.community.service.CaseService;
 import org.chinamyheart.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.*;
 
 @RestController
@@ -29,6 +33,16 @@ public class PatientController extends BaseController {
     public Object getCase(@RequestParam(required = true) Integer caseId) {
         Case c = caseService.getCaseById(caseId);
         return ReturnResult.SUCCESS("OK");
+    }
+
+    @RequestMapping(path = "/downloadCase")
+    public Object downloadCase(@RequestParam(required = true) String url) {
+
+        File file = new File(url);
+        if (!file.exists()) {
+            return ReturnResult.FAILUER("文件不存在，下载失败");
+        }
+        return caseService.downloadCase(file);
     }
 
     @RequestMapping(path = "/getCaseList")
@@ -58,12 +72,17 @@ public class PatientController extends BaseController {
         c.setCreateTime(date);
         c.setUpdateTime(date);
         c.setStatus(0);
-        caseService.addCase(c);
+        StringBuilder url = new StringBuilder("");
         try {
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
                 if (fileName.trim().length() == 0) continue;
-                FileOutputStream fos = new FileOutputStream(new File(fileName));
+                File f = new File(fileName);
+                if (url.length() > 0) {
+                    url.append(",");
+                }
+                url.append(f.getPath());
+                FileOutputStream fos = new FileOutputStream(f);
                 InputStream fis = file.getInputStream();
                 FileCopyUtils.copy(fis, fos);
             }
@@ -71,6 +90,8 @@ public class PatientController extends BaseController {
             e.printStackTrace();
             return ReturnResult.FAILUER("添加失败");
         }
+        c.setUrl(url.toString());
+        caseService.addCase(c);
         return ReturnResult.SUCCESS("添加成功");
     }
 
