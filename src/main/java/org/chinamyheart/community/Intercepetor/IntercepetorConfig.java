@@ -32,7 +32,6 @@ public class IntercepetorConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/public/**").addResourceLocations("classpath:/public/**");
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/**");
         registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/**");
-        registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates/**");
         super.addResourceHandlers(registry);
     }
 
