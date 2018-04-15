@@ -32,7 +32,7 @@ public class PatientController extends BaseController {
     @RequestMapping(path = "/viewCase")
     public Object getCase(@RequestParam(required = true) Integer caseId) {
         Case c = caseService.getCaseById(caseId);
-        return ReturnResult.SUCCESS("OK");
+        return ReturnResult.SUCCESS(c);
     }
 
     @RequestMapping(path = "/downloadCase")
@@ -48,7 +48,7 @@ public class PatientController extends BaseController {
     @RequestMapping(path = "/getCaseList")
     public Object getAllCases(@RequestParam(required = true) Integer userId) {
         List<Case> cases = caseService.getCasesByUserId(userId);
-        return ReturnResult.SUCCESS("OK");
+        return ReturnResult.SUCCESS(cases);
     }
 
     @RequestMapping(path = "/removeCase")
