@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>thymeleaf</title>
+    <script th:src="@{bootstrap/js/boostrap.min.js}"></script>
+</head>
+    <body>
+        <h1 style="color: red">注册</h1>
+        <form th:action="/user/register" action="/user/register"  method="post" >
+            用户名：<input type="text"  name="username" placeholder="请输入用户名"/><br/>
+            昵称：<input type="text" name="nickname" placeholder="请输入昵称"/><br/>
+            密码：<input type="password" name="password" placeholder="请输入密码"/><br/>
+            确认密码：<input type="password" name="password" placeholder="请输入密码"/><br/>
+            角色：<input id="patient" type="radio"  name="role" value="0"/>病人
+            <input id="doctor" type="radio"  name="role" value="1"/>医生<br/>
+            邮箱：<input type="text" name="email" placeholder="请输入邮箱"/><br/>
+            手机：<input type="text" name="mobile" placeholder="请输入手机号"/><br/>
+            <input type="submit"  width="100" value="注册" name="submit" >
+        </form>
+    </body>
+</html>
