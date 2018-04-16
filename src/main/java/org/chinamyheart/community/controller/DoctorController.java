@@ -1,13 +1,16 @@
 package org.chinamyheart.community.controller;
 
 import org.chinamyheart.community.common.utils.ReturnResult;
+import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.model.Doctor;
+import org.chinamyheart.community.service.CaseService;
 import org.chinamyheart.community.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -17,6 +20,9 @@ public class DoctorController extends BaseController{
 
 	@Autowired
 	private DoctorService doctorService;
+
+    @Autowired
+    private CaseService caseService;
 
 	/**
 	 * 所有医生
@@ -107,4 +113,20 @@ public class DoctorController extends BaseController{
 		}
 		return ReturnResult.FAILUER("审核失败");
 	}
+
+    @RequestMapping(path = "/getCaseList")
+    public Object getAllCases(@RequestParam(required = true) Integer userId) {
+        List<Case> cases = caseService.getCasesByUserId(userId);
+        return ReturnResult.SUCCESS(cases);
+    }
+
+    @RequestMapping(path = "/downloadCase")
+    public Object downloadCase(@RequestParam(required = true) String url) {
+
+        File file = new File(url);
+        if (!file.exists()) {
+            return ReturnResult.FAILUER("文件不存在，下载失败");
+        }
+        return caseService.downloadCase(file);
+    }
 }

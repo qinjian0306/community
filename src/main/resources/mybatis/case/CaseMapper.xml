@@ -42,8 +42,8 @@
         delete from c_case where userId = #{userId}
     </delete>
     <insert id="insert" useGeneratedKeys="true" parameterType="Case">
-		insert into c_case (userId,title,author,patient,gender,contact,status,description,createTime,updateTime)
-		values (#{userId},#{title},#{author},#{patient},#{gender},#{contact},#{status},#{description},#{createTime},#{updateTime})
+		insert into c_case (userId,title,author,patient,gender,contact,status,description,url,createTime,updateTime)
+		values (#{userId},#{title},#{author},#{patient},#{gender},#{contact},#{status},#{description},#{url},#{createTime},#{updateTime})
 	</insert>
 
     <update id="updateStatus" parameterType="Case">
