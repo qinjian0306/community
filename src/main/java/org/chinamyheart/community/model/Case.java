@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Data
 @ToString
-public class Case implements Serializable {
+public class Case extends Base implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,10 +32,6 @@ public class Case implements Serializable {
 	private String description;
 
 	private String url;
-
-	private Date createTime;
-
-	private Date updateTime;
 
 	private int status;
 

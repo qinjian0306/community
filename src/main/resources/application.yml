@@ -4,9 +4,9 @@ server:
 spring:
    datasource:
      name: user
-     url: jdbc:mysql://192.168.1.103:3306/community?useUnicode=true&characterEncoding=utf-8
+     url: jdbc:mysql://localhost/community?useUnicode=true&characterEncoding=utf-8
      username: root
-     password: root
+     password: guoguo311
      driver-class-name: com.mysql.jdbc.Driver
      type: com.alibaba.druid.pool.DruidDataSource
      initialSize: 1
