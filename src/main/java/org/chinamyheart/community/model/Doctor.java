@@ -1,6 +1,8 @@
 package org.chinamyheart.community.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
@@ -9,9 +11,7 @@ import java.util.Date;
 /**
  * 医生认证
  */
-@Data
-@ToString
-public class Doctor implements Serializable {
+public class Doctor extends Base implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,6 +28,51 @@ public class Doctor implements Serializable {
 	// 状态 0未审核 1批准 2拒绝
 	private int status;
 
-	private Date createTime;
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(String hospital) {
+		this.hospital = hospital;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public String getDetials() {
+		return detials;
+	}
+
+	public void setDetials(String detials) {
+		this.detials = detials;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

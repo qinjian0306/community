@@ -27,8 +27,7 @@ public class ReplayController extends BaseController {
      * @return
      */
     @RequestMapping("/list")
-    public ReturnResult replayList(
-            @RequestParam(required = true) Integer caseId) {
+    public ReturnResult replayList(@RequestParam(required = true) Integer caseId) {
         List<Reply> replyList = replayService.selectByCaseId(caseId);
         if (replyList.size() > 0) {
             return ReturnResult.SUCCESS(replyList);
@@ -44,11 +43,9 @@ public class ReplayController extends BaseController {
      * @return
      */
     @RequestMapping("/save")
-    public ReturnResult replaySave(
-            @RequestParam(required = true) Integer caseId,
-            @RequestParam Integer userId,
-            @RequestParam String content) {
-        HashMap<String, Object> map = new HashMap();
+    public ReturnResult replaySave(@RequestParam(required = true) Integer caseId,
+                                   @RequestParam Integer userId,
+                                   @RequestParam String content) {
         Reply reply = new Reply();
         reply.setCaseId(caseId);
         reply.setUserId(userId);

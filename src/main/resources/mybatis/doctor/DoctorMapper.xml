@@ -5,7 +5,7 @@
   <sql id="doctorColumns">
 	  id,
 	  userId,
-	  hospotal,
+	  hospital,
 	  realName,
 	  detials,
 	  status,
@@ -28,27 +28,25 @@
 		select <include refid="doctorColumns" />
 		from c_doctor
 		where 1=1
-		order by asc
 	</select>
 
 	<select id="selectAllPend" resultType="Doctor" parameterType="java.lang.Integer">
 		select <include refid="doctorColumns" />
 		from c_doctor
 		where status = #{status}
-		order by asc
 	</select>
 
 	<insert id="insert" parameterType="Doctor" useGeneratedKeys="true" keyProperty="id">
 		insert into c_doctor (
 		userId,
-		hospotal,
+		hospital,
 		realName,
 		detials,
 		status,
 		createTime
 		) values (
 		#{userId},
-		#{hospotal},
+		#{hospital},
 		#{realName},
 		#{detials},
 		#{status},
@@ -59,22 +57,22 @@
 	<update id="updateById" parameterType="Doctor">
 		update c_doctor set
 		<if test="userId != null">
-			and userId = #{userId}
+			userId = #{userId},
 		</if>
-		<if test="hospotal != null">
-			and hospotal = #{hospotal}
+		<if test="hospital != null">
+			hospital = #{hospital},
 		</if>
 		<if test="realName != null">
-			and realName = #{realName}
+			realName = #{realName},
 		</if>
 		<if test="detials != null">
-			and detials = #{detials}
+			detials = #{detials},
 		</if>
 		<if test="status != null">
-			and status = #{status}
+			status = #{status},
 		</if>
 		<if test="createTime != null">
-			and createTime = #{createTime}
+			createTime = #{createTime}
 		</if>
 		where id = #{id}
 	</update>
@@ -85,8 +83,8 @@
 		<if test="userId != null">
 			and userId = #{userId}
 		</if>
-		<if test="hospotal != null">
-			and hospotal = #{hospotal}
+		<if test="hospital != null">
+			and hospital = #{hospital}
 		</if>
 		<if test="realName != null">
 			and realName = #{realName}

@@ -14,7 +14,7 @@ public interface UserService {
 
 	User selectByUsername(String username);
 
-	String insertByUser(User User);
+	int insert(User User);
 
 	LoginResponse checkLogin(User user);
 

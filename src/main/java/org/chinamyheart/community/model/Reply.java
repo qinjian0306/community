@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Data
 @ToString
-public class Reply implements Serializable {
+public class Reply extends Base implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +22,5 @@ public class Reply implements Serializable {
 	private int caseId;
 	// 留言内容
 	private String content;
-
-	private Date replyTime;
 
 }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -71,8 +72,16 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String insertByUser(User user) {
-		userMapper.insertByUser(user);
-		return "success";
+	public int insert(User user) {
+		user.setCreateTime(new Date());
+		try {
+			int result = userMapper.insert(user);
+			if(result > 0){
+				return 1;
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

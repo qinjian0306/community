@@ -7,7 +7,7 @@
 	  userId,
 	  caseId,
 	  content,
-	  replyTime
+	  createTime
   </sql>
   
   <select id="selectById" resultType="Reply" parameterType="java.lang.Integer">
@@ -20,7 +20,7 @@
 		select <include refid="replayColumns" />
 		from c_reply
 		where caseId = #{id}
-		order by replyTime desc
+		order by createTime desc
 	</select>
 
 	<insert id="insert" parameterType="Reply" useGeneratedKeys="true" keyProperty="id">
@@ -28,13 +28,12 @@
 		userId,
 		caseId,
 		content,
-		replyTime
+		createTime
 		) values (
 		#{userId},
 		#{caseId},
 		#{content},
-		#{role},
-		#{replyTime}
+		#{createTime}
 		)
 	</insert>
 
@@ -52,8 +51,8 @@
 		<if test="role != null">
 			and role = #{role}
 		</if>
-		<if test="replyTime != null">
-			and replyTime = #{replyTime}
+		<if test="createTime != null">
+			and createTime = #{createTime}
 		</if>
 		where id = #{id}
 	</update>

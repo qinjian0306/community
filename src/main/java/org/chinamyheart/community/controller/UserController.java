@@ -23,13 +23,32 @@ public class UserController extends BaseController{
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/register")
-    public ReturnResult register(User user){
-        String password = user.getPassword();
+    /**
+     * 注册
+     * @param username
+     * @param password
+     * @param nickname
+     * @param role
+     * @param email
+     * @param mobile
+     * @return
+     */
+    @RequestMapping(value = "/register" , method = RequestMethod.POST)
+    public ReturnResult register(@RequestParam(required = true) String username,
+                                 @RequestParam(required = true) String password,
+                                 @RequestParam(required = true) String nickname,
+                                 @RequestParam(required = true) Integer role,
+                                 @RequestParam(required = true) String email,
+                                 @RequestParam(required = true) String mobile){
+        User user = new User();
+        user.setUsername(username);
+        user.setNickname(nickname);
+        user.setRole(role);
+        user.setEmail(email);
+        user.setMobile(mobile);
         try {
-            String newPassword = Utils.MD5(password);
-            user.setPassword(newPassword);
-            userService.insertByUser(user);
+            user.setPassword(Utils.MD5(password));
+            userService.insert(user);
             return ReturnResult.SUCCESS("注册成功");
         } catch (Exception e) {
             e.printStackTrace();

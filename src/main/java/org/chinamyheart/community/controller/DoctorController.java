@@ -23,10 +23,10 @@ public class DoctorController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/all")
-	public ReturnResult doctorAll(HttpServletRequest request) {
+	public ReturnResult doctorAll() {
 		List<Doctor> doctorList = doctorService.selectAll();
 		if(doctorList.size() > 0){
-			return ReturnResult.SUCCESS("获取所有医生列表成功");
+			return ReturnResult.SUCCESS("获取所有医生列表成功",doctorList);
 		}
 		return ReturnResult.FAILUER("获取所有医生列表失败");
 	}
@@ -40,7 +40,7 @@ public class DoctorController extends BaseController{
 	public ReturnResult doctorAllPend(@RequestParam(required = true,defaultValue = "0") Integer status) {
 		List<Doctor> doctorList = doctorService.selectAllPend(status);
 		if(doctorList.size() > 0){
-			return ReturnResult.SUCCESS("获取所有待审核医生列表成功");
+			return ReturnResult.SUCCESS("获取所有待审核医生列表成功",doctorList);
 		}
 		return ReturnResult.FAILUER("没有待审核医生");
 	}
@@ -54,7 +54,11 @@ public class DoctorController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/verify")
-	public ReturnResult doctorVerify(Integer userId,String hospital,String realName,String mobile,String detials) {
+	public ReturnResult doctorVerify(@RequestParam(required = true) Integer userId,
+									 @RequestParam(required = true) String hospital,
+									 @RequestParam(required = true) String realName,
+									 @RequestParam(required = true) String mobile,
+									 @RequestParam(required = false) String detials) {
 		Doctor doctor = new Doctor();
 		doctor.setUserId(userId);
 		doctor.setHospital(hospital);
@@ -64,7 +68,7 @@ public class DoctorController extends BaseController{
 		try {
 			int result = doctorService.insert(doctor);
 			if(result > 0){
-				return ReturnResult.SUCCESS("添加认证失败");
+				return ReturnResult.SUCCESS("添加认证成功");
 			}
 		}catch (Exception e){
 			e.printStackTrace();

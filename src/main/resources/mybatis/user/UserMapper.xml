@@ -9,7 +9,7 @@
 	  password,
 	  role,
 	  email,
-	  mobile
+	  createTime
   </sql>
   
   <select id="selectByUsername" resultType="User" parameterType="java.lang.String">
@@ -18,21 +18,23 @@
 	where username = #{username,jdbcType=VARCHAR};
   </select>
 
-	<insert id="insertByUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into c_user (
 		username,
 		nickname,
 		password,
 		role,
 		email,
-		mobile
+		mobile,
+		createTime
 		) values (
 		#{username},
 		#{nickname},
 		#{password},
 		#{role},
 		#{email},
-		#{mobile}
+		#{mobile},
+		#{createTime}
 		)
 	</insert>
 
@@ -43,7 +45,7 @@
 		password = #{password},
 		role = #{role},
 		email = #{email},
-		mobile = #{mobile}
+		mobile = #{mobile},
 		where id = #{id}
 	</update>
 	<select id="getUserList" resultType="User" parameterType="User">

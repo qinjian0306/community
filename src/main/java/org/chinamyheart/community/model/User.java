@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @ToString
-public class User implements Serializable {
+public class User extends Base implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

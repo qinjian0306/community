@@ -24,7 +24,7 @@ public class ReplayServiceImpl implements ReplayService{
 
 	@Override
 	public int insert(Reply reply) {
-		reply.setReplyTime(new Date());
+		reply.setCreateTime(new Date());
 		try {
 			int result = replyMapper.insert(reply);
 			if(result > 0){
@@ -38,7 +38,7 @@ public class ReplayServiceImpl implements ReplayService{
 
 	@Override
 	public void update(Reply reply) {
-		reply.setReplyTime(new Date());
+		reply.setCreateTime(new Date());
 		try {
 			replyMapper.update(reply);
 		}catch (Exception e){
