@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="../production/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../production/bootstrap-validator/css/bootstrapValidator.min.css">
+    <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
+</head>
+<body>
+<form class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
+    <fieldset>
+        <legend>用户注册</legend>
+    </fieldset>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">我是：</label>
+        <div class="col-sm-4">
+            <label class="radio-inline">
+                <input type="radio" name="role" id="doctorRadio" value="1"> 医生
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="role" id="patientRadio" value="2" checked> 病人
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="username" class="col-sm-2 control-label">用户名：</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="username" name="username" placeholder="必填">
+        </div>
+        <label class="help-block help-default" style="display:none">
+            <i class="fa fa-info-circle">&nbsp;&nbsp;</i>
+            <span class="help-content">用户名只能包括字母、数字、下划线</span>
+        </label>
+
+        <!--检查用户名是否存在，已存在则显示help-warning标签，不存在显示help-success标签-->
+        <div style="display:inline">
+            <label class="help-block help-warning">
+                <span class="help-username text-warning"><i class="fa fa-close">&nbsp;</i>用户名已存在</span>
+            </label>
+            <label class="help-block help-success" style="display:none">
+                <span class="help-username text-success"><i class="fa fa-check">&nbsp;</i>用户名可以使用</span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">密码：</label>
+        <div class="col-sm-4">
+            <input type="password" class="form-control" id="password" name="password" placeholder="必填">
+        </div>
+        <div style="display:inline">
+            <label class="help-block help-default">
+                <i class="fa fa-info-circle">&nbsp;&nbsp;</i>
+                <span class="help-content">6-16位字母、数字、符号，区分大小写</span>
+            </label>
+
+            <!--检查校验密码的合法性，密码不合法则显示help-warning标签，合法则显示help-success标签-->
+            <label class="help-block help-warning" style="display:none">
+                <span class="help-username text-warning">
+                    <i class="fa fa-close">&nbsp;</i>密码不合法，请重新输入
+                </span>
+            </label>
+            <label class="help-block help-success" style="display:none">
+                <span class="help-username text-success"><i class="fa fa-check">&nbsp;</i>用户名可以使用</span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="repassword" class="col-sm-2 control-label">确认密码：</label>
+        <div class="col-sm-4">
+            <input type="password" class="form-control" id="repassword" name="repassword" placeholder="必填">
+        </div>
+
+        <!--检查本次密码是否与上一次输入的密码一致，不一致则显示help-warning标签，一致显示help-success标签-->
+        <!--需要通过js校验密码的一致性-->
+        <div style="display:inline">
+            <label class="help-block help-warning" style="display:none">
+                <span class="help-username text-warning">
+                    <i class="fa fa-close">&nbsp;</i>两次输入的密码不一致
+                </span>
+            </label>
+            <label class="help-block help-success">
+                <span class="help-username text-success">
+                    <i class="fa fa-check">&nbsp;</i>密码正确
+                </span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nickname" class="col-sm-2 control-label">昵称：</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="必填">
+        </div>
+
+        <label class="help-block help-default">
+            <i class="fa fa-info-circle">&nbsp;&nbsp;</i>
+            <span class="help-content">昵称可以是中文、英文</span>
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">姓名：</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="name" name="name" placeholder="选填">
+        </div>
+
+        <label class="help-block help-default">
+            <i class="fa fa-info-circle">&nbsp;&nbsp;</i>
+            <span class="help-content">姓名可以是中文、英文</span>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">性别：</label>
+        <div class="col-sm-4">
+            <label class="radio-inline">
+                <input type="radio" name="sex" value="1" checked> 男
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="sex" value="2"> 女
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="phone" class="col-sm-2 control-label">手机号：</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="选填">
+        </div>
+
+        <div style="display:inline">
+            <label class="help-block help-default">
+                <i class="fa fa-info-circle">&nbsp;&nbsp;</i>
+                <span class="help-content">13位数字</span>
+            </label>
+
+            <!--检查校验密码的合法性，密码不合法则显示help-warning标签，合法则显示help-success标签-->
+            <label class="help-block help-warning" style="display:none">
+                <span class="help-username text-warning">
+                    <i class="fa fa-close">&nbsp;</i>手机号不合法，请重新输入
+                </span>
+            </label>
+            <label class="help-block help-success" style="display:none">
+                <span class="help-username text-success"><i class="fa fa-check">&nbsp;</i>手机号正确</span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">邮箱：</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="email" name="email" placeholder="选填">
+        </div>
+
+        <div style="display:inline">
+            <label class="help-block help-default" style="display:none">
+                <i class="fa fa-info-circle">&nbsp;&nbsp;</i>
+                <span class="help-content">邮箱以字母开头</span>
+            </label>
+
+            <!--检查校验密码的合法性，密码不合法则显示help-warning标签，合法则显示help-success标签-->
+            <label class="help-block help-warning" style="display:block">
+                <span class="help-username text-warning">
+                    <i class="fa fa-close">&nbsp;</i>邮箱格式不正确，请重新输入
+                </span>
+            </label>
+            <label class="help-block help-success" style="display:none">
+                <span class="help-username text-success"><i class="fa fa-check">&nbsp;</i>邮箱正确</span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <label class="checkbox-inline">
+                <input type="checkbox"> 我已阅读并接受 <a href="#">注册条款</a>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button type="submit" class="btn btn-warning" style="width: 278px;">立即注册</button>
+        </div>
+    </div>
+</form>
+
+
+</body>
+<script src="../jquery/jquery.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../bootstrap-validator/js/bootstrapValidator.min.js"></script>
+<script>
+
+    // TODO表单检验：用户名、密码、手机号、邮箱，判断确认密码是否与密码一致
+
+</script>
+</html>
