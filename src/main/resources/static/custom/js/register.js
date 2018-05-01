@@ -101,8 +101,6 @@ function checkSubmit() {
             submit = false;
         }
     });
-    var agree = $(this).attr("checked");
-    if (!agree) return false;
     return submit;
 }
 
