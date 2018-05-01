@@ -20,9 +20,9 @@ $('#username').blur(function () {
     }
 });
 
-var pass = null;
 
 //检查密码
+var pass = null;
 $('#password').blur(function () {
     $(".help-password .help-block").hide();
     var password = $('#password').val().trim();
@@ -32,6 +32,11 @@ $('#password').blur(function () {
     } else {
         $(".help-password .help-danger").show();
     }
+});
+$('#password').focus(function () {
+    $('#repassword').val('');
+    $('.help-repassword .help-block').hide();
+    $('.help-repassword .help-default').show();
 });
 
 //确认密码
@@ -54,18 +59,18 @@ $('#repassword').blur(function () {
 });
 
 //检查手机号
-$('#phone').blur(function () {
-    $(".help-phone .help-block").hide();
-    var phone = $('#phone').val();
+$('#mobile').blur(function () {
+    $(".help-mobile .help-block").hide();
+    var phone = $('#mobile').val();
     if (phone.length > 0) {
         var regex = /^[1][3,4,5,7,8][0-9]{9}$/;
         if (regex.test(phone)) {
-            $(".help-phone .help-success").show();
+            $(".help-mobile .help-success").show();
         } else {
-            $(".help-phone .help-warning").show();
+            $(".help-mobile .help-warning").show();
         }
     } else {
-        $(".help-phone .help-default").show();
+        $(".help-mobile .help-default").show();
     }
 });
 
@@ -84,4 +89,50 @@ $('#email').blur(function () {
     } else {
         $(".help-email .help-default").show();
     }
+});
+
+
+//检查表单是否可提交
+function checkSubmit() {
+    var submit = true;
+    $('.required').each(function () {
+        var value = $(this).val().trim();
+        if (value.length == 0) {
+            submit = false;
+        }
+    });
+    var agree = $(this).attr("checked");
+    if (!agree) return false;
+    return submit;
+}
+
+$('.form-control').blur(function () {
+    var warning = $('.help-warning[style=""]').length;
+    var danger = $('.help-danger[style=""]').length;
+    var error = warning + danger;
+    if (checkSubmit() && error == 0) {
+        $('#submit').removeAttr('disabled');
+    } else {
+        $('#submit').attr('disabled', true);
+    }
+});
+
+//表单提交事件绑定
+$('#register').on('submit', function () {
+    var options = {
+        type: 'POST',
+        url: '/user/register',
+        data: $(this).serialize(),
+        success: function (data) {
+            alert(data.msg);
+        },
+        error: function () {
+            alert(data.msg);
+        }
+    };
+    $.ajax(options);
+});
+
+$('#submit').click(function () {
+    $('#register').submit();
 });

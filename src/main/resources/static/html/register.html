@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
 </head>
 <body>
-<form class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
+<form id="register" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
     <fieldset>
         <legend>用户注册</legend>
     </fieldset>
@@ -26,11 +26,10 @@
     <div class="form-group">
         <label for="username" class="col-sm-2 control-label">用户名</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" id="username" name="username" placeholder="必填">
+            <input type="text" class="form-control required" id="username" name="username" placeholder="必填">
         </div>
 
-
-        <!--检查用户名是否存在，已存在则显示help-warning标签，不存在显示help-success标签-->
+        <!--用户名信息提示-->
         <div class="help-username" style="display:inline">
             <label class="help-block help-default">
                 <i class="fa fa-info-circle">&nbsp;&nbsp;</i>
@@ -50,7 +49,7 @@
     <div class="form-group">
         <label for="password" class="col-sm-2 control-label">密码</label>
         <div class="col-sm-4">
-            <input type="password" class="form-control" id="password" name="password" placeholder="必填">
+            <input type="password" class="form-control required" id="password" name="password" placeholder="必填">
         </div>
         <div class="help-password" style="display:inline">
             <label class="help-block help-default">
@@ -68,7 +67,7 @@
     <div class="form-group">
         <label for="repassword" class="col-sm-2 control-label">确认密码</label>
         <div class="col-sm-4">
-            <input type="password" class="form-control" id="repassword" name="repassword" placeholder="必填">
+            <input type="password" class="form-control required" id="repassword" name="repassword" placeholder="必填">
         </div>
 
         <div class="help-repassword" style="display:inline">
@@ -91,7 +90,7 @@
     <div class="form-group">
         <label for="nickname" class="col-sm-2 control-label">昵称</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="必填">
+            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="选填">
         </div>
         <label class="help-block help-default">
             <i class="fa fa-info-circle">&nbsp;&nbsp;</i>
@@ -120,12 +119,12 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="phone" class="col-sm-2 control-label">手机号</label>
+        <label for="mobile" class="col-sm-2 control-label">手机号</label>
         <div class="col-sm-4">
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="选填">
+            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="选填">
         </div>
 
-        <div class="help-phone" style="display:inline">
+        <div class="help-mobile" style="display:inline">
             <label class="help-block help-default">
                 <i class="fa fa-info-circle">&nbsp;&nbsp;</i>
                 <span class="help-content">手机号为11位数字</span>
@@ -158,20 +157,20 @@
             </label>
         </div>
     </div>
+    <!--<div class="form-group">-->
+    <!--<div class="col-sm-offset-2 col-sm-4">-->
+    <!--<label class="checkbox-inline">-->
+    <!--<input id="agree" type="checkbox"> 我已阅读并接受 <a href="#">注册条款</a>-->
+    <!--</label>-->
+    <!--</div>-->
+    <!--</div>-->
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-4">
-            <label class="checkbox-inline">
-                <input type="checkbox"> 我已阅读并接受 <a href="#">注册条款</a>
-            </label>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-4">
-            <button type="submit" class="btn btn-warning" style="width: 278px;">立即注册</button>
+            <button type="button" id="submit" disabled class="btn btn-warning" style="width: 278px;">立即注册
+            </button>
         </div>
     </div>
 </form>
-
 
 </body>
 <script src="../production/jquery/jquery.min.js"></script>
