@@ -65,7 +65,8 @@ public class UserController extends BaseController{
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public ReturnResult login(@RequestParam(required = true) String username,
-                              @RequestParam(required = true) String password) {
+                              @RequestParam(required = true) String password,
+                              @RequestParam(required = true) Integer role) {
         // 是否为空
         if(StringUtils.isBlank(username) || StringUtils.isBlank(password)){
             return ReturnResult.FAILUER("用户名或密码不能为空");
@@ -76,6 +77,7 @@ public class UserController extends BaseController{
         try {
             user.setUsername(username);
             user.setPassword(Utils.MD5(password));
+            user.setRole(role);
             login = userService.checkLogin(user);
         }catch (Exception e){
             e.printStackTrace();
