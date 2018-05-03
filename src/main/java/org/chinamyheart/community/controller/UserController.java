@@ -86,7 +86,7 @@ public class UserController extends BaseController{
         if(login == null){
             List<User> userList =  userService.getUserByUsername(user);
             if (userList == null || userList.size() == 0) {
-                return ReturnResult.FAILUER(" 帐号不存在，<a href\\=\"/static/register.html\">去注册>></a>！");
+                return ReturnResult.FAILUER("帐号不存在");
             } else {
                 return ReturnResult.FAILUER("用户名或密码错误");
             }
