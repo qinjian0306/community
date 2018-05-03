@@ -104,12 +104,12 @@
     text-transform: capitalize;
 }
 .form-horizontal .btn{
-    float: top;
+    float: right;
     font-size: 14px;
     color: #fff;
     background: #00b4ef;
-    border-radius: 5px;
-    padding: 6px 175px;
+    border-radius: 30px;
+    padding: 10px 75px;
     border: none;
     text-transform: capitalize;
     transition: all 0.5s ease 0s;
