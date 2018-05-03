@@ -58,6 +58,9 @@
 		<if test="password != null">
 			and password = #{password}
 		</if>
+		<if test="role != null">
+			and role = #{role}
+		</if>
 	</select>
 
 	<select id="getUserByUsername" resultType="User" parameterType="User">
