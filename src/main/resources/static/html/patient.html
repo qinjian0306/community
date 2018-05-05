@@ -6,6 +6,7 @@
     <link rel='stylesheet' href='../production/bootstrap/css/bootstrap.min.css'>
     <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
     <link rel='stylesheet' href='../production/bootstrap-table/css/bootstrap-table.min.css'>
+    <link rel="stylesheet" href="../production/fileinput/css/fileinput.min.css">
     <link rel="stylesheet" href="../custom/css/main.css">
 </head>
 <body>
@@ -16,11 +17,11 @@
             <a class="navbar-brand" href="#">医患交流平台</a>
         </div>
         <!--<div>-->
-            <!--<ul class="nav navbar-nav">-->
-                <!--<li class="active">-->
-                    <!--<a href="#">主页</a>-->
-                <!--</li>-->
-            <!--</ul>-->
+        <!--<ul class="nav navbar-nav">-->
+        <!--<li class="active">-->
+        <!--<a href="#">主页</a>-->
+        <!--</li>-->
+        <!--</ul>-->
         <!--</div>-->
         <div class="navbar-right">
             <ul class="nav navbar-nav">
@@ -143,85 +144,101 @@
             </nav>
         </div>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">添加病例</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="add" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
-                        <div class="form-group">
-                            <label for="title" class="col-md-3 col-lg-3 control-label">标题</label>
-                            <div class="col-md-9 col-lg-9">
-                                <input type="text" class="form-control" id="title" name="title">
-                            </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加病例</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" class="form-horizontal" role="form" style="padding: 30px 100px 10px;"
+                      enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="col-md-9 col-lg-9">
+                            <input type="hidden" class="form-control" id="userId" name="userId" value="0">
                         </div>
-                        <div class="form-group">
-                            <label for="nickname" class="col-md-3 col-lg-3 control-label">昵称</label>
-                            <div class="col-md-9 col-lg-9">
-                                <input type="text" class="form-control" id="nickname" name="nickname">
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-md-3 col-lg-3 control-label">标题</label>
+                        <div class="col-md-9 col-lg-9">
+                            <input type="text" class="form-control" id="title" name="title">
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-3 col-lg-3 control-label">性別</label>
-                            <div class="col-md-9 col-lg-9">
-                                <label class="radio-inline">
-                                    <input type="radio" name="sex" id="male" value="1" checked> 男
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="sex" id="female" value="2"> 女
-                                </label>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="author" class="col-md-3 col-lg-3 control-label">昵称</label>
+                        <div class="col-md-9 col-lg-9">
+                            <input type="text" class="form-control" id="author" name="author">
                         </div>
-                        <div class="form-group">
-                            <label for="mobile" class="col-md-3 col-lg-3 control-label">电话</label>
-                            <div class="col-md-9 col-lg-9">
-                                <input type="text" class="form-control" id="mobile" name="mobile">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="detail" class="col-md-3 col-lg-3 control-label">详情</label>
-                            <div class="col-md-9 col-lg-9">
-                                <textarea id="detail" name="detail" class="form-control"></textarea>
-                                <!--<input type="text" class="form-control" id="detail" name="detail">-->
-                            </div>
-                        </div>
-                        <!--<div class="form-group">-->
-                        <!--<label for="photo" class="col-md-3 col-lg-3 control-label">图片</label>-->
-                        <!--<div class="col-md-9 col-lg-9">-->
-                        <!--<input type="file" class="form-control" id="photo" name="photo">-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <div class="form-group">
-                            <label class="btn-sm col-md-3 col-lg-3 control-label">
-                                <a class="btn btn-xs btn-primary">上传图片</a><input id="filename-hide" class="form-control"
-                                                                                 type="file" style="display: none">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-lg-3 control-label">性別</label>
+                        <div class="col-md-9 col-lg-9">
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="male" value="1" checked> 男
                             </label>
-                            <div class="col-md-9 col-lg-9">
-                                <input id="filename" type="text" class="form-control" id="photo" name="photo">
-                            </div>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="female" value="2"> 女
+                            </label>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary">提交</button>
-                </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact" class="col-md-3 col-lg-3 control-label">电话</label>
+                        <div class="col-md-9 col-lg-9">
+                            <input type="text" class="form-control" id="contact" name="contact">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-md-3 col-lg-3 control-label">详情</label>
+                        <div class="col-md-9 col-lg-9">
+                            <textarea id="description" name="description" class="form-control"></textarea>
+                            <!--<input type="text" class="form-control" id="detail" name="detail">-->
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                    <!--<label for="photo" class="col-md-3 col-lg-3 control-label">图片</label>-->
+                    <!--<div class="col-md-9 col-lg-9">-->
+                    <!--<input type="file" class="form-control" id="photo" name="photo">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<label class="btn-sm col-md-3 col-lg-3 control-label">-->
+                    <!--<a class="btn btn-xs btn-primary">上传图片</a><input id="filename-hide" class="form-control"-->
+                    <!--type="file" style="display: none" multiple>-->
+                    <!--</label>-->
+                    <!--<div class="col-md-9 col-lg-9">-->
+                    <!--<input id="filename" type="text" class="form-control" id="photo" name="photo">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <label class="btn-sm col-md-3 col-lg-3 control-label">上传文件
+                            <!--<a class="btn btn-xs btn-primary">上传图片</a><input id="filename-hide2" class="form-control"-->
+                            <!--type="file" style="display: none">-->
+                        </label>
+                        <div class="col-md-9 col-lg-9">
+                            <input type="file" class="form-control" id="files" name="files" multiple>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button id="addCaseBtn" type="button" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 </body>
 <script src="../production/jquery/jquery.min.js"></script>
 <script src="../production/bootstrap/js/bootstrap.min.js"></script>
+<script src="../production/fileinput/js/fileinput.min.js"></script>
 <script>
     $('#filename-hide').change(function () {
         var filename = $('#filename-hide').val();
+        alert(filename);
         var separator = 0;
         if (filename.lastIndexOf('/') > 0) {
             separator = filename.lastIndexOf('/');
@@ -231,5 +248,61 @@
         filename = filename.substring(separator + 1);
         $('#filename').val(filename);
     })
+</script>
+<script>
+    $("#files").fileinput({
+        showCaption: false,
+        dropZoneEnabled: false,
+        showUpload: false,
+        showRemove: false,
+        showUploadThumbs: false,
+        resizeImage: false,
+        showZoom: false
+    });
+
+    $('#addCaseBtn').click(function () {
+        $('#addForm').submit();
+    });
+    $('#addForm').on('submit', function () {
+        var formData = new FormData();
+        var files = document.getElementById("files").files;
+        var userId = $('#userId').val();
+        var title = $('#title').val();
+        var author = $('#author').val();
+        var gender = $('input[name="gender"]:checked').val();
+        var contact = $('#contact').val();
+        var description = $('#description').val();
+        formData.append("userId", userId);
+        formData.append("title", title);
+        formData.append("author", author);
+        formData.append("gender", gender);
+        formData.append("contact", contact);
+        formData.append("description", description);
+        for (var i = 0; i < files.length; i++) {
+            formData.append("files", files[i]); //++++++++++
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/patient/addCase');
+        xhr.send(formData);
+        xhr.onreadystatechange = function (response) { //第四步
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+                alert(data.msg);
+            }
+        };
+        // $.ajax({
+        //     url: "/patient/addCase/upload/files",
+        //     method: "post",
+        //     contentType: "multipart/form-data",
+        //     data: formData,
+        //     success: function () {
+        //         alert("success");
+        //     },
+        //     error: function () {
+        //         alert("error");
+        //     }
+        // });
+
+    });
 </script>
 </html>
