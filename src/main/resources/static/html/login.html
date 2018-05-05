@@ -9,13 +9,13 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+    <div class="row" style="margin-top: 100px">
+        <div id="loginDiv" class="col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
             <form id="login" class="form-horizontal">
                 <span class="heading">用户登录</span>
                 <div>
-                    <label class="help-block" style="display: none">
-                        <span class="text-danger help-tip"></span>
+                    <label class="help-block">
+                        <span class="text-danger help-tip">&nbsp;</span>
                     </label>
                 </div>
                 <div class="form-group">
@@ -25,12 +25,14 @@
                 <div class="form-group help">
                     <input type="password" class="form-control" name="password" id="password" placeholder="密　码">
                     <i class="fa fa-lock"></i>
-                    <label class="pull-left">
-                        &nbsp;&nbsp;<a href="#">忘记密码</a>
-                    </label>
-                    <label class="pull-right">
-                        还没有账号？<a href="./register.html">去注册</a>&nbsp;&nbsp;
-                    </label>
+                    <div style="margin-top: 5px">
+                        <span class="pull-left small">
+                            &nbsp;&nbsp;<a href="#">忘记密码</a>
+                        </span>
+                        <span class="pull-right small">
+                            还没有账号？<a href="./register.html">去注册</a>&nbsp;&nbsp;
+                        </span>
+                    </div>
                     <!--<a href="#" class="fa fa-question-circle"></a>-->
                 </div>
 
@@ -69,13 +71,13 @@
             success: function (data) {
                 // alert(data.msg);
                 $('.help-tip').html(data.msg);
-                $('.help-block').show();
+                // $('.help-block').show();
                 // alert(data.msg);
             },
             error: function () {
                 alert(data.msg);
                 $('.help-tip').html(data.msg);
-                $('.help-block').show();
+                // $('.help-block').show();
             }
         };
         $.ajax(options);

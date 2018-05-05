@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>doctor</title>
+    <title>patient</title>
     <link rel='stylesheet' href='../production/bootstrap/css/bootstrap.min.css'>
     <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
     <link rel='stylesheet' href='../production/bootstrap-table/css/bootstrap-table.min.css'>
@@ -41,10 +41,10 @@
         </div>
     </div>
 </nav>
-<div class="container">
+<div class="container-fluid" style="margin: 10px;margin-top: -10px">
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading">
+            <div class="panel-body">
                 <div style="vertical-align: center">
                     <label class="nickname">昵称：<span>李先生</span></label>
                     <div id="validate" class="text-info text-center small" style="display: inline;">
@@ -55,7 +55,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="#">医生我觉得脑子好像不太好使？</a>
+                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
                         <span class="pull-right"><span>已关闭</span></span>
                         <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
                     </div>
@@ -69,7 +69,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="#">医生我觉得脑子好像不太好使？</a>
+                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
                         <span class="pull-right"><span>已关闭</span></span>
                         <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
                     </div>
@@ -83,7 +83,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="#">医生我觉得脑子好像不太好使？</a>
+                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
                         <span class="pull-right"><span>已关闭</span></span>
                         <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
                     </div>
@@ -97,7 +97,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="#">医生我觉得脑子好像不太好使？</a>
+                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
                         <span class="pull-right"><span>已关闭</span></span>
                         <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
                     </div>
@@ -111,7 +111,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="#">医生我觉得脑子好像不太好使？</a>
+                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
                         <span class="pull-right"><span>已关闭</span></span>
                         <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
                     </div>
@@ -154,7 +154,7 @@
                 <h4 class="modal-title" id="myModalLabel">添加病例</h4>
             </div>
             <div class="modal-body">
-                <form id="addForm" class="form-horizontal" role="form" style="padding: 30px 100px 10px;"
+                <form id="addForm" method="post" class="form-horizontal" role="form" style="padding: 30px 100px 10px;"
                       enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-md-9 col-lg-9">
