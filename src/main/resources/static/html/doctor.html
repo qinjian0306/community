@@ -16,11 +16,11 @@
             <a class="navbar-brand" href="#">医患交流平台</a>
         </div>
         <!--<div>-->
-            <!--<ul class="nav navbar-nav">-->
-                <!--<li class="active">-->
-                    <!--<a href="#">主页</a>-->
-                <!--</li>-->
-            <!--</ul>-->
+        <!--<ul class="nav navbar-nav">-->
+        <!--<li class="active">-->
+        <!--<a href="#">主页</a>-->
+        <!--</li>-->
+        <!--</ul>-->
         <!--</div>-->
         <div class="navbar-right">
             <ul class="nav navbar-nav">
@@ -47,10 +47,10 @@
                 <div style="vertical-align: center">
                     <label class="nickname">昵称：<span>波医生</span></label>
                     <div id="verified" class="text-success small verified">
-                        已验证
+                        已认证
                     </div>
                     <div id="validate" class="text-info text-center small" style="display: inline;">
-                        <a class="btn btn-xs btn-primary">验证</a>
+                        <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">认证</a>
                     </div>
                 </div>
             </div>
@@ -147,6 +147,53 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加认证信息</h4>
+            </div>
+            <div class="modal-body">
+                <form id="add" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
+                    <div class="form-group">
+                        <div class="col-md-9 col-lg-9">
+                            <input type="hidden" class="form-control" id="userId" name="userId">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hospital" class="col-md-3 col-lg-3 control-label">医院</label>
+                        <div class="col-md-9 col-lg-9">
+                            <input type="text" class="form-control" id="hospital" name="hospital">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="realName" class="col-md-3 col-lg-3 control-label">真实姓名</label>
+                        <div class="col-md-9 col-lg-9">
+                            <input type="text" class="form-control" id="realName" name="realName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile" class="col-md-3 col-lg-3 control-label">电话</label>
+                        <div class="col-md-9 col-lg-9">
+                            <input type="text" class="form-control" id="mobile" name="mobile">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="detail" class="col-md-3 col-lg-3 control-label">介绍</label>
+                        <div class="col-md-9 col-lg-9">
+                            <textarea id="detail" name="detail" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
