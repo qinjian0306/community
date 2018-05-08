@@ -67,3 +67,15 @@
     resize: none;
     height: 50px;
 }
+
+@media screen and (min-width: 1201px) {
+    .abc {width: 1200px}
+}
+@media screen and (max-height: 704px){
+    .conversation{
+        /*style="min-height: 100px;max-height: 320px;overflow-y: scroll;"*/
+        min-height: 240px;
+        max-height: 330px;
+        overflow-y: scroll;
+    }
+}
