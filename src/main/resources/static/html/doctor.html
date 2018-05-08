@@ -156,10 +156,10 @@
                 <h4 class="modal-title" id="myModalLabel">添加认证信息</h4>
             </div>
             <div class="modal-body">
-                <form id="addForm" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
+                <form id="addForm" method="post" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
                     <div class="form-group">
                         <div class="col-md-9 col-lg-9">
-                            <input type="hidden" class="form-control" id="userId" name="userId">
+                            <input type="hidden" class="form-control" id="userId" value="0" name="userId">
                         </div>
                     </div>
                     <div class="form-group">
@@ -208,11 +208,11 @@
             url: "/doctor/verify",
             method: "post",
             data: $("#addForm").serialize(),
-            success: function () {
-                alert("success");
+            success: function (data) {
+                location.href = "../html/doctor.html";
             },
-            error: function () {
-                alert("error");
+            error: function (data) {
+                location.href = "../html/doctor.html";
             }
         });
     });

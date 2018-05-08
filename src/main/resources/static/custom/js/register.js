@@ -124,7 +124,7 @@ $('#register').on('submit', function () {
         success: function (data) {
             alert(data.msg);
         },
-        error: function () {
+        error: function (data) {
             alert(data.msg);
         }
     };
