@@ -70,7 +70,13 @@
             data: $(this).serialize(),
             success: function (data) {
                 // alert(data.msg);
+                if(data.data==1){
+                    location.href="../html/doctor.html";
+                }else if(data.data==2){
+                    location.href="../html/patient.html";
+                }
                 $('.help-tip').html(data.msg);
+
                 // $('.help-block').show();
                 // alert(data.msg);
             },
