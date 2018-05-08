@@ -75,7 +75,7 @@
     .conversation{
         /*style="min-height: 100px;max-height: 320px;overflow-y: scroll;"*/
         min-height: 240px;
-        max-height: 330px;
+        max-height: 265px;
         overflow-y: scroll;
     }
 }
