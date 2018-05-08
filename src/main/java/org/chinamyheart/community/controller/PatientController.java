@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,8 +67,8 @@ public class PatientController extends BaseController {
         return ReturnResult.SUCCESS("锁定成功");
     }
 
-    @RequestMapping(path = "/addCase")
-    public Object addCase(Case c, @RequestParam("files") MultipartFile[] files) {
+    @PostMapping(path = "/addCase")
+    public ReturnResult addCase(Case c, @RequestParam("files") MultipartFile[] files) {
         Date date = Calendar.getInstance().getTime();
         c.setCreateTime(date);
         c.setUpdateTime(date);
@@ -95,7 +96,7 @@ public class PatientController extends BaseController {
         return ReturnResult.SUCCESS("添加成功");
     }
 
-    @RequestMapping(path = "/addCase/upload/files")
+    @PostMapping(path = "/addCase/upload/files")
     public Object uploadFiles(@RequestParam("files") MultipartFile[] files) {
         try {
             for (MultipartFile file : files) {

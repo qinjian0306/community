@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>verity</title>
+    <link rel='stylesheet' href='../production/bootstrap/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='../production/bootstrap-table/css/bootstrap-table.min.css'>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">医患交流平台</a>
+        </div>
+        <!--<div>-->
+        <!--<ul class="nav navbar-nav">-->
+        <!--<li class="active">-->
+        <!--<a href="#">主页</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+                <li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        管理员
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#">用户信息</a></li>
+                        <li><a href="#">密码修改</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">登出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid" style="margin: 10px;margin-top: -10px">
+    <div class="row">
+        <div class="span12">
+            <ul id="doctor-tab" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#case">待审核</a>
+                </li>
+                <li>
+                    <a href="#status">已审核</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="case" class="panel panel-default tab-pane active">
+                    <div class="panel-body">
+                        待审核<br>
+                        待审核<br>
+                        待审核
+                    </div>
+                </div>
+                <div id="status" class="panel panel-default tab-pane">
+                    <div class="panel-body">
+                        已审核<br>
+                        已审核<br>
+                        已审核
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../production/jquery/jquery.min.js"></script>
+<script src="../production/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('#doctor-tab a:first').tab('show');
+    })
+    $('#doctor-tab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    })
+</script>
+</html>
