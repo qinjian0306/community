@@ -38,8 +38,8 @@ public class UserController extends BaseController{
                                  @RequestParam(required = true) String password,
                                  @RequestParam(required = true) String nickname,
                                  @RequestParam(required = true) Integer role,
-                                 @RequestParam(required = true) String email,
-                                 @RequestParam(required = true) String mobile){
+                                 @RequestParam(required = false) String email,
+                                 @RequestParam(required = false) String mobile){
         User user = new User();
         user.setUsername(username);
         user.setNickname(nickname);
