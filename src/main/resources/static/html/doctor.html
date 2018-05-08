@@ -156,7 +156,7 @@
                 <h4 class="modal-title" id="myModalLabel">添加认证信息</h4>
             </div>
             <div class="modal-body">
-                <form id="add" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
+                <form id="addForm" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
                     <div class="form-group">
                         <div class="col-md-9 col-lg-9">
                             <input type="hidden" class="form-control" id="userId" name="userId">
@@ -190,7 +190,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">提交</button>
+                <button id="addBtn" type="button" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
@@ -199,4 +199,23 @@
 </body>
 <script src="../production/jquery/jquery.min.js"></script>
 <script src="../production/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $("#addBtn").click(function () {
+        $("#addForm").submit();
+    });
+    $("#addForm").on("submit", function () {
+        $.ajax({
+            url: "/doctor/verify",
+            method: "post",
+            data: $("#addForm").serialize(),
+            success: function () {
+                alert("success");
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    });
+
+</script>
 </html>
