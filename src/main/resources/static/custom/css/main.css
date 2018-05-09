@@ -20,6 +20,44 @@
     vertical-align: middle;
 }
 
+.pass{
+    display: inline;
+    border: 1px solid #3c763d;
+    padding: 1px 2px;
+    font-size: 8px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.refuse{
+    display: inline;
+    border: 1px solid #a94442;
+    color: #a94442;
+    padding: 1px 2px;
+    font-size: 8px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.reviewing{
+    display: inline;
+    border: 1px solid #245269;
+    color: #245269;
+    padding: 1px 2px;
+    font-size: 8px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
 
 .radius{
     -webkit-border-radius:10px;
