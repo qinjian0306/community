@@ -128,9 +128,9 @@
             <nav aria-label="Page navigation" class="pull-right">
                 <ul id="pagination" class="pagination">
                     <!--<li>-->
-                        <!--<a class="leftPage" href="#" aria-label="Previous">-->
-                            <!--<span aria-hidden="true">&laquo;</span>-->
-                        <!--</a>-->
+                    <!--<a class="leftPage" href="#" aria-label="Previous">-->
+                    <!--<span aria-hidden="true">&laquo;</span>-->
+                    <!--</a>-->
                     <!--</li>-->
                     <!--<li><a class="pageNo" href="#">1</a></li>-->
                     <!--<li><a class="pageNo" href="#">2</a></li>-->
@@ -138,9 +138,9 @@
                     <!--<li><a class="pageNo" href="#">4</a></li>-->
                     <!--<li><a class="pageNo" href="#">5</a></li>-->
                     <!--<li>-->
-                        <!--<a class="rightPage" href="#" aria-label="Next">-->
-                            <!--<span aria-hidden="true">&raquo;</span>-->
-                        <!--</a>-->
+                    <!--<a class="rightPage" href="#" aria-label="Next">-->
+                    <!--<span aria-hidden="true">&raquo;</span>-->
+                    <!--</a>-->
                     <!--</li>-->
                 </ul>
             </nav>
@@ -221,21 +221,21 @@
 </script>
 <script>
     var options = {
-        bootstrapMajorVersion:3, //对应的bootstrap版本
+        bootstrapMajorVersion: 3, //对应的bootstrap版本
         currentPage: 2,//${currentPage }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
         numberOfPages: 5, //每页页数
-        totalPages:100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
-        shouldShowPage:true,//是否显示该按钮
+        totalPages: 100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
+        shouldShowPage: true,//是否显示该按钮
         itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
             switch (type) {
                 case "first":
-                    return "<<";
+                    return "<span class='fa fa-angle-double-left'></span>";
                 case "prev":
-                    return "<";
+                    return "<span class='fa fa-angle-left'></span>";
                 case "next":
-                    return ">";
+                    return "<span class='fa fa-angle-right'></span>";
                 case "last":
-                    return ">>";
+                    return "<span class='fa fa-angle-double-right'></span>";
                 case "page":
                     return page;
             }
@@ -249,59 +249,59 @@
 
 </script>
 <!--<script>-->
-    <!--var curpage = 1;-->
-    <!--var min = 1;-->
-    <!--var max = 5;-->
-    <!--$(".pageNo").click(function () {-->
-        <!--var pageNo = ($(this).html());-->
-        <!--$(".currentPage").css("background-color", "");-->
-        <!--$(".pageNo").removeClass("currentPage");-->
-        <!--$(this).addClass("currentPage");-->
-        <!--curpage = pageNo;-->
-        <!--// location.href="";-->
-    <!--});-->
-    <!--$(".leftPage").click(function () {-->
-        <!--var currentPageNo = $(".currentPage").html();-->
-        <!--$(".currentPage").css("background-color", "");-->
-        <!--$(".pageNo").removeClass("currentPage");-->
-        <!--currentPageNo = currentPageNo - 1 >= min ? currentPageNo - 1 : min;-->
-        <!--$(".pageNo").each(function () {-->
-            <!--var value = $(this).html();-->
-            <!--if (value == currentPageNo) {-->
-                <!--$(this).addClass("currentPage");-->
-            <!--}-->
-        <!--});-->
-        <!--$(".currentPage").css("background-color", "#eee");-->
-        <!--curpage = currentPageNo;-->
-        <!--// location.href="";-->
-    <!--});-->
-    <!--$(".rightPage").click(function () {-->
-        <!--var currentPageNo = $(".currentPage").html();-->
-        <!--$(".currentPage").css("background-color", "");-->
-        <!--$(".pageNo").removeClass("currentPage");-->
-        <!--currentPageNo = Number(currentPageNo) + Number(1) <= max ? Number(currentPageNo) + Number(1) : max;-->
-        <!--$(".pageNo").each(function () {-->
-            <!--var value = $(this).html();-->
-            <!--if (value == currentPageNo) {-->
-                <!--$(this).addClass("currentPage");-->
-            <!--}-->
-        <!--});-->
-        <!--$(".currentPage").css("background-color", "#eee");-->
-        <!--curpage = currentPageNo;-->
-        <!--// location.href="";-->
-    <!--});-->
+<!--var curpage = 1;-->
+<!--var min = 1;-->
+<!--var max = 5;-->
+<!--$(".pageNo").click(function () {-->
+<!--var pageNo = ($(this).html());-->
+<!--$(".currentPage").css("background-color", "");-->
+<!--$(".pageNo").removeClass("currentPage");-->
+<!--$(this).addClass("currentPage");-->
+<!--curpage = pageNo;-->
+<!--// location.href="";-->
+<!--});-->
+<!--$(".leftPage").click(function () {-->
+<!--var currentPageNo = $(".currentPage").html();-->
+<!--$(".currentPage").css("background-color", "");-->
+<!--$(".pageNo").removeClass("currentPage");-->
+<!--currentPageNo = currentPageNo - 1 >= min ? currentPageNo - 1 : min;-->
+<!--$(".pageNo").each(function () {-->
+<!--var value = $(this).html();-->
+<!--if (value == currentPageNo) {-->
+<!--$(this).addClass("currentPage");-->
+<!--}-->
+<!--});-->
+<!--$(".currentPage").css("background-color", "#eee");-->
+<!--curpage = currentPageNo;-->
+<!--// location.href="";-->
+<!--});-->
+<!--$(".rightPage").click(function () {-->
+<!--var currentPageNo = $(".currentPage").html();-->
+<!--$(".currentPage").css("background-color", "");-->
+<!--$(".pageNo").removeClass("currentPage");-->
+<!--currentPageNo = Number(currentPageNo) + Number(1) <= max ? Number(currentPageNo) + Number(1) : max;-->
+<!--$(".pageNo").each(function () {-->
+<!--var value = $(this).html();-->
+<!--if (value == currentPageNo) {-->
+<!--$(this).addClass("currentPage");-->
+<!--}-->
+<!--});-->
+<!--$(".currentPage").css("background-color", "#eee");-->
+<!--curpage = currentPageNo;-->
+<!--// location.href="";-->
+<!--});-->
 
 
-    <!--function initPage(pageNo) {-->
-        <!--$(".pageNo").each(function () {-->
-            <!--var value = $(this).html();-->
-            <!--if (value == pageNo) {-->
-                <!--$(this).addClass("currentPage");-->
-            <!--}-->
-        <!--});-->
-        <!--$(".currentPage").css("background-color", "#eee");-->
-    <!--}-->
+<!--function initPage(pageNo) {-->
+<!--$(".pageNo").each(function () {-->
+<!--var value = $(this).html();-->
+<!--if (value == pageNo) {-->
+<!--$(this).addClass("currentPage");-->
+<!--}-->
+<!--});-->
+<!--$(".currentPage").css("background-color", "#eee");-->
+<!--}-->
 
-    <!--initPage(4);-->
+<!--initPage(4);-->
 <!--</script>-->
 </html>
