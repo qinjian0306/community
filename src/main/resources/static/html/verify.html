@@ -58,7 +58,7 @@
                         待审核
                     </div>
                     <nav aria-label="Page navigation" class="pull-right">
-                        <ul id="pagination" class="pagination">
+                        <ul id="paginationFirst" class="pagination">
 
                         </ul>
                     </nav>
@@ -69,6 +69,11 @@
                         已审核<br>
                         已审核
                     </div>
+                    <nav aria-label="Page navigation" class="pull-right">
+                        <ul id="paginationSecond" class="pagination">
+
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -114,7 +119,36 @@
             // location.href = "/self?event=toUserOperaLog&page=" + page;
         }
     };
-    $("#pagination").bootstrapPaginator(options);
+    $("#paginationFirst").bootstrapPaginator(options);
+
+</script>
+<script>
+    var options = {
+        bootstrapMajorVersion: 3, //对应的bootstrap版本
+        currentPage: 2,//${currentPage }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
+        numberOfPages: 5, //每页页数
+        totalPages: 100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
+        shouldShowPage: true,//是否显示该按钮
+        itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
+            switch (type) {
+                case "first":
+                    return "<span class='fa fa-angle-double-left'></span>";
+                case "prev":
+                    return "<span class='fa fa-angle-left'></span>";
+                case "next":
+                    return "<span class='fa fa-angle-right'></span>";
+                case "last":
+                    return "<span class='fa fa-angle-double-right'></span>";
+                case "page":
+                    return page;
+            }
+        },
+        //点击事件
+        onPageClicked: function (event, originalEvent, type, page) {
+            // location.href = "/self?event=toUserOperaLog&page=" + page;
+        }
+    };
+    $("#paginationSecond").bootstrapPaginator(options);
 
 </script>
 </html>
