@@ -45,72 +45,46 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div style="vertical-align: center">
-                    <label class="nickname">昵称：<span>波医生</span></label>
-                    <div id="verified" class="text-success small verified">
-                        已认证
-                    </div>
-                    <div id="validate" class="text-info text-center small" style="display: inline;">
-                        <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">认证</a>
-                    </div>
+                    <label class="nickname">昵称：<span>${user.nickname}</span></label>
+                    <#if (user.dstatus==1)>
+                      <div id="verified" class="text-success small verified">
+                          已认证
+                      </div>
+                    </#if>
+                     <#if (user.dstatus==0)>
+                      <div id="validate" class="text-info text-center small" style="display: inline;">
+                          <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">认证</a>
+                      </div>
+                     </#if>
                 </div>
             </div>
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
-                        <span class="pull-right"><span>已关闭</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                    </div>
-                    <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                        昵称：<span>王行健</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        创建时间：<span>2018-05-01 22:23:24</span>
-                        <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
-                        <span class="pull-right"><span>已关闭</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                    </div>
-                    <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                        昵称：<span>王行健</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        创建时间：<span>2018-05-01 22:23:24</span>
-                        <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
-                        <span class="pull-right"><span>已关闭</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                    </div>
-                    <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                        昵称：<span>王行健</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        创建时间：<span>2018-05-01 22:23:24</span>
-                        <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
-                        <span class="pull-right"><span>已关闭</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                    </div>
-                    <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                        昵称：<span>王行健</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        创建时间：<span>2018-05-01 22:23:24</span>
-                        <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
-                    </div>
-                </div>
-                <hr>
+                <#list list.data as case>
+                  <div class="row">
+                      <div class="col-md-12 col-lg-12">
+                          <#if (user.dstatus==0)>
+                                 <a class="pull-left" href="#" disabled="disabled">${case.title}</a>
+                          </#if>
+                           <#if (user.dstatus==1)>
+                                 <a class="pull-left" href="/patient/viewCase?caseId=${case.id}">${case.title}</a>
+                           </#if>
+                          <span class="pull-right">
+                              <span>
+                                  <#if (case.status==1)>已关闭</#if>
+                                  <#if (case.status==0)>已打开</#if>
+                              </span>
+                          </span>
+                          <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
+                      </div>
+                      <div class="col-md-12 col-lg-12" style="font-size: 10px">
+                          患者：<span>${case.patient}</span>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          创建时间：<span>${case.createTimeStr?string("yyyy-MM-dd HH:mm")}</span>
+                          <span class="pull-right">最后回复时间：<span>${case.updateTimeStr?string("yyyy-MM-dd HH:mm")}</span></span>
+                      </div>
+                  </div>
+                  <hr>
+                </#list>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
@@ -222,9 +196,9 @@
 <script>
     var options = {
         bootstrapMajorVersion: 3, //对应的bootstrap版本
-        currentPage: 2,//${currentPage }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
-        numberOfPages: 5, //每页页数
-        totalPages: 100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
+        currentPage: ${list.currentPage}, //当前页数，这里是用的EL表达式，获取从后台传过来的值
+        numberOfPages: ${list.pageSize},//每页页数
+        totalPages: ${list.totalPages},  //总页数，这里是用的EL表达式，获取从后台传过来的值
         shouldShowPage: true,//是否显示该按钮
         itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
             switch (type) {
@@ -242,7 +216,7 @@
         },
         //点击事件
         onPageClicked: function (event, originalEvent, type, page) {
-            // location.href = "/self?event=toUserOperaLog&page=" + page;
+            location.href = "/doctor/getCaseList?pageNum=" + page;
         }
     };
     $("#pagination").bootstrapPaginator(options);

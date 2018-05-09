@@ -9,7 +9,8 @@
 	  password,
 	  role,
 	  email,
-	  createTime
+	  createTime,
+	  dstatus
   </sql>
   
   <select id="selectByUsername" resultType="User" parameterType="java.lang.String">
@@ -26,7 +27,8 @@
 		role,
 		email,
 		mobile,
-		createTime
+		createTime,
+		dstatus
 		) values (
 		#{username},
 		#{nickname},
@@ -34,7 +36,8 @@
 		#{role},
 		#{email},
 		#{mobile},
-		#{createTime}
+		#{createTime},
+		#{dstatus}
 		)
 	</insert>
 
@@ -46,6 +49,7 @@
 		role = #{role},
 		email = #{email},
 		mobile = #{mobile},
+		dstatus = #{dstatus}
 		where id = #{id}
 	</update>
 	<select id="getUserList" resultType="User" parameterType="User">

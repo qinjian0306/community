@@ -23,4 +23,8 @@ public class Reply extends Base implements Serializable {
 	// 留言内容
 	private String content;
 
+	/** 拓展字段 **/
+	private int role;
+	private String nickname;
+
 }

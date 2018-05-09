@@ -45,9 +45,13 @@ public class UserController extends RedisBaseController{
         User user = new User();
         user.setUsername(username);
         user.setNickname(nickname);
+        if(role == 1){// 医生
+            user.setDstatus(0);//默认待审核状态
+        }
         user.setRole(role);
         user.setEmail(email);
         user.setMobile(mobile);
+
         try {
             user.setPassword(Utils.MD5(password));
             userService.insert(user);

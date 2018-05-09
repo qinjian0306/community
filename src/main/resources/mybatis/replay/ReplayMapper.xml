@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.chinamyheart.community.mapper.ReplyMapper" >
+<mapper namespace="org.chinamyheart.community.mapper.ReplyMapper">
 
-  <sql id="replayColumns">
+    <sql id="replayColumns">
 	  id,
 	  userId,
 	  caseId,
 	  content,
 	  createTime
   </sql>
-  
-  <select id="selectById" resultType="Reply" parameterType="java.lang.Integer">
-    select <include refid="replayColumns" />
-    from c_reply
-	where id = #{id}
-  </select>
 
-	<select id="selectByCaseId" resultType="Reply" parameterType="java.lang.Integer">
-		select <include refid="replayColumns" />
-		from c_reply
+    <select id="selectById" resultType="Reply" parameterType="java.lang.Integer">
+        select
+        <include refid="replayColumns"/>
+        from c_reply
+        where id = #{id}
+    </select>
+
+    <select id="selectByCaseId" resultType="Reply" parameterType="java.lang.Integer">
+		select
+			c_reply.id,
+			c_reply.userId,
+			c_reply.caseId,
+			c_reply.content,
+			c_reply.createTime,
+			c_user.role,
+			c_user.nickname
+		from c_reply left join c_user
+		on c_reply.userId = c_user.id
 		where caseId = #{id}
-		order by createTime desc
+		order by createTime asc
 	</select>
 
-	<insert id="insert" parameterType="Reply" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="Reply" useGeneratedKeys="true" keyProperty="id">
 		insert into c_reply (
 		userId,
 		caseId,
@@ -37,32 +46,32 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="Reply">
-		update c_reply set
-		<if test="userId != null">
-			and userId = #{userId}
-		</if>
-		<if test="caseId != null">
-			and caseId = #{caseId}
-		</if>
-		<if test="content != null">
-			and content = #{content}
-		</if>
-		<if test="role != null">
-			and role = #{role}
-		</if>
-		<if test="createTime != null">
-			and createTime = #{createTime}
-		</if>
-		where id = #{id}
-	</update>
+    <update id="update" parameterType="Reply">
+        update c_reply set
+        <if test="userId != null">
+            and userId = #{userId}
+        </if>
+        <if test="caseId != null">
+            and caseId = #{caseId}
+        </if>
+        <if test="content != null">
+            and content = #{content}
+        </if>
+        <if test="role != null">
+            and role = #{role}
+        </if>
+        <if test="createTime != null">
+            and createTime = #{createTime}
+        </if>
+        where id = #{id}
+    </update>
 
-	<delete id="deleteById" parameterType="java.lang.Integer">
+    <delete id="deleteById" parameterType="java.lang.Integer">
 		delete from c_reply
 		where id = #{id}
 	</delete>
-	
-	<delete id="deleteByCaseId" parameterType="java.lang.Integer">
+
+    <delete id="deleteByCaseId" parameterType="java.lang.Integer">
    		delete from c_reply
     	where caseId = #{id}
 	</delete>

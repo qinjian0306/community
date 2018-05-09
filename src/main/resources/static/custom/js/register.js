@@ -123,7 +123,7 @@ $('#register').on('submit', function () {
         data: $(this).serialize(),
         success: function (data) {
             // alert(data.msg);
-            location.href="../../html/login.html";
+            location.href="/";
         },
         error: function (data) {
             alert(data.msg);

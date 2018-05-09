@@ -22,7 +22,7 @@ public class Case extends Base implements Serializable {
 	private String title;
 	// 发布人（取user里的nickname）
 	private String author;
-	// 病人（有可能是一个人注册了号，但提交亲戚朋友的病历）
+	// 患者（有可能是一个人注册了号，但提交亲戚朋友的病历）
 	private String patient;
 	// 性别
 	private int gender;
@@ -38,4 +38,5 @@ public class Case extends Base implements Serializable {
 
 	/** 拓展字段 **/
 	private String nickname;
+	private Integer dstatus;
 }

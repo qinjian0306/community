@@ -25,4 +25,6 @@ public class User extends Base implements Serializable {
 
 	private String mobile;
 
+	// 状态 0未审核 1批准 2拒绝
+	private Integer dstatus;
 }

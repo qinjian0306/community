@@ -5,8 +5,10 @@ import org.chinamyheart.community.common.utils.Constant;
 import org.chinamyheart.community.common.utils.ReturnResult;
 import org.chinamyheart.community.mapper.CaseMapper;
 import org.chinamyheart.community.model.Case;
+import org.chinamyheart.community.model.Reply;
 import org.chinamyheart.community.model.User;
 import org.chinamyheart.community.service.CaseService;
+import org.chinamyheart.community.service.ReplayService;
 import org.chinamyheart.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -31,12 +33,20 @@ import java.util.*;
 public class PatientController extends RedisBaseController {
     @Autowired
     private CaseService caseService;
+    @Autowired
+    private ReplayService replayService;
 
     @RequestMapping("/viewCase")
-    @ResponseBody
-    public Object getCase(@RequestParam(required = true) Integer caseId) {
-        Case c = caseService.getCaseById(caseId);
-        return ReturnResult.SUCCESS(c);
+    public String getCase(Model model,@RequestParam(required = true) Integer caseId) {
+        User user = super.getCurrentUserInfoByToken();
+        if(user != null){
+            Case c =  caseService.getCaseById(caseId);
+            List<Reply> replyList = replayService.selectByCaseId(caseId);
+            model.addAttribute("case",c);
+            model.addAttribute("user",user);
+            model.addAttribute("replyList",replyList);
+        }
+        return "/user/conversation";
     }
 
     @RequestMapping("/downloadCase")

@@ -48,7 +48,7 @@
                 <div style="vertical-align: center">
                     <label class="nickname">昵称：<span>${user.nickname}</span></label>
                     <div id="validate" class="text-info text-center small" style="display: inline;">
-                        <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">添加</a>
+                        <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">添加病历</a>
                     </div>
                 </div>
             </div>
@@ -56,15 +56,17 @@
                  <#list list.data as case>
                       <div class="row">
                           <div class="col-md-12 col-lg-12">
-                              <a class="pull-left" href="./conversation.html">${case.title}</a>
-                              <span class="pull-right"><span>
-                                    <#if (case.status==1)>已关闭</#if>
-                                   <#if (case.status==0)>已打开</#if>
-                              </span></span>
+                              <a class="pull-left" href="/patient/viewCase?caseId=${case.id}">${case.title}</a>
+                              <span class="pull-right">
+                                  <span>
+                                        <#if (case.status==1)>已关闭</#if>
+                                       <#if (case.status==0)>已打开</#if>
+                                    </span>
+                              </span>
                               <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
                           </div>
                           <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                              昵称：<span>${case.nickname}</span>
+                              患者：<span>${case.patient}</span>
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               创建时间：<span>${case.createTimeStr?string("yyyy-MM-dd HH:mm")}</span>
                               <span class="pull-right">最后回复时间：<span>${case.updateTimeStr?string("yyyy-MM-dd HH:mm")}</span></span>
@@ -108,7 +110,8 @@
                       enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-md-9 col-lg-9">
-                            <input type="hidden" class="form-control" id="userId" name="userId" value="0">
+                            <input type="hidden" class="form-control" id="userId" name="userId" value="${user.id}">
+                            <input type="hidden" class="form-control" id="author" name="author" value="${user.nickname}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -118,9 +121,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="author" class="col-md-3 col-lg-3 control-label">昵称</label>
+                        <label for="author" class="col-md-3 col-lg-3 control-label">患者</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="author" name="author">
+                            <input type="text" class="form-control" id="patient" name="patient">
                         </div>
                     </div>
                     <div class="form-group">
@@ -220,12 +223,14 @@
         var userId = $('#userId').val();
         var title = $('#title').val();
         var author = $('#author').val();
+        var patient = $('#patient').val();
         var gender = $('input[name="gender"]:checked').val();
         var contact = $('#contact').val();
         var description = $('#description').val();
         formData.append("userId", userId);
         formData.append("title", title);
         formData.append("author", author);
+        formData.append("patient", patient);
         formData.append("gender", gender);
         formData.append("contact", contact);
         formData.append("description", description);
@@ -238,8 +243,7 @@
         xhr.onreadystatechange = function (response) { //第四步
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var data = JSON.parse(xhr.responseText);
-                // alert(data.msg);
-                location.href = "../html/patient.html";
+                location.href = "/patient/getCaseList";
             }
         };
         // $.ajax({

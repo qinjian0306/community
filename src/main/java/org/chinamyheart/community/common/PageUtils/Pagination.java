@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * 分页工具类
- * @author ZKF
+ * @author qj
  */
 public class Pagination<T> implements Serializable {
 
