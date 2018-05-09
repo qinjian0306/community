@@ -126,22 +126,22 @@
                 </div>
             </div>
             <nav aria-label="Page navigation" class="pull-right">
-                <ul class="pagination">
-                    <li>
-                        <a class="leftPage" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a class="pageNo" href="#">1</a></li>
-                    <li><a class="pageNo" href="#">2</a></li>
-                    <li><a class="pageNo" href="#">3</a></li>
-                    <li><a class="pageNo" href="#">4</a></li>
-                    <li><a class="pageNo" href="#">5</a></li>
-                    <li>
-                        <a class="rightPage" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+                <ul id="pagination" class="pagination">
+                    <!--<li>-->
+                        <!--<a class="leftPage" href="#" aria-label="Previous">-->
+                            <!--<span aria-hidden="true">&laquo;</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li><a class="pageNo" href="#">1</a></li>-->
+                    <!--<li><a class="pageNo" href="#">2</a></li>-->
+                    <!--<li><a class="pageNo" href="#">3</a></li>-->
+                    <!--<li><a class="pageNo" href="#">4</a></li>-->
+                    <!--<li><a class="pageNo" href="#">5</a></li>-->
+                    <!--<li>-->
+                        <!--<a class="rightPage" href="#" aria-label="Next">-->
+                            <!--<span aria-hidden="true">&raquo;</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
                 </ul>
             </nav>
         </div>
@@ -199,6 +199,7 @@
 </body>
 <script src="../production/jquery/jquery.min.js"></script>
 <script src="../production/bootstrap/js/bootstrap.min.js"></script>
+<script src="../production/bootstrap-pagenator/js/bootstrap-paginator.min.js"></script>
 <script>
     $("#addBtn").click(function () {
         $("#addForm").submit();
@@ -219,59 +220,88 @@
 
 </script>
 <script>
-    var curpage = 1;
-    var min = 1;
-    var max = 5;
-    $(".pageNo").click(function () {
-        var pageNo = ($(this).html());
-        $(".currentPage").css("background-color", "");
-        $(".pageNo").removeClass("currentPage");
-        $(this).addClass("currentPage");
-        curpage = pageNo;
-        // location.href="";
-    });
-    $(".leftPage").click(function () {
-        var currentPageNo = $(".currentPage").html();
-        $(".currentPage").css("background-color", "");
-        $(".pageNo").removeClass("currentPage");
-        currentPageNo = currentPageNo - 1 >= min ? currentPageNo - 1 : min;
-        $(".pageNo").each(function () {
-            var value = $(this).html();
-            if (value == currentPageNo) {
-                $(this).addClass("currentPage");
+    var options = {
+        bootstrapMajorVersion:3, //对应的bootstrap版本
+        currentPage: 2,//${currentPage }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
+        numberOfPages: 5, //每页页数
+        totalPages:100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
+        shouldShowPage:true,//是否显示该按钮
+        itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
+            switch (type) {
+                case "first":
+                    return "<<";
+                case "prev":
+                    return "<";
+                case "next":
+                    return ">";
+                case "last":
+                    return ">>";
+                case "page":
+                    return page;
             }
-        });
-        $(".currentPage").css("background-color", "#eee");
-        curpage = currentPageNo;
-        // location.href="";
-    });
-    $(".rightPage").click(function () {
-        var currentPageNo = $(".currentPage").html();
-        $(".currentPage").css("background-color", "");
-        $(".pageNo").removeClass("currentPage");
-        currentPageNo = Number(currentPageNo) + Number(1) <= max ? Number(currentPageNo) + Number(1) : max;
-        $(".pageNo").each(function () {
-            var value = $(this).html();
-            if (value == currentPageNo) {
-                $(this).addClass("currentPage");
-            }
-        });
-        $(".currentPage").css("background-color", "#eee");
-        curpage = currentPageNo;
-        // location.href="";
-    });
+        },
+        //点击事件
+        onPageClicked: function (event, originalEvent, type, page) {
+            // location.href = "/self?event=toUserOperaLog&page=" + page;
+        }
+    };
+    $("#pagination").bootstrapPaginator(options);
 
-
-    function initPage(pageNo) {
-        $(".pageNo").each(function () {
-            var value = $(this).html();
-            if (value == pageNo) {
-                $(this).addClass("currentPage");
-            }
-        });
-        $(".currentPage").css("background-color", "#eee");
-    }
-
-    initPage(4);
 </script>
+<!--<script>-->
+    <!--var curpage = 1;-->
+    <!--var min = 1;-->
+    <!--var max = 5;-->
+    <!--$(".pageNo").click(function () {-->
+        <!--var pageNo = ($(this).html());-->
+        <!--$(".currentPage").css("background-color", "");-->
+        <!--$(".pageNo").removeClass("currentPage");-->
+        <!--$(this).addClass("currentPage");-->
+        <!--curpage = pageNo;-->
+        <!--// location.href="";-->
+    <!--});-->
+    <!--$(".leftPage").click(function () {-->
+        <!--var currentPageNo = $(".currentPage").html();-->
+        <!--$(".currentPage").css("background-color", "");-->
+        <!--$(".pageNo").removeClass("currentPage");-->
+        <!--currentPageNo = currentPageNo - 1 >= min ? currentPageNo - 1 : min;-->
+        <!--$(".pageNo").each(function () {-->
+            <!--var value = $(this).html();-->
+            <!--if (value == currentPageNo) {-->
+                <!--$(this).addClass("currentPage");-->
+            <!--}-->
+        <!--});-->
+        <!--$(".currentPage").css("background-color", "#eee");-->
+        <!--curpage = currentPageNo;-->
+        <!--// location.href="";-->
+    <!--});-->
+    <!--$(".rightPage").click(function () {-->
+        <!--var currentPageNo = $(".currentPage").html();-->
+        <!--$(".currentPage").css("background-color", "");-->
+        <!--$(".pageNo").removeClass("currentPage");-->
+        <!--currentPageNo = Number(currentPageNo) + Number(1) <= max ? Number(currentPageNo) + Number(1) : max;-->
+        <!--$(".pageNo").each(function () {-->
+            <!--var value = $(this).html();-->
+            <!--if (value == currentPageNo) {-->
+                <!--$(this).addClass("currentPage");-->
+            <!--}-->
+        <!--});-->
+        <!--$(".currentPage").css("background-color", "#eee");-->
+        <!--curpage = currentPageNo;-->
+        <!--// location.href="";-->
+    <!--});-->
+
+
+    <!--function initPage(pageNo) {-->
+        <!--$(".pageNo").each(function () {-->
+            <!--var value = $(this).html();-->
+            <!--if (value == pageNo) {-->
+                <!--$(this).addClass("currentPage");-->
+            <!--}-->
+        <!--});-->
+        <!--$(".currentPage").css("background-color", "#eee");-->
+    <!--}-->
+
+    <!--initPage(4);-->
+<!--</script>-->
 </html>
