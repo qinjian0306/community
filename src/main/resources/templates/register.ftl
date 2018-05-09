@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="../production/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../production/bootstrap-validator/css/bootstrapValidator.min.css">
+    <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
+</head>
+<body>
+<form id="register" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
+    <fieldset>
+        <legend>用户注册</legend>
+    </fieldset>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">我是</label>
+        <div class="col-sm-4">
+            <label class="radio-inline">
+                <input type="radio" name="role" id="doctorRadio" value="1"> 医生
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="role" id="patientRadio" value="2" checked> 病人
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="username" class="col-sm-2 control-label">用户名</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control required" id="username" name="username" placeholder="必填">
+        </div>
+
+        <!--用户名信息提示-->
+        <div class="help-username" style="display:inline">
+            <label class="help-block help-default">
+                <!--<i class="fa fa-info-circle">&nbsp;&nbsp;</i>-->
+                <!--<span class="help-content">用户名由字母、数字、下划线组成</span>-->
+            </label>
+            <label class="help-block help-danger" style="display: none">
+                <span class="text-danger"><i class="fa fa-close">&nbsp;</i>用户名不能为空</span>
+            </label>
+            <label class="help-block help-warning" style="display: none">
+                <span class="text-warning"><i class="fa fa-close">&nbsp;</i>用户名已存在</span>
+            </label>
+            <label class="help-block help-success" style="display: none">
+                <span class="text-success"><i class="fa fa-check">&nbsp;</i>用户名可以使用</span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nickname" class="col-sm-2 control-label">昵称</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="必填">
+        </div>
+        <label class="help-block help-default">
+            <!--<i class="fa fa-info-circle">&nbsp;&nbsp;</i>-->
+            <!--<span class="help-content">昵称可以是中文、英文</span>-->
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-4">
+            <input type="password" class="form-control required" id="password" name="password" placeholder="必填">
+        </div>
+        <div class="help-password" style="display:inline">
+            <label class="help-block help-default">
+                <!--<i class="fa fa-info-circle">&nbsp;&nbsp;</i>-->
+                <!--<span class="help-content">密码由6位以上字母、数字、下划线、符号组成，区分大小写</span>-->
+            </label>
+            <label class="help-block help-danger" style="display: none">
+                <span class="text-danger"><i class="fa fa-close">&nbsp;</i>密码不能为空</span>
+            </label>
+            <label class="help-block help-success" style="display:none">
+                <span class="text-success"><i class="fa fa-check">&nbsp;</i>密码可以使用</span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="repassword" class="col-sm-2 control-label">确认密码</label>
+        <div class="col-sm-4">
+            <input type="password" class="form-control required" id="repassword" name="repassword" placeholder="必填">
+        </div>
+
+        <div class="help-repassword" style="display:inline">
+            <label class="help-block help-default">
+                <!--<i class="fa fa-info-circle">&nbsp;&nbsp;</i>-->
+                <!--<span class="help-content">再次输入密码</span>-->
+            </label>
+            <label class="help-block help-warning" style="display:none">
+                <span class="help-repassword text-warning">
+                    <i class="fa fa-close">&nbsp;</i>两次输入的密码不一致
+                </span>
+            </label>
+            <label class="help-block help-success" style="display:none">
+                <span class="help-repassword text-success">
+                    <i class="fa fa-check">&nbsp;</i>密码正确
+                </span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="mobile" class="col-sm-2 control-label">手机号</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="选填">
+        </div>
+
+        <div class="help-mobile" style="display:inline">
+            <label class="help-block help-default">
+                <!--<i class="fa fa-info-circle">&nbsp;&nbsp;</i>-->
+                <!--<span class="help-content">手机号为11位数字</span>-->
+            </label>
+            <label class="help-block help-warning" style="display:none">
+                <span class="text-warning">
+                    <i class="fa fa-close">&nbsp;</i>手机号不合法，请重新输入
+                </span>
+            </label>
+            <label class="help-block help-success" style="display:none">
+                <span class="text-success"><i class="fa fa-check">&nbsp;</i>手机号正确</span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">邮箱</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="email" name="email" placeholder="选填">
+        </div>
+        <div class="help-email" style="display:inline">
+            <label class="help-block help-default">
+                <!--<i class="fa fa-info-circle">&nbsp;&nbsp;</i>-->
+                <!--<span class="help-content">邮箱以字母开头</span>-->
+            </label>
+            <label class="help-block help-warning" style="display:none">
+                <span class="text-warning"><i class="fa fa-close">&nbsp;</i>邮箱格式不正确，请重新输入</span>
+            </label>
+            <label class="help-block help-success" style="display:none">
+                <span class="text-success"><i class="fa fa-check">&nbsp;</i>邮箱正确</span>
+            </label>
+        </div>
+    </div>
+    <!--<div class="form-group">-->
+    <!--<div class="col-sm-offset-2 col-sm-4">-->
+    <!--<label class="checkbox-inline">-->
+    <!--<input id="agree" type="checkbox"> 我已阅读并接受 <a href="#">注册条款</a>-->
+    <!--</label>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button type="button" id="submit" disabled class="btn btn-warning" style="width: 278px;">立即注册
+            </button>
+        </div>
+    </div>
+</form>
+
+</body>
+<script src="../production/jquery/jquery.min.js"></script>
+<script src="../production/bootstrap/js/bootstrap.min.js"></script>
+<script src="../production/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+<script src="../custom/js/register.js"></script>
+</html>

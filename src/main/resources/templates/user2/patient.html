@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>patient</title>
-    <link rel='stylesheet' href='../production/bootstrap/css/bootstrap.min.css'>
-    <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
-    <link rel='stylesheet' href='../production/bootstrap-table/css/bootstrap-table.min.css'>
-    <link rel="stylesheet" href="../production/fileinput/css/fileinput.min.css">
-    <link rel="stylesheet" href="../custom/css/main.css">
+    <link rel='stylesheet' th:href='@{../production/bootstrap/css/bootstrap.min.css}'/>
+    <link rel='stylesheet' th:href='@{../production/font-awesome/css/font-awesome.min.css}'/>
+    <link rel='stylesheet' th:href='@{../production/bootstrap-table/css/bootstrap-table.min.css}'/>
+    <link rel="stylesheet" th:href='@{../production/fileinput/css/fileinput.min.css}'/>
+    <link rel="stylesheet" th:href='@{../custom/css/main.css}'/>
 </head>
 <body>
 
@@ -52,7 +52,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
@@ -67,7 +66,7 @@
                         <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
                     </div>
                 </div>
-                <hr>
+                <hr/>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
@@ -81,6 +80,7 @@
                         <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
                     </div>
                 </div>
+                <hr/>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
@@ -94,6 +94,7 @@
                         <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
                     </div>
                 </div>
+                <hr/>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
@@ -107,6 +108,7 @@
                         <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
                     </div>
                 </div>
+                <hr/>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
@@ -156,36 +158,36 @@
                       enctype="multipart/form-data">
                     <div class="form-group">
                         <div class="col-md-9 col-lg-9">
-                            <input type="hidden" class="form-control" id="userId" name="userId" value="0">
+                            <input type="hidden" class="form-control" id="userId" name="userId" value="0"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="title" class="col-md-3 col-lg-3 control-label">标题</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="title" name="title">
+                            <input type="text" class="form-control" id="title" name="title"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="author" class="col-md-3 col-lg-3 control-label">昵称</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="author" name="author">
+                            <input type="text" class="form-control" id="author" name="author"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 col-lg-3 control-label">性別</label>
                         <div class="col-md-9 col-lg-9">
                             <label class="radio-inline">
-                                <input type="radio" name="gender" id="male" value="1" checked> 男
+                                <input type="radio" name="gender" id="male" value="1" checked="checked"/> 男
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="gender" id="female" value="2"> 女
+                                <input type="radio" name="gender" id="female" value="2"/> 女
                             </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="contact" class="col-md-3 col-lg-3 control-label">电话</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="contact" name="contact">
+                            <input type="text" class="form-control" id="contact" name="contact"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -216,7 +218,7 @@
                             <!--type="file" style="display: none">-->
                         </label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="file" class="form-control" id="files" name="files" multiple>
+                            <input type="file" class="form-control" id="files" name="files" multiple="multiple"/>
                         </div>
                     </div>
                 </form>
@@ -277,14 +279,15 @@
         formData.append("gender", gender);
         formData.append("contact", contact);
         formData.append("description", description);
-        for (var i = 0; i < files.length; i++) {
-            formData.append("files", files[i]); //++++++++++
-        }
+        $.each(files,function (i,e) {
+            console.log(i + " ----" +e);
+            formData.append("files", e); //++++++++++
+        });
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/patient/addCase');
         xhr.send(formData);
         xhr.onreadystatechange = function (response) { //第四步
-            if (xhr.readyState == 4 && xhr.status == 200) {
+            if (xhr.readyState == 4 &amp;&amp; xhr.status == 200) {
                 var data = JSON.parse(xhr.responseText);
                 // alert(data.msg);
                 location.href="../html/patient.html";
@@ -328,7 +331,7 @@
         },
         //点击事件
         onPageClicked: function (event, originalEvent, type, page) {
-            // location.href = "/self?event=toUserOperaLog&page=" + page;
+            location.href = "/self?event=toUserOperaLog&amp;page=" + page;
         }
     };
     $("#pagination").bootstrapPaginator(options);

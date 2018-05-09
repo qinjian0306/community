@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>patient</title>
+    <title>doctor</title>
     <link rel='stylesheet' href='../production/bootstrap/css/bootstrap.min.css'>
     <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
     <link rel='stylesheet' href='../production/bootstrap-table/css/bootstrap-table.min.css'>
-    <link rel="stylesheet" href="../production/fileinput/css/fileinput.min.css">
     <link rel="stylesheet" href="../custom/css/main.css">
 </head>
 <body>
@@ -27,14 +26,14 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown pull-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        李先生
+                        波医生
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li><a href="#">用户信息</a></li>
                         <li><a href="#">密码修改</a></li>
                         <li class="divider"></li>
-                        <li><a href="/user/logout">登出</a></li>
+                        <li><a href="#">登出</a></li>
                     </ul>
                 </li>
             </ul>
@@ -46,13 +45,15 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div style="vertical-align: center">
-                    <label class="nickname">昵称：<span>李先生</span></label>
+                    <label class="nickname">昵称：<span>波医生</span></label>
+                    <div id="verified" class="text-success small verified">
+                        已认证
+                    </div>
                     <div id="validate" class="text-info text-center small" style="display: inline;">
-                        <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">添加</a>
+                        <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">认证</a>
                     </div>
                 </div>
             </div>
-
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
@@ -81,6 +82,7 @@
                         <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
                     </div>
                 </div>
+                <hr>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
@@ -94,6 +96,7 @@
                         <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
                     </div>
                 </div>
+                <hr>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
@@ -107,6 +110,7 @@
                         <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
                     </div>
                 </div>
+                <hr>
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
                         <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
@@ -124,19 +128,19 @@
             <nav aria-label="Page navigation" class="pull-right">
                 <ul id="pagination" class="pagination">
                     <!--<li>-->
-                        <!--<a href="#" aria-label="Previous">-->
-                            <!--<span aria-hidden="true">&laquo;</span>-->
-                        <!--</a>-->
+                    <!--<a class="leftPage" href="#" aria-label="Previous">-->
+                    <!--<span aria-hidden="true">&laquo;</span>-->
+                    <!--</a>-->
                     <!--</li>-->
-                    <!--<li><a href="#">1</a></li>-->
-                    <!--<li><a href="#">2</a></li>-->
-                    <!--<li><a href="#">3</a></li>-->
-                    <!--<li><a href="#">4</a></li>-->
-                    <!--<li><a href="#">5</a></li>-->
+                    <!--<li><a class="pageNo" href="#">1</a></li>-->
+                    <!--<li><a class="pageNo" href="#">2</a></li>-->
+                    <!--<li><a class="pageNo" href="#">3</a></li>-->
+                    <!--<li><a class="pageNo" href="#">4</a></li>-->
+                    <!--<li><a class="pageNo" href="#">5</a></li>-->
                     <!--<li>-->
-                        <!--<a href="#" aria-label="Next">-->
-                            <!--<span aria-hidden="true">&raquo;</span>-->
-                        <!--</a>-->
+                    <!--<a class="rightPage" href="#" aria-label="Next">-->
+                    <!--<span aria-hidden="true">&raquo;</span>-->
+                    <!--</a>-->
                     <!--</li>-->
                 </ul>
             </nav>
@@ -149,81 +153,44 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">添加病例</h4>
+                <h4 class="modal-title" id="myModalLabel">添加认证信息</h4>
             </div>
             <div class="modal-body">
-                <form id="addForm" method="post" class="form-horizontal" role="form" style="padding: 30px 100px 10px;"
-                      enctype="multipart/form-data">
+                <form id="addForm" method="post" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
                     <div class="form-group">
                         <div class="col-md-9 col-lg-9">
-                            <input type="hidden" class="form-control" id="userId" name="userId" value="0">
+                            <input type="hidden" class="form-control" id="userId" value="0" name="userId">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="title" class="col-md-3 col-lg-3 control-label">标题</label>
+                        <label for="hospital" class="col-md-3 col-lg-3 control-label">医院</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="title" name="title">
+                            <input type="text" class="form-control" id="hospital" name="hospital">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="author" class="col-md-3 col-lg-3 control-label">昵称</label>
+                        <label for="realName" class="col-md-3 col-lg-3 control-label">真实姓名</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="author" name="author">
+                            <input type="text" class="form-control" id="realName" name="realName">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 col-lg-3 control-label">性別</label>
+                        <label for="mobile" class="col-md-3 col-lg-3 control-label">电话</label>
                         <div class="col-md-9 col-lg-9">
-                            <label class="radio-inline">
-                                <input type="radio" name="gender" id="male" value="1" checked> 男
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="gender" id="female" value="2"> 女
-                            </label>
+                            <input type="text" class="form-control" id="mobile" name="mobile">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="contact" class="col-md-3 col-lg-3 control-label">电话</label>
+                        <label for="detail" class="col-md-3 col-lg-3 control-label">介绍</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="contact" name="contact">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="col-md-3 col-lg-3 control-label">详情</label>
-                        <div class="col-md-9 col-lg-9">
-                            <textarea id="description" name="description" class="form-control"></textarea>
-                            <!--<input type="text" class="form-control" id="detail" name="detail">-->
-                        </div>
-                    </div>
-                    <!--<div class="form-group">-->
-                    <!--<label for="photo" class="col-md-3 col-lg-3 control-label">图片</label>-->
-                    <!--<div class="col-md-9 col-lg-9">-->
-                    <!--<input type="file" class="form-control" id="photo" name="photo">-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                    <!--<label class="btn-sm col-md-3 col-lg-3 control-label">-->
-                    <!--<a class="btn btn-xs btn-primary">上传图片</a><input id="filename-hide" class="form-control"-->
-                    <!--type="file" style="display: none" multiple>-->
-                    <!--</label>-->
-                    <!--<div class="col-md-9 col-lg-9">-->
-                    <!--<input id="filename" type="text" class="form-control" id="photo" name="photo">-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <div class="form-group">
-                        <label class="btn-sm col-md-3 col-lg-3 control-label">上传文件
-                            <!--<a class="btn btn-xs btn-primary">上传图片</a><input id="filename-hide2" class="form-control"-->
-                            <!--type="file" style="display: none">-->
-                        </label>
-                        <div class="col-md-9 col-lg-9">
-                            <input type="file" class="form-control" id="files" name="files" multiple>
+                            <textarea id="detail" name="detail" class="form-control"></textarea>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="addCaseBtn" type="button" class="btn btn-primary">提交</button>
+                <button id="addBtn" type="button" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
@@ -232,78 +199,25 @@
 </body>
 <script src="../production/jquery/jquery.min.js"></script>
 <script src="../production/bootstrap/js/bootstrap.min.js"></script>
-<script src="../production/fileinput/js/fileinput.min.js"></script>
 <script src="../production/bootstrap-pagenator/js/bootstrap-paginator.min.js"></script>
 <script>
-    $('#filename-hide').change(function () {
-        var filename = $('#filename-hide').val();
-        alert(filename);
-        var separator = 0;
-        if (filename.lastIndexOf('/') > 0) {
-            separator = filename.lastIndexOf('/');
-        } else if (filename.lastIndexOf('\\')) {
-            separator = filename.lastIndexOf('\\');
-        }
-        filename = filename.substring(separator + 1);
-        $('#filename').val(filename);
-    })
-</script>
-<script>
-    $("#files").fileinput({
-        showCaption: false,
-        dropZoneEnabled: false,
-        showUpload: false,
-        showRemove: false,
-        showUploadThumbs: false,
-        resizeImage: false,
-        showZoom: false
+    $("#addBtn").click(function () {
+        $("#addForm").submit();
     });
-
-    $('#addCaseBtn').click(function () {
-        $('#addForm').submit();
-    });
-    $('#addForm').on('submit', function () {
-        var formData = new FormData();
-        var files = document.getElementById("files").files;
-        var userId = $('#userId').val();
-        var title = $('#title').val();
-        var author = $('#author').val();
-        var gender = $('input[name="gender"]:checked').val();
-        var contact = $('#contact').val();
-        var description = $('#description').val();
-        formData.append("userId", userId);
-        formData.append("title", title);
-        formData.append("author", author);
-        formData.append("gender", gender);
-        formData.append("contact", contact);
-        formData.append("description", description);
-        for (var i = 0; i < files.length; i++) {
-            formData.append("files", files[i]); //++++++++++
-        }
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/patient/addCase');
-        xhr.send(formData);
-        xhr.onreadystatechange = function (response) { //第四步
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var data = JSON.parse(xhr.responseText);
-                // alert(data.msg);
-                location.href="../html/patient.html";
+    $("#addForm").on("submit", function () {
+        $.ajax({
+            url: "/doctor/verify",
+            method: "post",
+            data: $("#addForm").serialize(),
+            success: function (data) {
+                location.href = "../html/doctor.html";
+            },
+            error: function (data) {
+                location.href = "../html/doctor.html";
             }
-        };
-        // $.ajax({
-        //     url: "/patient/addCase/upload/files",
-        //     method: "post",
-        //     contentType: "multipart/form-data",
-        //     data: formData,
-        //     success: function () {
-        //         alert("success");
-        //     },
-        //     error: function () {
-        //         alert("error");
-        //     }
-        // });
-
+        });
     });
+
 </script>
 <script>
     var options = {

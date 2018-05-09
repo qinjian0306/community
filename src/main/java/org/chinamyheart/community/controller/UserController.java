@@ -9,16 +9,17 @@ import org.chinamyheart.community.common.utils.Utils;
 import org.chinamyheart.community.model.User;
 import org.chinamyheart.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/user")
-public class UserController extends BaseController{
+public class UserController extends RedisBaseController{
 
     @Autowired
     private UserService userService;
@@ -34,6 +35,7 @@ public class UserController extends BaseController{
      * @return
      */
     @RequestMapping(value = "/register" , method = RequestMethod.POST)
+    @ResponseBody
     public ReturnResult register(@RequestParam(required = true) String username,
                                  @RequestParam(required = true) String password,
                                  @RequestParam(required = true) String nickname,
@@ -64,6 +66,7 @@ public class UserController extends BaseController{
      * @return
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @ResponseBody
     public ReturnResult login(@RequestParam(required = true) String username,
                               @RequestParam(required = true) String password,
                               @RequestParam(required = true) Integer role) {
@@ -97,12 +100,36 @@ public class UserController extends BaseController{
         return ReturnResult.SUCCESS("登录成功",role);
     }
 
+
+
+    /**
+     * 退出
+     */
+    @RequestMapping(value = "/logout")
+    public String logout(Model model) throws Exception {
+
+        try {
+            // 获取当前用户
+            User user = super.getCurrentUserInfoByToken();
+            if (user == null) {
+                model.addAttribute("code","7777");
+                model.addAttribute("msg","token以过期");
+            }
+            super.deleteUserInfo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "/login";
+
+    }
+
     /**
      * 检查用户名是否可用
      * @param username
      * @return
      */
     @RequestMapping("/ifExist")
+    @ResponseBody
     public ReturnResult ifExist(String username) {
         User user = new User();
         user.setUsername(username);

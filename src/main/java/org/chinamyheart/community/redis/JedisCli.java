@@ -1,5 +1,6 @@
 package org.chinamyheart.community.redis;
 
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -8,6 +9,7 @@ import java.util.Set;
 /**
  * 封装redis
  */
+@Component
 public class JedisCli {
 	
 	/**

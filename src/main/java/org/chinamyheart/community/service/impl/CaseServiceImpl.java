@@ -1,5 +1,6 @@
 package org.chinamyheart.community.service.impl;
 
+import org.chinamyheart.community.common.PageUtils.Pagination;
 import org.chinamyheart.community.mapper.CaseMapper;
 import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.service.CaseService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -74,7 +76,37 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public List<Case> getCasesByUserId(int userId) {
-        return caseMapper.selectByUserId(userId);
+    public Pagination<Case> getCasesByUserId(int userId, Pagination<Case> pagination) {
+        // 组装查询条件
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("offset", pagination.getOffset());
+        map.put("limit", pagination.getPageSize());
+        // 查询总数
+        int count = caseMapper.countPage(map);
+        if (count > 0) {
+            List<Case> list = caseMapper.getPageList(map);
+            pagination.setData(list);
+        }
+        pagination.setTotalRows(count);
+        return pagination;
     }
+
+
+    @Override
+    public Pagination<Case> getAllCases(Pagination<Case> pagination) {
+        // 组装查询条件
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("offset", pagination.getOffset());
+        map.put("limit", pagination.getPageSize());
+        // 查询总数
+        int count = caseMapper.countPage(map);
+        if (count > 0) {
+            List<Case> list = caseMapper.getPageList(map);
+            pagination.setData(list);
+        }
+        pagination.setTotalRows(count);
+        return pagination;
+    }
+
 }

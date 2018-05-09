@@ -1,5 +1,6 @@
 package org.chinamyheart.community.service;
 
+import org.chinamyheart.community.common.PageUtils.Pagination;
 import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.model.Reply;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +23,7 @@ public interface CaseService {
 
     void deleteCase(int id);
 
-    List<Case> getCasesByUserId(int userId);
+    Pagination<Case> getCasesByUserId(int userId, Pagination<Case> pagination);
+
+    Pagination<Case> getAllCases(Pagination<Case> pagination);
 }

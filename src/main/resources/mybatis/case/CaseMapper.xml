@@ -83,4 +83,42 @@
         where id = #{id}
     </update>
 
+
+    <!-- 根据条件筛选病历总记录数 -->
+    <select id="countPage" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*)
+        from
+        c_case
+        where 1=1
+        <if test="userId != null">
+            and userId = #{userId}
+        </if>
+    </select>
+
+
+    <!-- 分页查询 -->
+    <select id="getPageList" resultType="Case" parameterType="java.util.Map">
+        select
+            c_case.id,
+            c_case.userId,
+            c_case.title,
+            c_case.author,
+            c_case.patient,
+            c_case.gender,
+            c_case.contact,
+            c_case.createTime,
+            c_case.updateTime,
+            c_case.status,
+            c_case.description,
+            c_user.nickname
+        from c_case left join c_user
+        on c_case.userId = c_user.id
+        where 1=1
+        <if test="userId != null">
+            and userId = #{userId}
+        </if>
+        order by createTime desc
+        limit #{offset},#{limit}
+    </select>
+
 </mapper>

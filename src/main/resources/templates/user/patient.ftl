@@ -46,87 +46,39 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div style="vertical-align: center">
-                    <label class="nickname">昵称：<span>李先生</span></label>
+                    <label class="nickname">昵称：<span>${user.nickname}</span></label>
                     <div id="validate" class="text-info text-center small" style="display: inline;">
                         <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">添加</a>
                     </div>
                 </div>
             </div>
-
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
-                        <span class="pull-right"><span>已关闭</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                    </div>
-                    <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                        昵称：<span>王行健</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        创建时间：<span>2018-05-01 22:23:24</span>
-                        <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
-                        <span class="pull-right"><span>已关闭</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                    </div>
-                    <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                        昵称：<span>王行健</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        创建时间：<span>2018-05-01 22:23:24</span>
-                        <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
-                        <span class="pull-right"><span>已关闭</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                    </div>
-                    <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                        昵称：<span>王行健</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        创建时间：<span>2018-05-01 22:23:24</span>
-                        <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
-                        <span class="pull-right"><span>已关闭</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                    </div>
-                    <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                        昵称：<span>王行健</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        创建时间：<span>2018-05-01 22:23:24</span>
-                        <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
-                        <a class="pull-left" href="./conversation.html">医生我觉得脑子好像不太好使？</a>
-                        <span class="pull-right"><span>已关闭</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                    </div>
-                    <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                        昵称：<span>王行健</span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        创建时间：<span>2018-05-01 22:23:24</span>
-                        <span class="pull-right">最后回复时间：<span>2018-05-01 22:23:24</span></span>
-                    </div>
-                </div>
+                 <#list list.data as case>
+                      <div class="row">
+                          <div class="col-md-12 col-lg-12">
+                              <a class="pull-left" href="./conversation.html">${case.title}</a>
+                              <span class="pull-right"><span>
+                                    <#if (case.status==1)>已关闭</#if>
+                                   <#if (case.status==0)>已打开</#if>
+                              </span></span>
+                              <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
+                          </div>
+                          <div class="col-md-12 col-lg-12" style="font-size: 10px">
+                              昵称：<span>${case.nickname}</span>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              创建时间：<span>${case.createTimeStr?string("yyyy-MM-dd HH:mm")}</span>
+                              <span class="pull-right">最后回复时间：<span>${case.updateTimeStr?string("yyyy-MM-dd HH:mm")}</span></span>
+                          </div>
+                      </div>
+                     <hr>
+                 </#list>
             </div>
             <nav aria-label="Page navigation" class="pull-right">
                 <ul id="pagination" class="pagination">
                     <!--<li>-->
-                        <!--<a href="#" aria-label="Previous">-->
-                            <!--<span aria-hidden="true">&laquo;</span>-->
-                        <!--</a>-->
+                    <!--<a href="#" aria-label="Previous">-->
+                    <!--<span aria-hidden="true">&laquo;</span>-->
+                    <!--</a>-->
                     <!--</li>-->
                     <!--<li><a href="#">1</a></li>-->
                     <!--<li><a href="#">2</a></li>-->
@@ -134,9 +86,9 @@
                     <!--<li><a href="#">4</a></li>-->
                     <!--<li><a href="#">5</a></li>-->
                     <!--<li>-->
-                        <!--<a href="#" aria-label="Next">-->
-                            <!--<span aria-hidden="true">&raquo;</span>-->
-                        <!--</a>-->
+                    <!--<a href="#" aria-label="Next">-->
+                    <!--<span aria-hidden="true">&raquo;</span>-->
+                    <!--</a>-->
                     <!--</li>-->
                 </ul>
             </nav>
@@ -287,7 +239,7 @@
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var data = JSON.parse(xhr.responseText);
                 // alert(data.msg);
-                location.href="../html/patient.html";
+                location.href = "../html/patient.html";
             }
         };
         // $.ajax({
@@ -308,9 +260,9 @@
 <script>
     var options = {
         bootstrapMajorVersion: 3, //对应的bootstrap版本
-        currentPage: 2,//${currentPage }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
-        numberOfPages: 5, //每页页数
-        totalPages: 100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
+        currentPage: ${list.currentPage}, //当前页数，这里是用的EL表达式，获取从后台传过来的值
+        numberOfPages: ${list.pageSize},//每页页数
+        totalPages: ${list.totalPages}, //总页数，这里是用的EL表达式，获取从后台传过来的值
         shouldShowPage: true,//是否显示该按钮
         itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
             switch (type) {
@@ -328,7 +280,7 @@
         },
         //点击事件
         onPageClicked: function (event, originalEvent, type, page) {
-            // location.href = "/self?event=toUserOperaLog&page=" + page;
+            location.href = "/patient/getCaseList?pageNum=" + page;
         }
     };
     $("#pagination").bootstrapPaginator(options);

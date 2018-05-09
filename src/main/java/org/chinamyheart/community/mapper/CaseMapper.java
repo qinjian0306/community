@@ -25,5 +25,9 @@ public interface CaseMapper {
 
     void deleteById(int id);
 
+    int countPage(Map<String, Object> map);
+
+    List<Case> getPageList(Map<String, Object> map);
+
     void lock(int id);
 }

@@ -6,8 +6,8 @@ public class UrlFilter {
 	 */
 	private static String[] VALIDATIONURLS = { 
 			"/index.html", // 首页
-			"/login.html", // 登录页
-			"/register.html", // 注册页
+			"/login.ftl", // 登录页
+			"/register.ftl", // 注册页
 			"/error/", // 404 500页面
 			"/user/login", // 登录
 			"/user/register", // 注册

@@ -35,4 +35,7 @@ public class Case extends Base implements Serializable {
 
 	private int status;
 
+
+	/** 拓展字段 **/
+	private String nickname;
 }

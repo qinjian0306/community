@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/replay")
-public class ReplayController extends BaseController {
+public class ReplayController extends RedisBaseController {
 
     @Autowired
     private ReplayService replayService;

@@ -57,7 +57,7 @@ public class Intercepetor extends HandlerInterceptorAdapter {
 //                ReturnResult rst = ReturnResult.FAILUER(401, "登录已失效，请重新登录!");
 //                response.getWriter().write(JSON.toJSONString(rst));
 //            } else {
-//                response.sendRedirect("/login.html?forwardUrl=" + request.getRequestURI().trim());
+//                response.sendRedirect("/login.ftl?forwardUrl=" + request.getRequestURI().trim());
 //            }
 //            return false;
 //        }else {
@@ -67,7 +67,7 @@ public class Intercepetor extends HandlerInterceptorAdapter {
 //                    ReturnResult rst = ReturnResult.FAILUER(401, "登录已失效，请重新登录!");
 //                    response.getWriter().write(JSON.toJSONString(rst));
 //                } else {
-//                    response.sendRedirect("/login.html?forwardUrl=" + request.getRequestURI().trim());
+//                    response.sendRedirect("/login.ftl?forwardUrl=" + request.getRequestURI().trim());
 //                }
 //                return false;
 //            }
