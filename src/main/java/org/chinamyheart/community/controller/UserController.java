@@ -94,7 +94,7 @@ public class UserController extends BaseController{
 
         //设置登录成功的Token
         sessionContextUtils.addContextToken("token",login.getToken());
-        return ReturnResult.SUCCESS("登录成功");
+        return ReturnResult.SUCCESS("登录成功",role);
     }
 
     /**

@@ -69,8 +69,15 @@
             url: '/user/login',
             data: $(this).serialize(),
             success: function (data) {
+               console.log(data);
                 // alert(data.msg);
                 $('.help-tip').html(data.msg);
+                if(1==data.data){
+                    location.href = "/doctor/getCaseList";
+                }
+                if(2==data.data){
+                    location.href = "/patient/getCaseList";
+                }
                 // $('.help-block').show();
                 // alert(data.msg);
             },
