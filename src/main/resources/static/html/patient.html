@@ -124,22 +124,22 @@
                 </div>
             </div>
             <nav aria-label="Page navigation" class="pull-right">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+                <ul id="pagination" class="pagination">
+                    <!--<li>-->
+                        <!--<a href="#" aria-label="Previous">-->
+                            <!--<span aria-hidden="true">&laquo;</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li><a href="#">1</a></li>-->
+                    <!--<li><a href="#">2</a></li>-->
+                    <!--<li><a href="#">3</a></li>-->
+                    <!--<li><a href="#">4</a></li>-->
+                    <!--<li><a href="#">5</a></li>-->
+                    <!--<li>-->
+                        <!--<a href="#" aria-label="Next">-->
+                            <!--<span aria-hidden="true">&raquo;</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
                 </ul>
             </nav>
         </div>
@@ -235,6 +235,7 @@
 <script src="../production/jquery/jquery.min.js"></script>
 <script src="../production/bootstrap/js/bootstrap.min.js"></script>
 <script src="../production/fileinput/js/fileinput.min.js"></script>
+<script src="../production/bootstrap-pagenator/js/bootstrap-paginator.min.js"></script>
 <script>
     $('#filename-hide').change(function () {
         var filename = $('#filename-hide').val();
@@ -305,5 +306,34 @@
         // });
 
     });
+</script>
+<script>
+    var options = {
+        bootstrapMajorVersion: 3, //对应的bootstrap版本
+        currentPage: 2,//${currentPage }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
+        numberOfPages: 5, //每页页数
+        totalPages: 100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
+        shouldShowPage: true,//是否显示该按钮
+        itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
+            switch (type) {
+                case "first":
+                    return "<span class='fa fa-angle-double-left'></span>";
+                case "prev":
+                    return "<span class='fa fa-angle-left'></span>";
+                case "next":
+                    return "<span class='fa fa-angle-right'></span>";
+                case "last":
+                    return "<span class='fa fa-angle-double-right'></span>";
+                case "page":
+                    return page;
+            }
+        },
+        //点击事件
+        onPageClicked: function (event, originalEvent, type, page) {
+            // location.href = "/self?event=toUserOperaLog&page=" + page;
+        }
+    };
+    $("#pagination").bootstrapPaginator(options);
+
 </script>
 </html>
