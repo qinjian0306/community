@@ -126,22 +126,22 @@
                 </div>
             </div>
             <nav aria-label="Page navigation" class="pull-right">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+                <ul id="pagination" class="pagination">
+                    <!--<li>-->
+                    <!--<a class="leftPage" href="#" aria-label="Previous">-->
+                    <!--<span aria-hidden="true">&laquo;</span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li><a class="pageNo" href="#">1</a></li>-->
+                    <!--<li><a class="pageNo" href="#">2</a></li>-->
+                    <!--<li><a class="pageNo" href="#">3</a></li>-->
+                    <!--<li><a class="pageNo" href="#">4</a></li>-->
+                    <!--<li><a class="pageNo" href="#">5</a></li>-->
+                    <!--<li>-->
+                    <!--<a class="rightPage" href="#" aria-label="Next">-->
+                    <!--<span aria-hidden="true">&raquo;</span>-->
+                    <!--</a>-->
+                    <!--</li>-->
                 </ul>
             </nav>
         </div>
@@ -156,10 +156,10 @@
                 <h4 class="modal-title" id="myModalLabel">添加认证信息</h4>
             </div>
             <div class="modal-body">
-                <form id="add" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
+                <form id="addForm" method="post" class="form-horizontal" role="form" style="padding: 30px 100px 10px;">
                     <div class="form-group">
                         <div class="col-md-9 col-lg-9">
-                            <input type="hidden" class="form-control" id="userId" name="userId">
+                            <input type="hidden" class="form-control" id="userId" value="0" name="userId">
                         </div>
                     </div>
                     <div class="form-group">
@@ -190,7 +190,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary">提交</button>
+                <button id="addBtn" type="button" class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
@@ -199,4 +199,109 @@
 </body>
 <script src="../production/jquery/jquery.min.js"></script>
 <script src="../production/bootstrap/js/bootstrap.min.js"></script>
+<script src="../production/bootstrap-pagenator/js/bootstrap-paginator.min.js"></script>
+<script>
+    $("#addBtn").click(function () {
+        $("#addForm").submit();
+    });
+    $("#addForm").on("submit", function () {
+        $.ajax({
+            url: "/doctor/verify",
+            method: "post",
+            data: $("#addForm").serialize(),
+            success: function (data) {
+                location.href = "../html/doctor.html";
+            },
+            error: function (data) {
+                location.href = "../html/doctor.html";
+            }
+        });
+    });
+
+</script>
+<script>
+    var options = {
+        bootstrapMajorVersion: 3, //对应的bootstrap版本
+        currentPage: 2,//${currentPage }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
+        numberOfPages: 5, //每页页数
+        totalPages: 100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
+        shouldShowPage: true,//是否显示该按钮
+        itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
+            switch (type) {
+                case "first":
+                    return "<span class='fa fa-angle-double-left'></span>";
+                case "prev":
+                    return "<span class='fa fa-angle-left'></span>";
+                case "next":
+                    return "<span class='fa fa-angle-right'></span>";
+                case "last":
+                    return "<span class='fa fa-angle-double-right'></span>";
+                case "page":
+                    return page;
+            }
+        },
+        //点击事件
+        onPageClicked: function (event, originalEvent, type, page) {
+            // location.href = "/self?event=toUserOperaLog&page=" + page;
+        }
+    };
+    $("#pagination").bootstrapPaginator(options);
+
+</script>
+<!--<script>-->
+<!--var curpage = 1;-->
+<!--var min = 1;-->
+<!--var max = 5;-->
+<!--$(".pageNo").click(function () {-->
+<!--var pageNo = ($(this).html());-->
+<!--$(".currentPage").css("background-color", "");-->
+<!--$(".pageNo").removeClass("currentPage");-->
+<!--$(this).addClass("currentPage");-->
+<!--curpage = pageNo;-->
+<!--// location.href="";-->
+<!--});-->
+<!--$(".leftPage").click(function () {-->
+<!--var currentPageNo = $(".currentPage").html();-->
+<!--$(".currentPage").css("background-color", "");-->
+<!--$(".pageNo").removeClass("currentPage");-->
+<!--currentPageNo = currentPageNo - 1 >= min ? currentPageNo - 1 : min;-->
+<!--$(".pageNo").each(function () {-->
+<!--var value = $(this).html();-->
+<!--if (value == currentPageNo) {-->
+<!--$(this).addClass("currentPage");-->
+<!--}-->
+<!--});-->
+<!--$(".currentPage").css("background-color", "#eee");-->
+<!--curpage = currentPageNo;-->
+<!--// location.href="";-->
+<!--});-->
+<!--$(".rightPage").click(function () {-->
+<!--var currentPageNo = $(".currentPage").html();-->
+<!--$(".currentPage").css("background-color", "");-->
+<!--$(".pageNo").removeClass("currentPage");-->
+<!--currentPageNo = Number(currentPageNo) + Number(1) <= max ? Number(currentPageNo) + Number(1) : max;-->
+<!--$(".pageNo").each(function () {-->
+<!--var value = $(this).html();-->
+<!--if (value == currentPageNo) {-->
+<!--$(this).addClass("currentPage");-->
+<!--}-->
+<!--});-->
+<!--$(".currentPage").css("background-color", "#eee");-->
+<!--curpage = currentPageNo;-->
+<!--// location.href="";-->
+<!--});-->
+
+
+<!--function initPage(pageNo) {-->
+<!--$(".pageNo").each(function () {-->
+<!--var value = $(this).html();-->
+<!--if (value == pageNo) {-->
+<!--$(this).addClass("currentPage");-->
+<!--}-->
+<!--});-->
+<!--$(".currentPage").css("background-color", "#eee");-->
+<!--}-->
+
+<!--initPage(4);-->
+<!--</script>-->
 </html>

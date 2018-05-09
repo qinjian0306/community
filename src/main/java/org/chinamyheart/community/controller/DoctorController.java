@@ -60,10 +60,10 @@ public class DoctorController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/verify")
-	public ReturnResult doctorVerify(@RequestParam(required = true) Integer userId,
-									 @RequestParam(required = true) String hospital,
-									 @RequestParam(required = true) String realName,
-									 @RequestParam(required = true) String mobile,
+	public ReturnResult doctorVerify(@RequestParam(required = false) Integer userId,
+									 @RequestParam(required = false) String hospital,
+									 @RequestParam(required = false) String realName,
+									 @RequestParam(required = false) String mobile,
 									 @RequestParam(required = false) String detials) {
 		Doctor doctor = new Doctor();
 		doctor.setUserId(userId);

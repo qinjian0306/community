@@ -125,7 +125,7 @@ $('#register').on('submit', function () {
             // alert(data.msg);
             location.href="../../html/login.html";
         },
-        error: function () {
+        error: function (data) {
             alert(data.msg);
         }
     };
