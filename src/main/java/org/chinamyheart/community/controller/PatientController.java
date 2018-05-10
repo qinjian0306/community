@@ -82,13 +82,12 @@ public class PatientController extends RedisBaseController {
     }
 
     @RequestMapping("/lockCase")
-    @ResponseBody
-    public Object lockCase(@RequestParam(required = true) Integer caseId) {
+    public String lockCase(@RequestParam(required = true) Integer caseId) {
         Case c = new Case();
         c.setId(caseId);
         c.setStatus(1);
         caseService.lockCase(c);
-        return ReturnResult.SUCCESS("锁定成功");
+        return "redirect:/patient/getCaseList";
     }
 
     @PostMapping("/addCase")

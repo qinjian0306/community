@@ -55,11 +55,13 @@ public class DoctorController extends RedisBaseController {
     public String doctorAllPend(Model model,
                                 @RequestParam(required = false, defaultValue = "3") Integer status,
                                 @RequestParam(value = "pageNum", defaultValue = "1") Integer currentPage) {
-        User user = new User();
+
+        User user = super.getCurrentUserInfoByToken();
         user.setDstatus(status);
         Pagination<UserVo> pageParm = new Pagination<>(currentPage, Constant.REVIEWPAGESIZE);
         Pagination<UserVo> pagination = userService.selectAllPendByPage(status, pageParm);
         model.addAttribute("doctorList", pagination);
+        model.addAttribute("user",user);
         model.addAttribute("status", status);
         String location = "";
         if(status == 1){// 已认证

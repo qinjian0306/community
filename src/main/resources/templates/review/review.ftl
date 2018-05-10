@@ -19,7 +19,7 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown pull-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        管理员
+                        ${user.nickname}
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">

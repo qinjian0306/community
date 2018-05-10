@@ -42,7 +42,10 @@
                         <input type="radio" name="role" id="doctorRadio" value="1"> 医生
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="role" id="patientRadio" value="2" checked> 病人
+                        <input type="radio" name="role" id="patientRadio" value="2" > 病人
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="role" id="patientRadio" value="3" checked> 管理员
                     </label>
                     <button id="submit" type="button" class="btn btn-default">登录</button>
                 </div>
@@ -74,6 +77,8 @@
                     location.href="/doctor/getCaseList";
                 }else if(data.data==2){
                     location.href="/patient/getCaseList";
+                } else if(data.data==3){
+                    location.href="/doctor/allPend";
                 }
                 $('.help-tip').html(data.msg);
 
