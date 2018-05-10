@@ -20,15 +20,6 @@ spring:
      testOnBorrow: false
      testOnReturn: false
 
-#   thymeleaf:
-#      prefix: classpath:/templates
-#      suffix: .html
-#      mode: HTML5
-#      encoding: UTF-8
-#      content-type: text/html
-#      #开发时关闭缓存,不然没法看到实时页面
-#      cache: false
-
 
    freemarker:
       allowRequestOverride: false
