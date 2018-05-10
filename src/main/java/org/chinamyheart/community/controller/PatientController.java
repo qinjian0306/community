@@ -66,7 +66,7 @@ public class PatientController extends RedisBaseController {
 
         User user = super.getCurrentUserInfoByToken();
         if(user != null){
-            Pagination<Case> pageParm = new Pagination<>(currentPage,Constant.pageSize);
+            Pagination<Case> pageParm = new Pagination<>(currentPage,Constant.CASEPAGESIZE);
             Pagination<Case> pagination = caseService.getCasesByUserId(user.getId(),pageParm);
             model.addAttribute("list",pagination);
             model.addAttribute("user",user);

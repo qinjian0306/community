@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.chinamyheart.community.mapper.UserMapper" >
+<mapper namespace="org.chinamyheart.community.mapper.UserMapper">
 
-  <sql id="userColumns">
+    <resultMap id="UserVoResultMap" type="org.chinamyheart.community.model.UserVo">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="role" property="role"/>
+        <result column="email" property="email"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="dstatus" property="dstatus"/>
+        <association property="doctor" javaType="org.chinamyheart.community.model.Doctor">
+            <id column="userId" property="id"/>
+            <result column="hospital" property="hospital"/>
+            <result column="mobile" property="mobile"/>
+            <result column="realName" property="realName"/>
+            <result column="detials" property="detials"/>
+            <result column="createTime" property="createTime"/>
+        </association>
+    </resultMap>
+
+    <sql id="userColumns">
 	  id,
 	  username,
 	  nickname,
@@ -10,16 +29,18 @@
 	  role,
 	  email,
 	  createTime,
+	  updateTime,
 	  dstatus
   </sql>
-  
-  <select id="selectByUsername" resultType="User" parameterType="java.lang.String">
-    select <include refid="userColumns" />
-    from c_user
-	where username = #{username,jdbcType=VARCHAR};
-  </select>
 
-	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+    <select id="selectByUsername" resultType="User" parameterType="java.lang.String">
+        select
+        <include refid="userColumns"/>
+        from c_user
+        where username = #{username,jdbcType=VARCHAR};
+    </select>
+
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into c_user (
 		username,
 		nickname,
@@ -28,6 +49,7 @@
 		email,
 		mobile,
 		createTime,
+		updateTime,
 		dstatus
 		) values (
 		#{username},
@@ -37,40 +59,92 @@
 		#{email},
 		#{mobile},
 		#{createTime},
+		#{updateTime},
 		#{dstatus}
 		)
 	</insert>
 
-	<update id="update" parameterType="User">
+    <update id="update" parameterType="User">
 		update c_user set
-		username = #{username},
-		nickname = #{nickname},
-		password = #{password},
-		role = #{role},
-		email = #{email},
-		mobile = #{mobile},
-		dstatus = #{dstatus}
+		  dstatus = #{dstatus},
+		  updateTime = #{updateTime}
 		where id = #{id}
 	</update>
-	<select id="getUserList" resultType="User" parameterType="User">
-		select <include refid="userColumns" />
-		from c_user
-		where 1=1
-		<if test="username != null">
-			and username = #{username}
-		</if>
-		<if test="password != null">
-			and password = #{password}
-		</if>
-		<if test="role != null">
-			and role = #{role}
-		</if>
-	</select>
+    <select id="getUserList" resultType="User" parameterType="User">
+        select
+        <include refid="userColumns"/>
+        from c_user
+        where 1=1
+        <if test="username != null">
+            and username = #{username}
+        </if>
+        <if test="password != null">
+            and password = #{password}
+        </if>
+        <if test="role != null">
+            and role = #{role}
+        </if>
+    </select>
 
-	<select id="getUserByUsername" resultType="User" parameterType="User">
-		select <include refid="userColumns" />
-		from c_user
-		where username = #{username}
-	</select>
+    <select id="getUserByUsername" resultType="User" parameterType="User">
+        select
+        <include refid="userColumns"/>
+        from c_user
+        where username = #{username}
+    </select>
+
+    <select id="getUserById" resultType="User" parameterType="java.lang.Integer">
+        select
+        <include refid="userColumns"/>
+        from c_user
+        where id = #{id}
+    </select>
+
+    <select id="selectAllPend" resultType="UserVo" parameterType="User">
+        select
+          c_user.id,
+          c_user.nickname,
+          c_user.role,
+          c_user.dstatus,
+          c_doctor.hospital,
+          c_doctor.mobile,
+          c_doctor.realName,
+          c_doctor.detials,
+          c_doctor.createTime
+        from c_user left join c_doctor
+        on c_user.id = c_doctor.userId
+        where dstatus = #{dstatus}
+    </select>
+
+
+    <!-- 根据条件筛选病历总记录数 -->
+    <select id="countPage" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*)
+        from
+        c_user
+        where 1=1
+        <if test="dstatus != null">
+            and dstatus = #{dstatus}
+        </if>
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="getPageList" resultType="UserVo" parameterType="java.util.Map">
+        select
+          c_user.id,
+          c_user.nickname,
+          c_user.role,
+          c_user.dstatus,
+          c_doctor.hospital,
+          c_doctor.mobile,
+          c_doctor.realName,
+          c_doctor.detials,
+          c_doctor.createTime
+        from c_user left join c_doctor
+        on c_user.id = c_doctor.userId
+        where dstatus = #{dstatus}
+        order by c_doctor.createTime asc
+        limit #{offset},#{limit}
+    </select>
 
 </mapper>

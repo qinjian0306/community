@@ -6,6 +6,7 @@
     <link rel='stylesheet' href='../production/bootstrap/css/bootstrap.min.css'>
     <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
     <link rel='stylesheet' href='../production/bootstrap-table/css/bootstrap-table.min.css'>
+    <link rel="stylesheet" href="../custom/css/main.css">
 </head>
 <body>
 
@@ -14,13 +15,6 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">医患交流平台</a>
         </div>
-        <!--<div>-->
-        <!--<ul class="nav navbar-nav">-->
-        <!--<li class="active">-->
-        <!--<a href="#">主页</a>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</div>-->
         <div class="navbar-right">
             <ul class="nav navbar-nav">
                 <li class="dropdown pull-right">
@@ -43,34 +37,60 @@
     <div class="row">
         <div class="span12">
             <ul id="doctor-tab" class="nav nav-tabs">
-                <li class="active">
-                    <a href="#case">待审核</a>
-                </li>
                 <li>
-                    <a href="#status">已审核</a>
+                    <a class="unreview">待审核</a>
+                </li>
+                <li class="active">
+                    <a href="#reviewed">已审核</a>
                 </li>
             </ul>
             <div class="tab-content">
-                <div id="case" class="panel panel-default tab-pane active">
+                <div id="reviewed" class="panel panel-default tab-pane active">
                     <div class="panel-body">
-                        待审核<br>
-                        待审核<br>
-                        待审核
+                        <div class="row">
+                            <#if doctorList??>
+                                <#list doctorList.data as doctor>
+                                    <div class="col-md-4 col-lg-4" style="height:150px;padding: 5px 5px;">
+                                        <div class="col-md-12 col-lg-12" style="border: 1px solid #eeeeee;height: 100%">
+                                            <div class="col-md-12 col-lg-12"
+                                                 style="padding: 6px 3px 3px 3px;height: 75%">
+                                                <div class="pull-left" style="margin: 2px 2px 2px 12px;">
+                                            <span style="font-size: 12px;">医生姓名：
+                                                <span class="text-primary">${doctor.realName}</span>
+                                                <span id="userId" class="hidden">${doctor.id}</span>
+                                            </span>
+                                                </div>
+                                                <div class="pull-right" style="margin: 2px 12px 2px 2px;">
+                                            <span style="font-size: 12px;">医院：
+                                                <span class="text-primary">${doctor.hospital}</span>
+                                            </span>
+                                                </div>
+                                                <div class="col-md-12 col-lg-12" style="margin: 2px 2px 2px -5px;">
+                                            <span style="font-size: 12px;">联系电话：
+                                                <span class="text-primary">${doctor.mobile}</span>
+                                            </span>
+                                                </div>
+                                                <div class="col-md-12 col-lg-12" style="margin: 2px 2px 2px -5px;">
+                                                    <span style="font-size: 12px;">描述：</span>
+                                                    <span class="text-primary"
+                                                          style="font-size: 8px">${doctor.detials}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-lg-12" style="margin: -5px -5px -5px -5px;">
+                                                <div class="pull-right">
+                                                    <div id="verified" class="text-success verified" style="font-size: 14px">
+                                                        已认证
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </#list>
+                            </#if>
+                        </div>
                     </div>
                     <nav aria-label="Page navigation" class="pull-right">
                         <ul id="paginationFirst" class="pagination">
-
-                        </ul>
-                    </nav>
-                </div>
-                <div id="status" class="panel panel-default tab-pane">
-                    <div class="panel-body">
-                        已审核<br>
-                        已审核<br>
-                        已审核
-                    </div>
-                    <nav aria-label="Page navigation" class="pull-right">
-                        <ul id="paginationSecond" class="pagination">
 
                         </ul>
                     </nav>
@@ -96,9 +116,9 @@
 <script>
     var options = {
         bootstrapMajorVersion: 3, //对应的bootstrap版本
-        currentPage: 2,//${currentPage }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
-        numberOfPages: 5, //每页页数
-        totalPages: 100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
+        currentPage: ${doctorList.currentPage}, //当前页数，这里是用的EL表达式，获取从后台传过来的值
+        numberOfPages: ${doctorList.pageSize},//每页页数
+        totalPages: ${doctorList.totalPages}, //总页数，这里是用的EL表达式，获取从后台传过来的值
         shouldShowPage: true,//是否显示该按钮
         itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
             switch (type) {
@@ -116,39 +136,29 @@
         },
         //点击事件
         onPageClicked: function (event, originalEvent, type, page) {
-            // location.href = "/self?event=toUserOperaLog&page=" + page;
+            location.href = "/doctor/allPend?pageNum=" + page;
         }
     };
     $("#paginationFirst").bootstrapPaginator(options);
 
 </script>
-<script>
-    var options = {
-        bootstrapMajorVersion: 3, //对应的bootstrap版本
-        currentPage: 2,//${currentPage }, //当前页数，这里是用的EL表达式，获取从后台传过来的值
-        numberOfPages: 5, //每页页数
-        totalPages: 100,//${totalPages }, //总页数，这里是用的EL表达式，获取从后台传过来的值
-        shouldShowPage: true,//是否显示该按钮
-        itemTexts: function (type, page, current) {//设置显示的样式，默认是箭头
-            switch (type) {
-                case "first":
-                    return "<span class='fa fa-angle-double-left'></span>";
-                case "prev":
-                    return "<span class='fa fa-angle-left'></span>";
-                case "next":
-                    return "<span class='fa fa-angle-right'></span>";
-                case "last":
-                    return "<span class='fa fa-angle-double-right'></span>";
-                case "page":
-                    return page;
-            }
-        },
-        //点击事件
-        onPageClicked: function (event, originalEvent, type, page) {
-            // location.href = "/self?event=toUserOperaLog&page=" + page;
-        }
-    };
-    $("#paginationSecond").bootstrapPaginator(options);
 
+<!--审核js-->
+<script>
+
+    $(".unreview").click(function () {
+        location.href = "/doctor/allPend?status=3"
+    });
+
+
+
+    $("#pass").click(function () {
+        var userId = $("#userId").text();
+        location.href = "../html/review.html";
+    });
+    $("#refuse").click(function () {
+        var userId = $("#userId").text();
+        location.href = "../html/review.html";
+    });
 </script>
 </html>

@@ -53,9 +53,16 @@
                     </#if>
                      <#if (user.dstatus==0)>
                       <div id="validate" class="text-info text-center small" style="display: inline;">
-                          <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">认证</a>
+                          <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">
+                              认证
+                          </a>
                       </div>
                      </#if>
+                      <#if (user.dstatus==3)>
+                        <div id="verified" class="text-success small verified">
+                            正在审核认证信息
+                        </div>
+                      </#if>
                 </div>
             </div>
             <div class="panel-body">
@@ -68,6 +75,9 @@
                            <#if (user.dstatus==1)>
                                  <a class="pull-left" href="/patient/viewCase?caseId=${case.id}">${case.title}</a>
                            </#if>
+                             <#if (user.dstatus==3)>
+                                 <a class="pull-left" href="#" disabled="disabled">${case.title}</a>
+                             </#if>
                           <span class="pull-right">
                               <span>
                                   <#if (case.status==1)>已关闭</#if>
@@ -184,10 +194,9 @@
             method: "post",
             data: $("#addForm").serialize(),
             success: function (data) {
-                location.href = "../html/doctor.html";
+                location.href = "/doctor/getCaseList";
             },
             error: function (data) {
-                location.href = "../html/doctor.html";
             }
         });
     });

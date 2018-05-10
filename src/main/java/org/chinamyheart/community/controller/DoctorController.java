@@ -6,18 +6,18 @@ import org.chinamyheart.community.common.utils.ReturnResult;
 import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.model.Doctor;
 import org.chinamyheart.community.model.User;
+import org.chinamyheart.community.model.UserVo;
 import org.chinamyheart.community.service.CaseService;
 import org.chinamyheart.community.service.DoctorService;
+import org.chinamyheart.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -26,9 +26,10 @@ public class DoctorController extends RedisBaseController {
 
     @Autowired
     private DoctorService doctorService;
-
     @Autowired
     private CaseService caseService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 所有医生
@@ -46,19 +47,28 @@ public class DoctorController extends RedisBaseController {
     }
 
     /**
-     * 所有待审核医生
+     * 所有待审核/已审核医生
      *
-     * @param status
      * @return
      */
     @RequestMapping("/allPend")
-    @ResponseBody
-    public ReturnResult doctorAllPend(@RequestParam(required = true, defaultValue = "0") Integer status) {
-        List<Doctor> doctorList = doctorService.selectAllPend(status);
-        if (doctorList.size() > 0) {
-            return ReturnResult.SUCCESS("获取所有待审核医生列表成功", doctorList);
+    public String doctorAllPend(Model model,
+                                @RequestParam(required = false, defaultValue = "3") Integer status,
+                                @RequestParam(value = "pageNum", defaultValue = "1") Integer currentPage) {
+        User user = new User();
+        user.setDstatus(status);
+        Pagination<UserVo> pageParm = new Pagination<>(currentPage, Constant.REVIEWPAGESIZE);
+        Pagination<UserVo> pagination = userService.selectAllPendByPage(status, pageParm);
+        model.addAttribute("doctorList", pagination);
+        model.addAttribute("status", status);
+        String location = "";
+        if(status == 1){// 已认证
+            location = "/review/review";
         }
-        return ReturnResult.FAILUER("没有待审核医生");
+        if(status == 3){// 已填写认证信息 等待审核
+            location = "/review/unreview";
+        }
+        return location;
     }
 
     /**
@@ -67,29 +77,37 @@ public class DoctorController extends RedisBaseController {
      * @param hospital
      * @param realName
      * @param mobile
-     * @param detials
+     * @param detail
      * @return
      */
     @RequestMapping("/verify")
     @ResponseBody
-    public ReturnResult doctorVerify(@RequestParam(required = false) Integer userId,
-                                     @RequestParam(required = false) String hospital,
-                                     @RequestParam(required = false) String realName,
-                                     @RequestParam(required = false) String mobile,
-                                     @RequestParam(required = false) String detials) {
-        Doctor doctor = new Doctor();
-        doctor.setUserId(userId);
-        doctor.setHospital(hospital);
-        doctor.setRealName(realName);
-        doctor.setDetials(detials);
-        doctor.setStatus(0);// 默认 待审核状态
-        try {
-            int result = doctorService.insert(doctor);
-            if (result > 0) {
-                return ReturnResult.SUCCESS("添加认证成功");
+    public ReturnResult doctorVerify(
+            @RequestParam(required = false) String hospital,
+            @RequestParam(required = false) String realName,
+            @RequestParam(required = false) String mobile,
+            @RequestParam(required = false) String detail) {
+        User user = super.getCurrentUserInfoByToken();
+        if (user != null) {
+            Doctor doctor = new Doctor();
+            doctor.setUserId(user.getId());
+            doctor.setHospital(hospital);
+            doctor.setMobile(mobile);
+            doctor.setRealName(realName);
+            doctor.setDetials(detail);
+            user.setDstatus(3);// 已填写认证信息 正在审核
+            try {
+                int result = doctorService.insert(doctor);
+
+                // 更新user 状态
+                userService.update(user);
+                if (result > 0) {
+                    return ReturnResult.SUCCESS("添加认证成功");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
         }
         return ReturnResult.FAILUER("添加认证失败");
     }
@@ -102,30 +120,25 @@ public class DoctorController extends RedisBaseController {
      * @return
      */
     @RequestMapping("/pend")
-    @ResponseBody
-    public ReturnResult doctorPend(@RequestParam(required = true) Integer doctorId,
+    public String doctorPend(Model model,
+                                    @RequestParam(required = true) Integer doctorId,
                                    @RequestParam(required = true) Integer action) {
-        Doctor doctor = doctorService.selectById(doctorId);
+        User user = userService.getUserById(doctorId);
+
         // 批准
-        if (doctor != null && doctorId != null && action == 1) {
-            doctor.setStatus(1);
+        if (doctorId != null && action == 1) {
+            user.setDstatus(1);
         }
         // 拒绝
-        if (doctor != null && doctorId != null && action == 2) {
-            doctor.setStatus(2);
+        if (doctorId != null && action == 2) {
+            user.setDstatus(2);
         }
         try {
-            doctorService.updateById(doctor);
-            if (doctor.getStatus() == 1) {
-                return ReturnResult.SUCCESS("已批准");
-            }
-            if (doctor.getStatus() == 2) {
-                return ReturnResult.SUCCESS("已拒绝");
-            }
+            userService.update(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ReturnResult.FAILUER("审核失败");
+        return "redirect:/doctor/allPend";
     }
 
     /**
@@ -138,11 +151,16 @@ public class DoctorController extends RedisBaseController {
                               @RequestParam(value = "pageNum", defaultValue = "1") Integer currentPage) {
 
         User user = super.getCurrentUserInfoByToken();
-        if(user !=null ){
-            Pagination<Case> pageParm = new Pagination<>(currentPage, Constant.pageSize);
+        if (user != null) {
+            Pagination<Case> pageParm = new Pagination<>(currentPage, Constant.CASEPAGESIZE);
             Pagination<Case> pagination = caseService.getAllCases(pageParm);
+            // 获取用户状态
+            User userInfo = null;
+            if (user.getRole() == 1) {
+                userInfo = userService.getUserById(user.getId());
+            }
             model.addAttribute("list", pagination);
-            model.addAttribute("user", user);
+            model.addAttribute("user", userInfo);
         }
         return "/user/doctor";
     }
