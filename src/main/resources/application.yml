@@ -2,11 +2,16 @@ server:
   port: 8888
 
 spring:
+   http:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 200MB
    datasource:
      name: user
      url: jdbc:mysql://localhost/community?useUnicode=true&characterEncoding=utf-8
      username: root
-     password: guoguo311
+     password: root
      driver-class-name: com.mysql.jdbc.Driver
      type: com.alibaba.druid.pool.DruidDataSource
      initialSize: 1
@@ -66,4 +71,3 @@ mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mybatis/*/*Mapper.xml
   type-aliases-package: org.chinamyheart.community.model
-
