@@ -211,7 +211,10 @@
         showRemove: false,
         showUploadThumbs: false,
         resizeImage: false,
-        showZoom: false
+        showZoom: false,
+        maxFileCount:3,
+        maxFileSize: 20480,
+        allowedFileExtensions:['jpg','png','pdf','jpeg','bmp','gif'],
     });
 
     $('#addCaseBtn').click(function () {
