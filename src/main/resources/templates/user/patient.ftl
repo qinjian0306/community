@@ -72,7 +72,7 @@
                                         <#if (case.status==1)>已关闭</#if>
                                        <#if (case.status==0)>
                                            <div id="validate" class="text-info text-center small" style="display: inline;">
-                                                <a href="/patient/lockCase?caseId=${case.id}" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">关闭</a>
+                                                <a href="/patient/lockCase?caseId=${case.id}" class="btn btn-xs btn-primary">关闭</a>
                                             </div>
                                        </#if>
                                   </span>
