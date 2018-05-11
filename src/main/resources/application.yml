@@ -64,4 +64,4 @@ mybatis:
   type-aliases-package: org.chinamyheart.community.model
 
 
-filepath: classpath:fileupload
+filepath: classpath:/fileupload/
