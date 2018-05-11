@@ -38,14 +38,14 @@ public class PatientController extends RedisBaseController {
     private ReplayService replayService;
 
     @RequestMapping("/viewCase")
-    public String getCase(Model model,@RequestParam(required = true) Integer caseId) {
+    public String getCase(Model model, @RequestParam(required = true) Integer caseId) {
         User user = super.getCurrentUserInfoByToken();
-        if(user != null){
-            Case c =  caseService.getCaseById(caseId);
+        if (user != null) {
+            Case c = caseService.getCaseById(caseId);
             List<Reply> replyList = replayService.selectByCaseId(caseId);
-            model.addAttribute("case",c);
-            model.addAttribute("user",user);
-            model.addAttribute("replyList",replyList);
+            model.addAttribute("case", c);
+            model.addAttribute("user", user);
+            model.addAttribute("replyList", replyList);
         }
         return "/user/conversation";
     }
@@ -66,11 +66,11 @@ public class PatientController extends RedisBaseController {
                               @RequestParam(value = "pageNum", defaultValue = "1") Integer currentPage) {
 
         User user = super.getCurrentUserInfoByToken();
-        if(user != null){
-            Pagination<Case> pageParm = new Pagination<>(currentPage,Constant.CASEPAGESIZE);
-            Pagination<Case> pagination = caseService.getCasesByUserId(user.getId(),pageParm);
-            model.addAttribute("list",pagination);
-            model.addAttribute("user",user);
+        if (user != null) {
+            Pagination<Case> pageParm = new Pagination<>(currentPage, Constant.CASEPAGESIZE);
+            Pagination<Case> pagination = caseService.getCasesByUserId(user.getId(), pageParm);
+            model.addAttribute("list", pagination);
+            model.addAttribute("user", user);
         }
         return "/user/patient";
     }
@@ -93,7 +93,7 @@ public class PatientController extends RedisBaseController {
 
     @PostMapping("/addCase")
     @ResponseBody
-    public String addCase(Model model,Case c, @RequestParam("files") MultipartFile[] files) {
+    public String addCase(Model model, Case c, @RequestParam("files") MultipartFile[] files) {
         StringBuilder url = new StringBuilder("");
         try {
             File fir = ResourceUtils.getFile("classpath:static/fileupload/readme.txt");
@@ -114,10 +114,10 @@ public class PatientController extends RedisBaseController {
                 FileOutputStream fos = new FileOutputStream(f);
                 InputStream fis = file.getInputStream();
                 FileCopyUtils.copy(fis, fos);
-                if(fis!=null){
+                if (fis != null) {
                     fis.close();
                 }
-                if(fos!=null){
+                if (fos != null) {
                     fos.close();
                 }
             }
@@ -133,12 +133,20 @@ public class PatientController extends RedisBaseController {
     @ResponseBody
     public Object uploadFiles(@RequestParam("files") MultipartFile[] files) {
         try {
+            File fir = ResourceUtils.getFile("classpath:static/fileupload/readme.txt");
+            String rootPath = fir.getParent();
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
                 if (fileName.trim().length() == 0) continue;
-                FileOutputStream fos = new FileOutputStream(new File(fileName));
+                FileOutputStream fos = new FileOutputStream(new File(rootPath + File.separator + fileName));
                 InputStream fis = file.getInputStream();
                 FileCopyUtils.copy(fis, fos);
+                if (fis != null) {
+                    fis.close();
+                }
+                if (fos != null) {
+                    fos.close();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -151,13 +159,21 @@ public class PatientController extends RedisBaseController {
     @ResponseBody
     public Object uploadFile(@RequestParam("file") MultipartFile file) {
         try {
+            File fir = ResourceUtils.getFile("classpath:static/fileupload/readme.txt");
+            String rootPath = fir.getParent();
             String fileName = file.getOriginalFilename();
             if (fileName.trim().length() == 0) {
                 return ReturnResult.SUCCESS("上传的文件名为空");
             }
-            FileOutputStream fos = new FileOutputStream(new File(fileName));
+            FileOutputStream fos = new FileOutputStream(new File(rootPath + File.separator + fileName));
             InputStream fis = file.getInputStream();
             FileCopyUtils.copy(fis, fos);
+            if (fis != null) {
+                fis.close();
+            }
+            if (fos != null) {
+                fos.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             ReturnResult.SUCCESS("上传失败");
