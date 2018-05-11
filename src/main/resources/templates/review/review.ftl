@@ -48,6 +48,9 @@
                 <li class="active">
                     <a href="#reviewed">已审核</a>
                 </li>
+                <li >
+                    <a class="caseList">病例页</a>
+                </li>
             </ul>
             <div class="tab-content">
                 <div id="reviewed" class="panel panel-default tab-pane active">
@@ -109,15 +112,6 @@
 <script src="../production/bootstrap/js/bootstrap.min.js"></script>
 <script src="../production/bootstrap-pagenator/js/bootstrap-paginator.min.js"></script>
 <script>
-    $(function () {
-        $('#doctor-tab a:first').tab('show');
-    })
-    $('#doctor-tab a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    })
-</script>
-<script>
     var options = {
         bootstrapMajorVersion: 3, //对应的bootstrap版本
         currentPage: ${doctorList.currentPage}, //当前页数，这里是用的EL表达式，获取从后台传过来的值
@@ -151,7 +145,11 @@
 <script>
 
     $(".unreview").click(function () {
-        location.href = "/doctor/allPend?status=3"
+        location.href = "/doctor/allPend?status=3";
+    });
+
+    $(".caseList").click(function () {
+        location.href = "/admin/getCaseList";
     });
 
 </script>

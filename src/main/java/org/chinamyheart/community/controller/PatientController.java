@@ -75,10 +75,9 @@ public class PatientController extends RedisBaseController {
     }
 
     @RequestMapping("/removeCase")
-    @ResponseBody
-    public Object deleteCase(@RequestParam(required = true) Integer caseId) {
+    public String deleteCase(Model model,@RequestParam(required = true) Integer caseId) {
         caseService.deleteCase(caseId);
-        return ReturnResult.SUCCESS("刪除成功");
+        return "redirect:/admin/getCaseList";
     }
 
     @RequestMapping("/lockCase")
