@@ -11,7 +11,7 @@ spring:
      name: user
      url: jdbc:mysql://localhost/community?useUnicode=true&characterEncoding=utf-8
      username: root
-     password: root
+     password: guoguo311
      driver-class-name: com.mysql.jdbc.Driver
      type: com.alibaba.druid.pool.DruidDataSource
      initialSize: 1
@@ -24,15 +24,6 @@ spring:
      testWhileIdle: true
      testOnBorrow: false
      testOnReturn: false
-
-#   thymeleaf:
-#      prefix: classpath:/templates
-#      suffix: .html
-#      mode: HTML5
-#      encoding: UTF-8
-#      content-type: text/html
-#      #开发时关闭缓存,不然没法看到实时页面
-#      cache: false
 
 
    freemarker:

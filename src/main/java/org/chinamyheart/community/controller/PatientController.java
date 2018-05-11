@@ -66,7 +66,7 @@ public class PatientController extends RedisBaseController {
 
         User user = super.getCurrentUserInfoByToken();
         if(user != null){
-            Pagination<Case> pageParm = new Pagination<>(currentPage,Constant.pageSize);
+            Pagination<Case> pageParm = new Pagination<>(currentPage,Constant.CASEPAGESIZE);
             Pagination<Case> pagination = caseService.getCasesByUserId(user.getId(),pageParm);
             model.addAttribute("list",pagination);
             model.addAttribute("user",user);
@@ -82,13 +82,12 @@ public class PatientController extends RedisBaseController {
     }
 
     @RequestMapping("/lockCase")
-    @ResponseBody
-    public Object lockCase(@RequestParam(required = true) Integer caseId) {
+    public String lockCase(@RequestParam(required = true) Integer caseId) {
         Case c = new Case();
         c.setId(caseId);
         c.setStatus(1);
         caseService.lockCase(c);
-        return ReturnResult.SUCCESS("锁定成功");
+        return "redirect:/patient/getCaseList";
     }
 
     @PostMapping("/addCase")

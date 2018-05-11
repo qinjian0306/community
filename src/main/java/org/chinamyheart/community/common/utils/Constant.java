@@ -5,9 +5,14 @@ package org.chinamyheart.community.common.utils;
  */
 public class Constant {
 
-	/*
-	 * 分页数量
+	/**
+	 * 病历分页数量
 	 */
-	public static int pageSize=10;
+	public static int CASEPAGESIZE=10;
+
+	/**
+	 * 医生待审核分页数量
+	 */
+	public static int REVIEWPAGESIZE=6;
 }
 

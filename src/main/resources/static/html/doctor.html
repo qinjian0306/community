@@ -210,10 +210,10 @@
             method: "post",
             data: $("#addForm").serialize(),
             success: function (data) {
-                location.href = "../html/doctor.html";
+                location.href = "/doctor/getCaseList";
             },
             error: function (data) {
-                location.href = "../html/doctor.html";
+
             }
         });
     });
@@ -248,60 +248,4 @@
     $("#pagination").bootstrapPaginator(options);
 
 </script>
-<!--<script>-->
-<!--var curpage = 1;-->
-<!--var min = 1;-->
-<!--var max = 5;-->
-<!--$(".pageNo").click(function () {-->
-<!--var pageNo = ($(this).html());-->
-<!--$(".currentPage").css("background-color", "");-->
-<!--$(".pageNo").removeClass("currentPage");-->
-<!--$(this).addClass("currentPage");-->
-<!--curpage = pageNo;-->
-<!--// location.href="";-->
-<!--});-->
-<!--$(".leftPage").click(function () {-->
-<!--var currentPageNo = $(".currentPage").html();-->
-<!--$(".currentPage").css("background-color", "");-->
-<!--$(".pageNo").removeClass("currentPage");-->
-<!--currentPageNo = currentPageNo - 1 >= min ? currentPageNo - 1 : min;-->
-<!--$(".pageNo").each(function () {-->
-<!--var value = $(this).html();-->
-<!--if (value == currentPageNo) {-->
-<!--$(this).addClass("currentPage");-->
-<!--}-->
-<!--});-->
-<!--$(".currentPage").css("background-color", "#eee");-->
-<!--curpage = currentPageNo;-->
-<!--// location.href="";-->
-<!--});-->
-<!--$(".rightPage").click(function () {-->
-<!--var currentPageNo = $(".currentPage").html();-->
-<!--$(".currentPage").css("background-color", "");-->
-<!--$(".pageNo").removeClass("currentPage");-->
-<!--currentPageNo = Number(currentPageNo) + Number(1) <= max ? Number(currentPageNo) + Number(1) : max;-->
-<!--$(".pageNo").each(function () {-->
-<!--var value = $(this).html();-->
-<!--if (value == currentPageNo) {-->
-<!--$(this).addClass("currentPage");-->
-<!--}-->
-<!--});-->
-<!--$(".currentPage").css("background-color", "#eee");-->
-<!--curpage = currentPageNo;-->
-<!--// location.href="";-->
-<!--});-->
-
-
-<!--function initPage(pageNo) {-->
-<!--$(".pageNo").each(function () {-->
-<!--var value = $(this).html();-->
-<!--if (value == pageNo) {-->
-<!--$(this).addClass("currentPage");-->
-<!--}-->
-<!--});-->
-<!--$(".currentPage").css("background-color", "#eee");-->
-<!--}-->
-
-<!--initPage(4);-->
-<!--</script>-->
 </html>

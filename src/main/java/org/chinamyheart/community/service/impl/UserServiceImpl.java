@@ -1,12 +1,15 @@
 package org.chinamyheart.community.service.impl;
 
+import org.chinamyheart.community.common.PageUtils.Pagination;
 import org.chinamyheart.community.mapper.UserMapper;
 import com.alibaba.fastjson.JSON;
 import org.chinamyheart.community.common.auth.LoginResponse;
 import org.chinamyheart.community.common.utils.GUIDUtils;
 import org.chinamyheart.community.common.utils.MD5Util;
 import org.chinamyheart.community.mapper.UserMapper;
+import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.model.User;
+import org.chinamyheart.community.model.UserVo;
 import org.chinamyheart.community.redis.JedisCli;
 import org.chinamyheart.community.redis.RedisConstant;
 import org.chinamyheart.community.service.UserService;
@@ -17,6 +20,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -33,6 +37,10 @@ public class UserServiceImpl implements UserService{
 
 	public List<User> getUserByUsername(User user){
 		return userMapper.getUserByUsername(user);
+	}
+
+	public List<User> selectAllPend(User user){
+		return userMapper.selectAllPend(user);
 	}
 
 	@Override
@@ -72,6 +80,12 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public User getUserById(Integer id) {
+		User user = userMapper.getUserById(id);
+		return user;
+	}
+
+	@Override
 	public int insert(User user) {
 		user.setCreateTime(new Date());
 		try {
@@ -84,4 +98,32 @@ public class UserServiceImpl implements UserService{
 		}
 		return 0;
 	}
+
+	@Override
+	public void update(User user) {
+		user.setUpdateTime(new Date());
+		try {
+			userMapper.update(user);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public Pagination<UserVo> selectAllPendByPage(int dstatus, Pagination<UserVo> pagination) {
+		// 组装查询条件
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("dstatus",dstatus);
+		map.put("offset", pagination.getOffset());
+		map.put("limit", pagination.getPageSize());
+		// 查询总数
+		int count = userMapper.countPage(map);
+		if (count > 0) {
+			List<UserVo> list = userMapper.getPageList(map);
+			pagination.setData(list);
+		}
+		pagination.setTotalRows(count);
+		return pagination;
+	}
+
 }

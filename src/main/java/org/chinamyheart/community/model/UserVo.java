@@ -5,9 +5,12 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
+/**
+ * 医生VO类
+ */
 @Data
 @ToString
-public class User extends Base implements Serializable {
+public class UserVo extends Base implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,4 +30,10 @@ public class User extends Base implements Serializable {
 
 	// 医生状态 0未添加认证信息 1批准 2拒绝 3已添加认证信息 正在处理审核
 	private Integer dstatus;
+
+	/**医生认证信息**/
+	private Integer doctorId;
+	private String hospital;
+	private String realName;
+	private String detials;
 }

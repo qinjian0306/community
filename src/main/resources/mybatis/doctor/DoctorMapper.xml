@@ -6,9 +6,9 @@
 	  id,
 	  userId,
 	  hospital,
+	  mobile,
 	  realName,
 	  detials,
-	  status,
 	  createTime
   </sql>
   
@@ -40,16 +40,16 @@
 		insert into c_doctor (
 		userId,
 		hospital,
+		mobile,
 		realName,
 		detials,
-		status,
 		createTime
 		) values (
 		#{userId},
 		#{hospital},
+		#{mobile},
 		#{realName},
 		#{detials},
-		#{status},
 		#{createTime}
 		)
 	</insert>
@@ -62,14 +62,14 @@
 		<if test="hospital != null">
 			hospital = #{hospital},
 		</if>
+		<if test="mobile != null">
+			mobile = #{mobile},
+		</if>
 		<if test="realName != null">
 			realName = #{realName},
 		</if>
 		<if test="detials != null">
 			detials = #{detials},
-		</if>
-		<if test="status != null">
-			status = #{status},
 		</if>
 		<if test="createTime != null">
 			createTime = #{createTime}
@@ -86,14 +86,14 @@
 		<if test="hospital != null">
 			and hospital = #{hospital}
 		</if>
+		<if test="mobile != null">
+			and mobile = #{mobile}
+		</if>
 		<if test="realName != null">
 			and realName = #{realName}
 		</if>
 		<if test="detials != null">
 			and detials = #{detials}
-		</if>
-		<if test="status != null">
-			and status = #{status}
 		</if>
 		<if test="createTime != null">
 			and createTime = #{createTime}

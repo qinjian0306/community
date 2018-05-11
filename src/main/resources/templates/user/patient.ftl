@@ -54,24 +54,33 @@
             </div>
             <div class="panel-body">
                  <#list list.data as case>
-                      <div class="row">
-                          <div class="col-md-12 col-lg-12">
-                              <a class="pull-left" href="/patient/viewCase?caseId=${case.id}">${case.title}</a>
-                              <span class="pull-right">
+                     <div class="row">
+                         <div class="col-md-12 col-lg-12">
+                             <#if (case.status==1)>
+                                   <a class="pull-left" href="#">${case.title}</a>
+                             </#if>
+                              <#if (case.status!=1)>
+                                   <a class="pull-left" href="/patient/viewCase?caseId=${case.id}">${case.title}</a>
+                              </#if>
+                             <span class="pull-right">
                                   <span>
                                         <#if (case.status==1)>已关闭</#if>
-                                       <#if (case.status==0)>已打开</#if>
-                                    </span>
+                                       <#if (case.status==0)>
+                                           <div id="validate" class="text-info text-center small" style="display: inline;">
+                                                <a href="/patient/lockCase?caseId=${case.id}" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal">关闭</a>
+                                            </div>
+                                       </#if>
+                                  </span>
                               </span>
-                              <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
-                          </div>
-                          <div class="col-md-12 col-lg-12" style="font-size: 10px">
-                              患者：<span>${case.patient}</span>
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              创建时间：<span>${case.createTimeStr?string("yyyy-MM-dd HH:mm")}</span>
-                              <span class="pull-right">最后回复时间：<span>${case.updateTimeStr?string("yyyy-MM-dd HH:mm")}</span></span>
-                          </div>
-                      </div>
+                             <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
+                         </div>
+                         <div class="col-md-12 col-lg-12" style="font-size: 10px">
+                             患者：<span>${case.patient}</span>
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             创建时间：<span>${case.createTimeStr?string("yyyy-MM-dd HH:mm")}</span>
+                             <span class="pull-right">最后回复时间：<span>${case.updateTimeStr?string("yyyy-MM-dd HH:mm")}</span></span>
+                         </div>
+                     </div>
                      <hr>
                  </#list>
             </div>
@@ -111,7 +120,8 @@
                     <div class="form-group">
                         <div class="col-md-9 col-lg-9">
                             <input type="hidden" class="form-control" id="userId" name="userId" value="${user.id}">
-                            <input type="hidden" class="form-control" id="author" name="author" value="${user.nickname}">
+                            <input type="hidden" class="form-control" id="author" name="author"
+                                   value="${user.nickname}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -212,9 +222,9 @@
         showUploadThumbs: false,
         resizeImage: false,
         showZoom: false,
-        maxFileCount:3,
+        maxFileCount: 3,
         maxFileSize: 20480,
-        allowedFileExtensions:['jpg','png','pdf','jpeg','bmp','gif'],
+        allowedFileExtensions: ['jpg', 'png', 'pdf', 'jpeg', 'bmp', 'gif'],
     });
 
     $('#addCaseBtn').click(function () {
