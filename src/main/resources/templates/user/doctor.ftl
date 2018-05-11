@@ -115,21 +115,6 @@
             </div>
             <nav aria-label="Page navigation" class="pull-right">
                 <ul id="pagination" class="pagination">
-                    <!--<li>-->
-                    <!--<a class="leftPage" href="#" aria-label="Previous">-->
-                    <!--<span aria-hidden="true">&laquo;</span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--<li><a class="pageNo" href="#">1</a></li>-->
-                    <!--<li><a class="pageNo" href="#">2</a></li>-->
-                    <!--<li><a class="pageNo" href="#">3</a></li>-->
-                    <!--<li><a class="pageNo" href="#">4</a></li>-->
-                    <!--<li><a class="pageNo" href="#">5</a></li>-->
-                    <!--<li>-->
-                    <!--<a class="rightPage" href="#" aria-label="Next">-->
-                    <!--<span aria-hidden="true">&raquo;</span>-->
-                    <!--</a>-->
-                    <!--</li>-->
                 </ul>
             </nav>
         </div>
