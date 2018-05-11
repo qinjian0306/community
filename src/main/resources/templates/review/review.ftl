@@ -62,7 +62,6 @@
                                                 <div class="pull-left" style="margin: 2px 2px 2px 12px;">
                                             <span style="font-size: 12px;">医生姓名：
                                                 <span class="text-primary">${doctor.realName}</span>
-                                                <span id="userId" class="hidden">${doctor.id}</span>
                                             </span>
                                                 </div>
                                                 <div class="pull-right" style="margin: 2px 12px 2px 2px;">
@@ -155,15 +154,5 @@
         location.href = "/doctor/allPend?status=3"
     });
 
-
-
-    $("#pass").click(function () {
-        var userId = $("#userId").text();
-        location.href = "../html/review.html";
-    });
-    $("#refuse").click(function () {
-        var userId = $("#userId").text();
-        location.href = "../html/review.html";
-    });
 </script>
 </html>

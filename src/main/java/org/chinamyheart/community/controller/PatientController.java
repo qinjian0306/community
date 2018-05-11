@@ -11,7 +11,6 @@ import org.chinamyheart.community.service.CaseService;
 import org.chinamyheart.community.service.ReplayService;
 import org.chinamyheart.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -39,14 +38,14 @@ public class PatientController extends RedisBaseController {
     private ReplayService replayService;
 
     @RequestMapping("/viewCase")
-    public String getCase(Model model, @RequestParam(required = true) Integer caseId) {
+    public String getCase(Model model,@RequestParam(required = true) Integer caseId) {
         User user = super.getCurrentUserInfoByToken();
-        if (user != null) {
-            Case c = caseService.getCaseById(caseId);
+        if(user != null){
+            Case c =  caseService.getCaseById(caseId);
             List<Reply> replyList = replayService.selectByCaseId(caseId);
-            model.addAttribute("case", c);
-            model.addAttribute("user", user);
-            model.addAttribute("replyList", replyList);
+            model.addAttribute("case",c);
+            model.addAttribute("user",user);
+            model.addAttribute("replyList",replyList);
         }
         return "/user/conversation";
     }
@@ -67,11 +66,11 @@ public class PatientController extends RedisBaseController {
                               @RequestParam(value = "pageNum", defaultValue = "1") Integer currentPage) {
 
         User user = super.getCurrentUserInfoByToken();
-        if (user != null) {
-            Pagination<Case> pageParm = new Pagination<>(currentPage, Constant.CASEPAGESIZE);
-            Pagination<Case> pagination = caseService.getCasesByUserId(user.getId(), pageParm);
-            model.addAttribute("list", pagination);
-            model.addAttribute("user", user);
+        if(user != null){
+            Pagination<Case> pageParm = new Pagination<>(currentPage,Constant.CASEPAGESIZE);
+            Pagination<Case> pagination = caseService.getCasesByUserId(user.getId(),pageParm);
+            model.addAttribute("list",pagination);
+            model.addAttribute("user",user);
         }
         return "/user/patient";
     }
@@ -94,7 +93,7 @@ public class PatientController extends RedisBaseController {
 
     @PostMapping("/addCase")
     @ResponseBody
-    public ReturnResult addCase(Case c, @RequestParam("files") MultipartFile[] files) {
+    public String addCase(Model model,Case c, @RequestParam("files") MultipartFile[] files) {
         StringBuilder url = new StringBuilder("");
         try {
             File fir = ResourceUtils.getFile("classpath:static/fileupload/readme.txt");
@@ -103,7 +102,6 @@ public class PatientController extends RedisBaseController {
             c.setCreateTime(date);
             c.setUpdateTime(date);
             c.setStatus(0);
-
 
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
@@ -116,14 +114,19 @@ public class PatientController extends RedisBaseController {
                 FileOutputStream fos = new FileOutputStream(f);
                 InputStream fis = file.getInputStream();
                 FileCopyUtils.copy(fis, fos);
+                if(fis!=null){
+                    fis.close();
+                }
+                if(fos!=null){
+                    fos.close();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return ReturnResult.FAILUER("添加失败");
         }
         c.setUrl(url.toString());
         caseService.addCase(c);
-        return ReturnResult.SUCCESS("添加成功");
+        return "redirect:/patient/getCaseList";
     }
 
     @PostMapping("/addCase/upload/files")

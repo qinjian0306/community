@@ -128,93 +128,27 @@
 
                     </#list>
                 </#if>
-                <#--<div class="row row-left">-->
-                    <#--<div class="col-md-3 col-lg-3 pull-left text-left" style="margin-left: -12px">-->
-                        <#--<div class="col-lg-12 col-md-12" style="font-size: 4px">-->
-                            <#--医生：<span>波医生</span>-->
-                        <#--</div>-->
-                        <#--<div class="col-lg-12 col-md-12" style="font-size: 1px; color: gray">-->
-                            <#--2018-05-01 22:23:24-->
-                        <#--</div>-->
-                    <#--</div>-->
-                    <#--<div class="col-md-9 col-lg-9 col-md-pull-1" style="font-size: 10px;margin-left: -10px">-->
-                        <#--<div class="left"></div>-->
-                        <#--<div class="radius">-->
-                            <#--<p>波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生</p>-->
-                        <#--</div>-->
-                    <#--</div>-->
-                <#--</div>-->
-                <#--<div class="clearfix col-md-12 col-lg-12">&nbsp;</div>-->
-                <#--<div class="row row-left">-->
-                    <#--<div class="col-md-3 col-lg-3 pull-left text-left" style="margin-left: -12px">-->
-                        <#--<div class="col-lg-12 col-md-12" style="font-size: 4px">-->
-                            <#--医生：<span>波医生</span>-->
-                        <#--</div>-->
-                        <#--<div class="col-lg-12 col-md-12" style="font-size: 1px; color: gray">-->
-                            <#--2018-05-01 22:23:24-->
-                        <#--</div>-->
-                    <#--</div>-->
-                    <#--<div class="col-md-9 col-lg-9 col-md-pull-1" style="font-size: 10px;margin-left: -10px">-->
-                        <#--<div class="left"></div>-->
-                        <#--<div class="radius">-->
-                            <#--<p>波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生</p>-->
-                        <#--</div>-->
-                    <#--</div>-->
-                <#--</div>-->
-                <#--<div class="clearfix col-md-12 col-lg-12">&nbsp;</div>-->
-                <#--<div class="row row-right">-->
-                    <#--<div class="col-md-9 col-lg-9 col-md-push-1 col-lg-push-1"-->
-                         <#--style="font-size: 10px;margin-right: -15px">-->
-                        <#--<div class="radius">-->
-                            <#--<p>波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生</p>-->
-                        <#--</div>-->
-                        <#--<div class="right"></div>-->
-                    <#--</div>-->
-                    <#--<div class="col-md-3 col-lg-3 pull-right text-right" style="margin-right: -12px">-->
-                        <#--<div class="col-lg-12 col-md-12" style="font-size: 4px">-->
-                            <#--医生：<span>波医生</span>-->
-                        <#--</div>-->
-                        <#--<div class="col-lg-12 col-md-12" style="font-size: 1px; color: gray">-->
-                            <#--2018-05-01 22:23:24-->
-                        <#--</div>-->
-                    <#--</div>-->
-                <#--</div>-->
-                <#--<div class="clearfix col-md-12 col-lg-12">&nbsp;</div>-->
-                <#--<div class="row row-right">-->
-                    <#--<div class="col-md-9 col-lg-9 col-md-push-1 col-lg-push-1"-->
-                         <#--style="font-size: 10px;margin-right: -15px">-->
-                        <#--<div class="radius">-->
-                            <#--<p>波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生波医生</p>-->
-                        <#--</div>-->
-                        <#--<div class="right"></div>-->
-                    <#--</div>-->
-                    <#--<div class="col-md-3 col-lg-3 pull-right text-right" style="margin-right: -12px">-->
-                        <#--<div class="col-lg-12 col-md-12" style="font-size: 4px">-->
-                            <#--医生：<span>波医生</span>-->
-                        <#--</div>-->
-                        <#--<div class="col-lg-12 col-md-12" style="font-size: 1px; color: gray">-->
-                            <#--2018-05-01 22:23:24-->
-                        <#--</div>-->
-                    <#--</div>-->
-                <#--</div>-->
+
             </div>
             <hr>
-            <div class="panel-body">
-                <div class="row" style="margin: -30px;margin-top: -32px;">
-                    <div class="col-md-12 col-lg-12">
+            <#if case.status!=1>
+                 <div class="panel-body">
+                     <div class="row" style="margin: -30px;margin-top: -32px;">
+                         <div class="col-md-12 col-lg-12">
                         <textarea id="conversation-detail" name="content" class="col-md-12 col-lg-12"
                                   style="border: 0px" placeholder="正在输入中..."></textarea>
-                    </div>
-                    <div class="col-md-12 col-lg-12">
-                        <div class="pull-right" style="margin-right: 20px;margin-top: 5px;">
-                            <button id="clearBtn" type="button" class="btn btn-default btn-sm"
-                                    style="margin-right: 15px">清空
-                            </button>
-                            <button id="submitBtn" type="button" class="btn btn-info btn-sm">提交</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                         </div>
+                         <div class="col-md-12 col-lg-12">
+                             <div class="pull-right" style="margin-right: 20px;margin-top: 5px;">
+                                 <button id="clearBtn" type="button" class="btn btn-default btn-sm"
+                                         style="margin-right: 15px">清空
+                                 </button>
+                                 <button id="submitBtn" type="button" class="btn btn-info btn-sm">提交</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+            </#if>
         </div>
     </div>
 

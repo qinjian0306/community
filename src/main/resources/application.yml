@@ -62,3 +62,6 @@ mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mybatis/*/*Mapper.xml
   type-aliases-package: org.chinamyheart.community.model
+
+
+filepath: classpath:/fileupload/
