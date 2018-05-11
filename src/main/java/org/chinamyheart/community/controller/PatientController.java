@@ -92,7 +92,6 @@ public class PatientController extends RedisBaseController {
     }
 
     @PostMapping("/addCase")
-    @ResponseBody
     public String addCase(Model model, Case c, @RequestParam("files") MultipartFile[] files) {
         StringBuilder url = new StringBuilder("");
         try {
