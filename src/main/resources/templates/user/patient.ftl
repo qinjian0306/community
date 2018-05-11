@@ -148,10 +148,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="contact" class="col-md-3 col-lg-3 control-label">电话</label>
+                        <label for="mobile" class="col-md-3 col-lg-3 control-label">电话</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="contact" name="contact">
+                            <input type="text" class="form-control" id="mobile" name="contact">
                         </div>
+                        <label class="help-block help-warning col-md-offset-3 col-lg-offset-3" style="display:none">
+                            <span class="text-warning">
+                                <i class="fa fa-close">&nbsp;</i>手机号不合法，请重新输入
+                            </span>
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="description" class="col-md-3 col-lg-3 control-label">详情</label>
@@ -238,7 +243,7 @@
         var author = $('#author').val();
         var patient = $('#patient').val();
         var gender = $('input[name="gender"]:checked').val();
-        var contact = $('#contact').val();
+        var contact = $('#mobile').val();
         var description = $('#description').val();
         formData.append("userId", userId);
         formData.append("title", title);
@@ -324,6 +329,23 @@
             $('#addCaseBtn').removeAttr('disabled');
         } else {
             $('#addCaseBtn').attr('disabled', true);
+        }
+    });
+</script>
+<script>
+    //检查手机号
+    $('#mobile').blur(function () {
+        var phone = $('#mobile').val();
+        if (phone.length > 0) {
+            var regex = /^[1][3,4,5,7,8][0-9]{9}$/;
+            if (!regex.test(phone)) {
+                $('#addBtn').attr('disabled', true);
+                $(".help-warning").show();
+            }else {
+                $(".help-warning").hide();
+            }
+        }else{
+            $(".help-warning").hide();
         }
     });
 </script>
