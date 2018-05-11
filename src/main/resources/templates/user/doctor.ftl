@@ -166,6 +166,11 @@
                         <div class="col-md-9 col-lg-9">
                             <input type="text" class="form-control required" id="mobile" name="mobile">
                         </div>
+                        <label class="help-block help-warning col-md-offset-3 col-lg-offset-3" style="display:none">
+                            <span class="text-warning">
+                                <i class="fa fa-close">&nbsp;</i>手机号不合法，请重新输入
+                            </span>
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="detail" class="col-md-3 col-lg-3 control-label">介绍</label>
@@ -255,6 +260,23 @@
             $('#addBtn').removeAttr('disabled');
         } else {
             $('#addBtn').attr('disabled', true);
+        }
+    });
+</script>
+<script>
+    //检查手机号
+    $('#mobile').blur(function () {
+        var phone = $('#mobile').val();
+        if (phone.length > 0) {
+            var regex = /^[1][3,4,5,7,8][0-9]{9}$/;
+            if (!regex.test(phone)) {
+                $('#addBtn').attr('disabled', true);
+                $(".help-warning").show();
+            }else {
+                $(".help-warning").hide();
+            }
+        }else{
+            $(".help-warning").hide();
         }
     });
 </script>
