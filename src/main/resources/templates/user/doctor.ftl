@@ -26,14 +26,14 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown pull-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        波医生
+                        ${user.nickname}
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#">用户信息</a></li>
+                        <#--<li><a href="#">用户信息</a></li>-->
                         <li><a href="#">密码修改</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">登出</a></li>
+                            <li><a href="/user/logout">登出</a></li>
                     </ul>
                 </li>
             </ul>
