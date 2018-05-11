@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>conversation</title>
@@ -16,11 +16,11 @@
             <a class="navbar-brand" href="#">医患交流平台</a>
         </div>
         <!--<div>-->
-            <!--<ul class="nav navbar-nav">-->
-                <!--<li class="active">-->
-                    <!--<a href="#">主页</a>-->
-                <!--</li>-->
-            <!--</ul>-->
+        <!--<ul class="nav navbar-nav">-->
+        <!--<li class="active">-->
+        <!--<a href="#">主页</a>-->
+        <!--</li>-->
+        <!--</ul>-->
         <!--</div>-->
         <div class="navbar-right">
             <ul class="nav navbar-nav">
@@ -46,9 +46,22 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-12 col-lg-12">
-                        <span class="pull-left">医生我觉得脑子好像不太好使？</span>
-                        <span class="pull-right" style="font-size: 8px">创建时间：<span>2018-05-01 22:22:22</span></span>
-                        <div class="clearfix col-md-12 col-lg-12">&nbsp;</div>
+                        <div class="col-md-3 col-lg-3 col-xs-3">
+                            <span class="pull-left">医生我觉得脑子好像不太好使？</span>
+                            <div class="clearfix col-md-3 col-lg-3">&nbsp;</div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xs-6">
+                            <div style="width: 40px;height: 40px;" class="text-center">
+                                <a href="#" id="imgA" class="thumbnail">
+                                    <img id="imgThumb" src="../fileupload/abc.png"
+                                         alt="通用的占位符缩略图"></img>
+                                </a>
+                            </div>
+                            <!--<img src="../fileupload/abc.png">-->
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xs-3">
+                            <span class="pull-right" style="font-size: 8px">创建时间：<span>2018-05-01 22:22:22</span></span>
+                        </div>
                     </div>
                     <div class="col-md-12 col-lg-12" style="font-size: 8px;">
                         昵称：<span>李先生</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -190,12 +203,37 @@
         </div>
     </div>
 </div>
+<div id="previewDiv" class="text-center"
+     style="width: 600px;height: 400px;z-index: -1;position: fixed;left: 25%;top: 25%;">
+    <img id="previewImg" style="width: 400px;height: 400px" src="../fileupload/abc.png"
+         alt="通用的占位符缩略图">
+</div>
 </body>
 <script src="../production/jquery/jquery.min.js"></script>
 <script src="../production/bootstrap/js/bootstrap.min.js"></script>
 <script>
     $('#clearBtn').click(function () {
         $('#conversation-detail').val("");
+    });
+</script>
+<script>
+    $("#imgA").mouseover(function () {
+
+        var src = $("#imgThumb")[0].src;
+        $("#previewImg").attr("src", src);
+        $("#previewDiv").css("z-index", "9999")
+    });
+    $("#imgA").mouseout(function () {
+
+        // var src = $("#imgThumb").attr("src");
+        $("#previewImg").attr("src", "");
+        $("#previewDiv").css("z-index", "-1")
+    });
+    $("#imgA").click(function () {
+        var src = $("#imgThumb")[0].src;
+        var separatorIndex = src.lastIndexOf("/");
+        src = src.substring(separatorIndex+1);
+        location.href = "../patient/downloadCase?url="+src;
     });
 </script>
 </html>

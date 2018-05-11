@@ -53,12 +53,18 @@ public class PatientController extends RedisBaseController {
     @RequestMapping("/downloadCase")
     @ResponseBody
     public Object downloadCase(@RequestParam(required = true) String url) {
-
-        File file = new File(url);
-        if (!file.exists()) {
-            return ReturnResult.FAILUER("文件不存在，下载失败");
+        try {
+            File fir = ResourceUtils.getFile("classpath:static/fileupload/readme.txt");
+            String rootPath = fir.getParent();
+            File file = new File(rootPath + File.separator + url);
+            if (!file.exists()) {
+                return ReturnResult.FAILUER("文件不存在，下载失败");
+            }
+            return caseService.downloadCase(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        return caseService.downloadCase(file);
+        return ReturnResult.FAILUER("文件不存在，下载失败");
     }
 
     @RequestMapping("/getCaseList")
