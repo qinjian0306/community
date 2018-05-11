@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -82,7 +84,7 @@ public class PatientController extends RedisBaseController {
     }
 
     @RequestMapping("/removeCase")
-    public String deleteCase(Model model,@RequestParam(required = true) Integer caseId) {
+    public String deleteCase(Model model, @RequestParam(required = true) Integer caseId) {
         caseService.deleteCase(caseId);
         return "redirect:/admin/getCaseList";
     }
@@ -109,6 +111,9 @@ public class PatientController extends RedisBaseController {
 
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
+                String fileExtension = fileName.substring(fileName.lastIndexOf("."));
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+                fileName = LocalDateTime.now().format(dtf) + fileExtension;
                 if (fileName.trim().length() == 0) continue;
                 File f = new File(rootPath + File.separator + fileName);
                 if (url.length() > 0) {
