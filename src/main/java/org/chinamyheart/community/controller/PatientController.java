@@ -11,6 +11,7 @@ import org.chinamyheart.community.service.CaseService;
 import org.chinamyheart.community.service.ReplayService;
 import org.chinamyheart.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,14 +39,14 @@ public class PatientController extends RedisBaseController {
     private ReplayService replayService;
 
     @RequestMapping("/viewCase")
-    public String getCase(Model model,@RequestParam(required = true) Integer caseId) {
+    public String getCase(Model model, @RequestParam(required = true) Integer caseId) {
         User user = super.getCurrentUserInfoByToken();
-        if(user != null){
-            Case c =  caseService.getCaseById(caseId);
+        if (user != null) {
+            Case c = caseService.getCaseById(caseId);
             List<Reply> replyList = replayService.selectByCaseId(caseId);
-            model.addAttribute("case",c);
-            model.addAttribute("user",user);
-            model.addAttribute("replyList",replyList);
+            model.addAttribute("case", c);
+            model.addAttribute("user", user);
+            model.addAttribute("replyList", replyList);
         }
         return "/user/conversation";
     }
@@ -65,11 +67,11 @@ public class PatientController extends RedisBaseController {
                               @RequestParam(value = "pageNum", defaultValue = "1") Integer currentPage) {
 
         User user = super.getCurrentUserInfoByToken();
-        if(user != null){
-            Pagination<Case> pageParm = new Pagination<>(currentPage,Constant.CASEPAGESIZE);
-            Pagination<Case> pagination = caseService.getCasesByUserId(user.getId(),pageParm);
-            model.addAttribute("list",pagination);
-            model.addAttribute("user",user);
+        if (user != null) {
+            Pagination<Case> pageParm = new Pagination<>(currentPage, Constant.CASEPAGESIZE);
+            Pagination<Case> pagination = caseService.getCasesByUserId(user.getId(), pageParm);
+            model.addAttribute("list", pagination);
+            model.addAttribute("user", user);
         }
         return "/user/patient";
     }
@@ -93,16 +95,20 @@ public class PatientController extends RedisBaseController {
     @PostMapping("/addCase")
     @ResponseBody
     public ReturnResult addCase(Case c, @RequestParam("files") MultipartFile[] files) {
-        Date date = Calendar.getInstance().getTime();
-        c.setCreateTime(date);
-        c.setUpdateTime(date);
-        c.setStatus(0);
         StringBuilder url = new StringBuilder("");
         try {
+            File fir = ResourceUtils.getFile("classpath:static/fileupload/readme.txt");
+            String rootPath = fir.getParent();
+            Date date = Calendar.getInstance().getTime();
+            c.setCreateTime(date);
+            c.setUpdateTime(date);
+            c.setStatus(0);
+
+
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
                 if (fileName.trim().length() == 0) continue;
-                File f = new File(fileName);
+                File f = new File(rootPath + File.separator + fileName);
                 if (url.length() > 0) {
                     url.append(",");
                 }
