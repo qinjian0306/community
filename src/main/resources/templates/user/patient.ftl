@@ -61,12 +61,13 @@
                  <#list list.data as case>
                      <div class="row">
                          <div class="col-md-12 col-lg-12">
-                             <#if (case.status==1)>
-                                   <a class="pull-left" href="#">${case.title}</a>
-                             </#if>
-                              <#if (case.status!=1)>
                                    <a class="pull-left" href="/patient/viewCase?caseId=${case.id}">${case.title}</a>
-                              </#if>
+                             <#--<#if (case.status==1)>-->
+                                   <#--<a class="pull-left" href="#">${case.title}</a>-->
+                             <#--</#if>-->
+                              <#--<#if (case.status!=1)>-->
+                                   <#--<a class="pull-left" href="/patient/viewCase?caseId=${case.id}">${case.title}</a>-->
+                              <#--</#if>-->
                              <span class="pull-right">
                                   <span>
                                         <#if (case.status==1)>已关闭</#if>
@@ -266,7 +267,7 @@
         xhr.onreadystatechange = function (response) { //第四步
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var data = JSON.parse(xhr.responseText);
-                location.href = "/patient/getCaseList";
+                // location.href = "/patient/getCaseList";
             }
         };
         // $.ajax({

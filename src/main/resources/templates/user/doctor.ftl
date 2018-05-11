@@ -74,18 +74,27 @@
                 <#list list.data as case>
                   <div class="row">
                       <div class="col-md-12 col-lg-12">
-                          <#if (user.dstatus==0)>
-                                 <a class="pull-left" href="#" disabled="disabled" >${case.title}</a>
-                          </#if>
-                          <#if (user.dstatus==1 && case.status==1)>
-                                   <a class="pull-left" href="#">${case.title}</a>
-                          </#if>
-                          <#if (user.dstatus==1 && case.status!=1)>
+                            <#if (user.dstatus==0)>
+                                 <a class="pull-left" disabled="disabled" >${case.title}</a>
+                            </#if>
+                          <#if (user.dstatus==1)>
                                    <a class="pull-left" href="/patient/viewCase?caseId=${case.id}">${case.title}</a>
                           </#if>
                          <#if (user.dstatus==3)>
-                             <a class="pull-left" href="#" disabled="disabled">${case.title}</a>
+                             <a class="pull-left" disabled="disabled">${case.title}</a>
                          </#if>
+                          <#--<#if (user.dstatus==0)>-->
+                                 <#--<a class="pull-left" href="#" disabled="disabled" >${case.title}</a>-->
+                          <#--</#if>-->
+                          <#--<#if (user.dstatus==1 && case.status==1)>-->
+                                   <#--<a class="pull-left" href="#">${case.title}</a>-->
+                          <#--</#if>-->
+                          <#--<#if (user.dstatus==1 && case.status!=1)>-->
+                                   <#--<a class="pull-left" href="/patient/viewCase?caseId=${case.id}">${case.title}</a>-->
+                          <#--</#if>-->
+                         <#--<#if (user.dstatus==3)>-->
+                             <#--<a class="pull-left" href="#" disabled="disabled">${case.title}</a>-->
+                         <#--</#if>-->
                           <span class="pull-right">
                               <span>
                                   <#if (case.status==1)>已关闭</#if>

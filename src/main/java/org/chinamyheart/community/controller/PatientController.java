@@ -91,8 +91,7 @@ public class PatientController extends RedisBaseController {
     }
 
     @PostMapping("/addCase")
-    @ResponseBody
-    public ReturnResult addCase(Case c, @RequestParam("files") MultipartFile[] files) {
+    public String addCase(Model model,Case c, @RequestParam("files") MultipartFile[] files) {
         Date date = Calendar.getInstance().getTime();
         c.setCreateTime(date);
         c.setUpdateTime(date);
@@ -113,11 +112,10 @@ public class PatientController extends RedisBaseController {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return ReturnResult.FAILUER("添加失败");
         }
         c.setUrl(url.toString());
         caseService.addCase(c);
-        return ReturnResult.SUCCESS("添加成功");
+        return "redirect:/patient/getCaseList";
     }
 
     @PostMapping("/addCase/upload/files")
