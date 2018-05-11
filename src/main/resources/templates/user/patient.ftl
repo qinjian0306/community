@@ -8,6 +8,11 @@
     <link rel='stylesheet' href='../production/bootstrap-table/css/bootstrap-table.min.css'>
     <link rel="stylesheet" href="../production/fileinput/css/fileinput.min.css">
     <link rel="stylesheet" href="../custom/css/main.css">
+    <style>
+        .dropdown{
+            min-width: 100px;
+        }
+    </style>
 </head>
 <body>
 
