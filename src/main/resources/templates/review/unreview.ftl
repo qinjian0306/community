@@ -23,10 +23,10 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#">用户信息</a></li>
+                        <#--<li><a href="#">用户信息</a></li>-->
                         <li><a href="#">密码修改</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">登出</a></li>
+                            <li><a href="/user/logout">登出</a></li>
                     </ul>
                 </li>
             </ul>
