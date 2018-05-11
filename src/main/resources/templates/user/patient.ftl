@@ -127,7 +127,7 @@
                     <div class="form-group">
                         <label for="title" class="col-md-3 col-lg-3 control-label">标题</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="title" name="title">
+                            <input type="text" class="form-control required" id="title" name="title">
                         </div>
                     </div>
                     <div class="form-group">
@@ -188,7 +188,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="addCaseBtn" type="button" class="btn btn-primary">提交</button>
+                <button id="addCaseBtn" type="button" disabled class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
@@ -302,5 +302,29 @@
     };
     $("#pagination").bootstrapPaginator(options);
 
+</script>
+<script>
+    //检查表单是否可提交
+    function checkSubmit() {
+        var submit = true;
+        $('.required').each(function () {
+            var value = $(this).val().trim();
+            if (value.length == 0) {
+                submit = false;
+            }
+        });
+        return submit;
+    }
+    $('.form-control').blur(function () {
+        // var warning = $('.help-warning[style=""]').length;
+        // var danger = $('.help-danger[style=""]').length;
+        // var error = warning + danger;
+        var error = 0;
+        if (checkSubmit() && error == 0) {
+            $('#addCaseBtn').removeAttr('disabled');
+        } else {
+            $('#addCaseBtn').attr('disabled', true);
+        }
+    });
 </script>
 </html>
