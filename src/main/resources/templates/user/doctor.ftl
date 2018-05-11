@@ -7,6 +7,11 @@
     <link rel='stylesheet' href='../production/font-awesome/css/font-awesome.min.css'>
     <link rel='stylesheet' href='../production/bootstrap-table/css/bootstrap-table.min.css'>
     <link rel="stylesheet" href="../custom/css/main.css">
+    <style>
+        .dropdown{
+            min-width: 100px;
+        }
+    </style>
 </head>
 <body>
 
@@ -158,14 +163,19 @@
                     <div class="form-group">
                         <label for="realName" class="col-md-3 col-lg-3 control-label">真实姓名</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="realName" name="realName">
+                            <input type="text" class="form-control required" id="realName" name="realName">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="mobile" class="col-md-3 col-lg-3 control-label">电话</label>
                         <div class="col-md-9 col-lg-9">
-                            <input type="text" class="form-control" id="mobile" name="mobile">
+                            <input type="text" class="form-control required" id="mobile" name="mobile">
                         </div>
+                        <label class="help-block help-warning col-md-offset-3 col-lg-offset-3" style="display:none">
+                            <span class="text-warning">
+                                <i class="fa fa-close">&nbsp;</i>手机号不合法，请重新输入
+                            </span>
+                        </label>
                     </div>
                     <div class="form-group">
                         <label for="detail" class="col-md-3 col-lg-3 control-label">介绍</label>
@@ -177,7 +187,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button id="addBtn" type="button" class="btn btn-primary">提交</button>
+                <button id="addBtn" type="button" disabled class="btn btn-primary">提交</button>
             </div>
         </div>
     </div>
@@ -233,5 +243,46 @@
     };
     $("#pagination").bootstrapPaginator(options);
 
+</script>
+<script>
+    //检查表单是否可提交
+    function checkSubmit() {
+        var submit = true;
+        $('.required').each(function () {
+            var value = $(this).val().trim();
+            if (value.length == 0) {
+                submit = false;
+            }
+        });
+        return submit;
+    }
+    $('.form-control').blur(function () {
+        // var warning = $('.help-warning[style=""]').length;
+        // var danger = $('.help-danger[style=""]').length;
+        // var error = warning + danger;
+        var error = 0;
+        if (checkSubmit() && error == 0) {
+            $('#addBtn').removeAttr('disabled');
+        } else {
+            $('#addBtn').attr('disabled', true);
+        }
+    });
+</script>
+<script>
+    //检查手机号
+    $('#mobile').blur(function () {
+        var phone = $('#mobile').val();
+        if (phone.length > 0) {
+            var regex = /^[1][3,4,5,7,8][0-9]{9}$/;
+            if (!regex.test(phone)) {
+                $('#addBtn').attr('disabled', true);
+                $(".help-warning").show();
+            }else {
+                $(".help-warning").hide();
+            }
+        }else{
+            $(".help-warning").hide();
+        }
+    });
 </script>
 </html>
