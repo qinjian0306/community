@@ -62,8 +62,8 @@
                             </div>
                             <div class="col-md-6 col-lg-6 col-xs-6">
                                 <div style="width: 40px;height: 40px;" class="text-center">
-                                    <a href="#" id="imgA" class="thumbnail">
-                                        <img id="imgThumb" src="../fileupload/abc.png"
+                                    <a href="#" class="thumbnail imgA">
+                                        <img class="imgThumb" src="../fileupload/abc.png"
                                              alt="通用的占位符缩略图"></img>
                                     </a>
                                 </div>
@@ -183,20 +183,20 @@
     });
 </script>
 <script>
-    $("#imgA").mouseover(function () {
+    $(".imgA").mouseover(function () {
 
-        var src = $("#imgThumb")[0].src;
+        var src = $(".imgThumb")[0].src;
         $("#previewImg").attr("src", src);
         $("#previewDiv").css("z-index", "9999")
     });
-    $("#imgA").mouseout(function () {
+    $(".imgA").mouseout(function () {
 
         // var src = $("#imgThumb").attr("src");
         $("#previewImg").attr("src", "");
         $("#previewDiv").css("z-index", "-1")
     });
-    $("#imgA").click(function () {
-        var src = $("#imgThumb")[0].src;
+    $(".imgA").click(function () {
+        var src = $(".imgThumb")[0].src;
         var separatorIndex = src.lastIndexOf("/");
         src = src.substring(separatorIndex+1);
         location.href = "../patient/downloadCase?url="+src;
