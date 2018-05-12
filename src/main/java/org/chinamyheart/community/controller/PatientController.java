@@ -107,7 +107,8 @@ public class PatientController extends RedisBaseController {
     public String addCase(Model model, Case c, @RequestParam("files") MultipartFile[] files) {
         StringBuilder url = new StringBuilder("");
         try {
-            File fir = ResourceUtils.getFile("classpath:static/fileupload/readme.txt");
+//            File fir = ResourceUtils.getFile("classpath:static/fileupload/readme.txt");
+            File fir = ResourceUtils.getFile(filepath);
             String rootPath = fir.getParent();
             Date date = Calendar.getInstance().getTime();
             c.setCreateTime(date);
