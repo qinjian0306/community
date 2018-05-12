@@ -119,7 +119,8 @@ public class PatientController extends RedisBaseController {
                 if (url.length() > 0) {
                     url.append(",");
                 }
-                url.append(f.getPath());
+//                url.append(f.getPath());
+                url.append("/fileupload/"+fileName);
                 FileOutputStream fos = new FileOutputStream(f);
                 InputStream fis = file.getInputStream();
                 FileCopyUtils.copy(fis, fos);
