@@ -2,9 +2,12 @@ package org.chinamyheart.community.model;
 
 import lombok.Data;
 import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 病历
@@ -39,4 +42,20 @@ public class Case extends Base implements Serializable {
 	/** 拓展字段 **/
 	private String nickname;
 	private Integer dstatus;
+	private List<String> urls;
+
+	public void setUrl(String url) {
+		urls = new ArrayList<>();
+		this.url = url;
+		if(StringUtils.isNotBlank(url) && url.indexOf(",")!=-1){
+			String [] arr = url.split(",");
+			for (int i=0;i<arr.length;i++){
+				url = arr[i];
+				urls.add(url);
+			}
+		}else {
+			urls.add(url);
+		}
+	}
+
 }

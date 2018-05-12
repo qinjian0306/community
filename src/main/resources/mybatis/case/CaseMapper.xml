@@ -10,6 +10,7 @@
 	  patient,
 	  gender,
 	  contact,
+	  url,
 	  createTime,
 	  updateTime,
 	  status,

@@ -60,25 +60,31 @@
                                 <span class="pull-left">${case.title}</span>
                                 <div class="clearfix col-md-3 col-lg-3">&nbsp;</div>
                             </div>
+
                             <div class="col-md-6 col-lg-6 col-xs-6">
-                                <div style="width: 40px;height: 40px;display: inline-block" class="text-center">
-                                    <a href="#" class="thumbnail imgA">
-                                        <img class="imgThumb" src="../fileupload/abc.png"
-                                             alt="通用的占位符缩略图"></img>
-                                    </a>
-                                </div>
-                                <div style="width: 40px;height: 40px;display: inline-block" class="text-center">
-                                    <a href="#" class="thumbnail imgA">
-                                        <img class="imgThumb" src="../fileupload/abc.png"
-                                             alt="通用的占位符缩略图"></img>
-                                    </a>
-                                </div>
-                                <div style="width: 40px;height: 40px;display: inline-block" class="text-center">
-                                    <a href="#" class="thumbnail imgA">
-                                        <img class="imgThumb" src="../fileupload/abc.png"
-                                             alt="通用的占位符缩略图"></img>
-                                    </a>
-                                </div>
+                                  <#if (case.urls)??>
+                                      <#list (case.urls) as url>
+                                         <div style="width: 40px;height: 40px;display: inline-block" class="text-center">
+                                             <a href="#" class="thumbnail imgA">
+                                                 <img class="imgThumb" src="${url}"
+                                                      <#--alt="通用的占位符缩略图">-->
+                                                 </img>
+                                             </a>
+                                         </div>
+                                      </#list>
+                                  </#if>
+                                <#--<div style="width: 40px;height: 40px;display: inline-block" class="text-center">-->
+                                    <#--<a href="#" class="thumbnail imgA">-->
+                                        <#--<img class="imgThumb" src="../fileupload/abc.png"-->
+                                             <#--alt="通用的占位符缩略图"></img>-->
+                                    <#--</a>-->
+                                <#--</div>-->
+                                <#--<div style="width: 40px;height: 40px;display: inline-block" class="text-center">-->
+                                    <#--<a href="#" class="thumbnail imgA">-->
+                                        <#--<img class="imgThumb" src="../fileupload/abc.png"-->
+                                             <#--alt="通用的占位符缩略图"></img>-->
+                                    <#--</a>-->
+                                <#--</div>-->
                                 <!--<img src="../fileupload/abc.png">-->
                             </div>
                             <div class="col-md-3 col-lg-3 col-xs-3">
