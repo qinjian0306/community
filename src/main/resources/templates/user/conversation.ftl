@@ -64,9 +64,9 @@
                             <div class="col-md-6 col-lg-6 col-xs-6">
                                   <#if (case.urls)??>
                                       <#list (case.urls) as url>
-                                         <div style="width: 40px;height: 40px;display: inline-block" class="text-center">
+                                         <div style="width: 125px;height: 40px;display: inline-block" class="text-center">
                                              <a href="#" class="thumbnail imgA">
-                                                 <img class="imgThumb" src="${url}"
+                                                 <img class="imgThumb" src="${url}">
                                                       <#--alt="通用的占位符缩略图">-->
                                                  </img>
                                              </a>
@@ -187,10 +187,15 @@
 
     </form>
 </div>
+<div id="previewDiv" class="text-center" style="width: 600px;height: 500px;z-index: -1;position: fixed;left: 25%;top: 25%; display: none">
+    <img id="previewImg" style="width: 600px;height: 450px" src=""
+         <#--alt="通用的占位符缩略图">-->
+</div>
 </body>
 <script src="../production/jquery/jquery.min.js"></script>
 <script src="../production/bootstrap/js/bootstrap.min.js"></script>
 <script>
+
     $('#clearBtn').click(function () {
         $('#conversation-detail').val("");
     });
@@ -201,23 +206,28 @@
     });
 </script>
 <script>
-    $(".imgA").mouseover(function () {
 
-        var src = $(".imgThumb")[0].src;
-        $("#previewImg").attr("src", src);
-        $("#previewDiv").css("z-index", "9999")
-    });
-    $(".imgA").mouseout(function () {
+        $(".imgA").mouseover(function () {
+            var src = $(this).children("img").attr("src");
+            $("#previewImg").attr("src", src);
+            $("#previewDiv").css("z-index", "9999");
+            $("#previewDiv").show();
+        });
 
-        // var src = $("#imgThumb").attr("src");
-        $("#previewImg").attr("src", "");
-        $("#previewDiv").css("z-index", "-1")
-    });
-    $(".imgA").click(function () {
-        var src = $(".imgThumb")[0].src;
-        var separatorIndex = src.lastIndexOf("/");
-        src = src.substring(separatorIndex+1);
-        location.href = "../patient/downloadCase?url="+src;
-    });
+        $(".imgA").mouseout(function () {
+            var src = $(this).children("img").attr("src");
+            $("#previewImg").attr("src", "");
+            $("#previewDiv").css("z-index", "-1");
+            $("#previewDiv").css("z-index", "9999");
+            $("#previewDiv").hide();
+
+        });
+        $(".imgA").click(function () {
+            var src = $(this).children("img").attr("src");
+            var separatorIndex = src.lastIndexOf("/");
+            src = src.substring(separatorIndex+1);
+            location.href = "../patient/downloadCase?url="+src;
+        });
+
 </script>
 </html>

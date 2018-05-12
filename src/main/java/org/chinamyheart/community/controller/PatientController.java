@@ -11,6 +11,7 @@ import org.chinamyheart.community.service.CaseService;
 import org.chinamyheart.community.service.ReplayService;
 import org.chinamyheart.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -34,6 +35,10 @@ import java.util.*;
 @Controller
 @RequestMapping("/patient")
 public class PatientController extends RedisBaseController {
+
+    @Value("${filepath}")
+    private String filepath;
+
     @Autowired
     private CaseService caseService;
     @Autowired
@@ -56,7 +61,7 @@ public class PatientController extends RedisBaseController {
     @ResponseBody
     public Object downloadCase(@RequestParam(required = true) String url) {
         try {
-            File fir = ResourceUtils.getFile("classpath:static/fileupload/readme.txt");
+            File fir = ResourceUtils.getFile(filepath);
             String rootPath = fir.getParent();
             File file = new File(rootPath + File.separator + url);
             if (!file.exists()) {
@@ -113,7 +118,7 @@ public class PatientController extends RedisBaseController {
                 String fileName = file.getOriginalFilename();
                 String fileExtension = fileName.substring(fileName.lastIndexOf("."));
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-                fileName = LocalDateTime.now().format(dtf) + fileExtension;
+                fileName = LocalDateTime.now().format(dtf) + fileName;
                 if (fileName.trim().length() == 0) continue;
                 File f = new File(rootPath + File.separator + fileName);
                 if (url.length() > 0) {

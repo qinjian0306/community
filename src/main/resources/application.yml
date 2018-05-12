@@ -63,3 +63,4 @@ mybatis:
   mapper-locations: classpath:mybatis/*/*Mapper.xml
   type-aliases-package: org.chinamyheart.community.model
 
+filepath: classpath:static/fileupload/readme.txt
