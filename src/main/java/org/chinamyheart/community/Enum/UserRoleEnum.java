@@ -10,9 +10,9 @@ public enum UserRoleEnum {
     Admin(3, "管理员");
 
     private Integer code;
-    private Object value;
+    private String value;
 
-    private UserRoleEnum(Integer code, Object value) {
+    private UserRoleEnum(Integer code, String value) {
         this.code = code;
         this.value = value;
     }
@@ -25,12 +25,21 @@ public enum UserRoleEnum {
         this.code = code;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(String value) {
         this.value = value;
+    }
+
+    public static String getValueByCode(Integer code) {
+        for (UserRoleEnum userRoleEnum : UserRoleEnum.values()) {
+            if (userRoleEnum.getCode().equals(code)) {
+                return userRoleEnum.getValue();
+            }
+        }
+        return null;
     }
 
 }

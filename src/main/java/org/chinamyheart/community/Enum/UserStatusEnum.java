@@ -10,9 +10,9 @@ public enum  UserStatusEnum {
     Waiting(3, "已认证,正在审核");// 已填写认证信息 正在审核
 
     private Integer code;
-    private Object value;
+    private String value;
 
-    private UserStatusEnum(Integer code, Object value) {
+    private UserStatusEnum(Integer code, String value) {
         this.code = code;
         this.value = value;
     }
@@ -25,12 +25,21 @@ public enum  UserStatusEnum {
         this.code = code;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(String value) {
         this.value = value;
+    }
+
+    public static String getValueByCode(Integer code) {
+        for (UserStatusEnum userStatusEnum : UserStatusEnum.values()) {
+            if (userStatusEnum.getCode().equals(code)) {
+                return userStatusEnum.getValue();
+            }
+        }
+        return null;
     }
 
 }
