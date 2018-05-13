@@ -1,5 +1,7 @@
 package org.chinamyheart.community.controller;
 
+import org.chinamyheart.community.Enum.UserRoleEnum;
+import org.chinamyheart.community.Enum.UserStatusEnum;
 import org.chinamyheart.community.common.utils.Utils;
 import org.chinamyheart.community.mapper.UserMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -45,8 +47,8 @@ public class UserController extends RedisBaseController{
         User user = new User();
         user.setUsername(username);
         user.setNickname(nickname);
-        if(role == 1){// 医生
-            user.setDstatus(0);//默认待审核状态
+        if(role == UserRoleEnum.Doctor.getCode()){// 医生
+            user.setDstatus(UserStatusEnum.UnReview.getCode());//默认待审核状态
         }
         user.setRole(role);
         user.setEmail(email);

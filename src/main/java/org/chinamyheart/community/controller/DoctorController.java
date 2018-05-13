@@ -1,5 +1,7 @@
 package org.chinamyheart.community.controller;
 
+import org.chinamyheart.community.Enum.UserRoleEnum;
+import org.chinamyheart.community.Enum.UserStatusEnum;
 import org.chinamyheart.community.common.PageUtils.Pagination;
 import org.chinamyheart.community.common.utils.Constant;
 import org.chinamyheart.community.common.utils.ReturnResult;
@@ -97,7 +99,7 @@ public class DoctorController extends RedisBaseController {
             doctor.setMobile(mobile);
             doctor.setRealName(realName);
             doctor.setDetials(detail);
-            user.setDstatus(3);// 已填写认证信息 正在审核
+            user.setDstatus(UserStatusEnum.Waiting.getCode());// 已填写认证信息 正在审核
             try {
                 int result = doctorService.insert(doctor);
 
@@ -129,11 +131,11 @@ public class DoctorController extends RedisBaseController {
 
         // 批准
         if (doctorId != null && action == 1) {
-            user.setDstatus(1);
+            user.setDstatus(UserStatusEnum.Pass.getCode());
         }
         // 拒绝
         if (doctorId != null && action == 2) {
-            user.setDstatus(2);
+            user.setDstatus(UserStatusEnum.Refuse.getCode());
         }
         try {
             userService.update(user);
@@ -158,7 +160,7 @@ public class DoctorController extends RedisBaseController {
             Pagination<Case> pagination = caseService.getAllCases(pageParm);
             // 获取用户状态
             User userInfo = null;
-            if (user.getRole() == 1) {
+            if (user.getRole() == UserRoleEnum.Doctor.getCode()) {
                 userInfo = userService.getUserById(user.getId());
             }
             model.addAttribute("list", pagination);
