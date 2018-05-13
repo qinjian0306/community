@@ -1,36 +1,32 @@
 package org.chinamyheart.community.controller;
 
+import org.chinamyheart.community.Enum.CaseStatusEnum;
 import org.chinamyheart.community.common.PageUtils.Pagination;
 import org.chinamyheart.community.common.utils.Constant;
 import org.chinamyheart.community.common.utils.ReturnResult;
-import org.chinamyheart.community.mapper.CaseMapper;
 import org.chinamyheart.community.model.Case;
 import org.chinamyheart.community.model.Reply;
 import org.chinamyheart.community.model.User;
 import org.chinamyheart.community.service.CaseService;
 import org.chinamyheart.community.service.ReplayService;
-import org.chinamyheart.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/patient")
@@ -98,7 +94,7 @@ public class PatientController extends RedisBaseController {
     public String lockCase(@RequestParam(required = true) Integer caseId) {
         Case c = new Case();
         c.setId(caseId);
-        c.setStatus(1);
+        c.setStatus(CaseStatusEnum.Close.getCode());
         caseService.lockCase(c);
         return "redirect:/patient/getCaseList";
     }
@@ -112,7 +108,7 @@ public class PatientController extends RedisBaseController {
             Date date = Calendar.getInstance().getTime();
             c.setCreateTime(date);
             c.setUpdateTime(date);
-            c.setStatus(0);
+            c.setStatus(CaseStatusEnum.Active.getCode());
 
             for (MultipartFile file : files) {
                 String fileName = file.getOriginalFilename();
